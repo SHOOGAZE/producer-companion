@@ -65,14 +65,14 @@ body{
 }
 button,select,input{font:inherit;color:inherit}
 .device{max-width:560px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+/* header + dial stay pinned so you always see where you are */
+.stick{position:sticky;top:0;z-index:25;display:flex;flex-direction:column;gap:14px;background:var(--bg);margin:0 -4px;padding:max(8px,env(safe-area-inset-top,0px)) 4px 10px;box-shadow:0 1px 0 var(--line2)}
 .mono{font-family:var(--f-mono)}
 
 /* header */
 .top{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .brand{display:flex;align-items:center;gap:10px;min-width:0}
 .mark{flex:none;width:34px;height:34px;border-radius:3px;background:var(--ink);color:var(--on-ink);font:600 13px/34px var(--f-mono);text-align:center}
-.brand b{display:block;font-weight:700;font-size:15px;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
-.brand small{display:block;font-size:10.5px;color:var(--ink2);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
 .meter{display:flex;align-items:center;gap:8px;flex:none}
 .lamp{width:10px;height:10px;border-radius:50%;background:var(--lamp-off);box-shadow:inset 0 0 0 1px rgba(0,0,0,.25);transition:background .08s,box-shadow .08s}
 .lamp.on{background:var(--lamp);box-shadow:0 0 0 1px rgba(0,0,0,.2),0 0 10px 2px color-mix(in srgb,var(--lamp) 60%,transparent)}
@@ -90,10 +90,8 @@ button,select,input{font:inherit;color:inherit}
 .dial.scan .needle{animation:scan .7s ease-in-out}
 @keyframes scan{0%{transform:translateX(0)}20%{transform:translateX(-44px)}55%{transform:translateX(52px)}80%{transform:translateX(-14px)}100%{transform:translateX(0)}}
 
-/* dial row, small square keys, brand safety */
+/* dial row */
 .dialrow{display:flex;gap:6px;align-items:stretch}
-.brand>div{min-width:0}
-.brand small{overflow:hidden;text-overflow:ellipsis}
 /* modules */
 .mod{display:flex;flex-direction:column;gap:14px}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:14px;display:flex;flex-direction:column;gap:14px}
@@ -134,6 +132,13 @@ button,select,input{font:inherit;color:inherit}
 .go:active{transform:translateY(1px);box-shadow:0 1px 0 var(--key-sh)}
 .go .led{width:8px;height:8px;border-radius:50%;background:var(--lamp-off);transition:background .08s}
 .go.busy .led{background:var(--lamp)}
+.go{position:relative}
+.go .seq{position:absolute;left:14px;right:14px;bottom:6px;display:flex;gap:2px;pointer-events:none}
+.go .seq i{flex:1;height:4px;background:rgba(255,255,255,.13);border-radius:1px}
+.go .seq i:nth-child(4n+1){background:rgba(255,255,255,.26)}
+.go .seq i:nth-child(4n){margin-right:5px}
+.go .seq i:last-child{margin-right:0}
+.go .seq i.on{background:var(--lamp);box-shadow:0 0 5px var(--lamp)}
 .ib{
   flex:none;width:36px;height:36px;display:inline-flex;align-items:center;justify-content:center;
   border:1px solid var(--line);border-radius:3px;background:var(--key);color:var(--ink);cursor:pointer;
@@ -233,18 +238,17 @@ input[type=range]::-moz-range-thumb{width:16px;height:28px;border:1px solid var(
   *,*::before,*::after{animation:none!important;transition:none!important}
 }
 @media (max-width:360px){
-  .brand small{display:none}
-  .lcd .big{font-size:40px}
+    .lcd .big{font-size:40px}
 }
 
-/* ===== v4: laconic header, counter window, wide layouts, boot screen ===== */
+/* ===== header, counter window, wide layouts, boot screen ===== */
 :root{--b-bg:#0D0E0D;--b-ink:#E8E9E5;--b-dim:#6C6F6A;--b-line:#2B2D2A;--b-glow:rgba(255,232,196,.10)}
 .mark{width:auto;min-width:48px;height:34px;padding:0 10px;font:600 16px/34px var(--f-mono);letter-spacing:.16em;text-indent:.16em}
 .tools{display:flex;gap:6px}
 #langBtn{font:600 11px/1 var(--f-mono);letter-spacing:.04em}
 .lw{position:relative}
 .langmenu{position:absolute;right:0;top:calc(100% + 6px);z-index:70;min-width:158px;display:flex;flex-direction:column;gap:4px;padding:6px;background:var(--panel);border:1px solid var(--line);border-radius:3px;box-shadow:0 8px 24px rgba(0,0,0,.28)}
-.langmenu[hidden]{display:none}
+[hidden]{display:none!important}
 .cnt{width:auto;min-width:98px}
 .cnt .cap2{padding-right:14px}
 html:not([lang=ru]):not([lang=en]) .key{letter-spacing:.03em;font-size:11.5px;padding-left:3px;padding-right:3px}
@@ -276,6 +280,7 @@ html:not([lang=ru]):not([lang=en]) .langmenu .key{font-size:13px;padding-left:10
   body{padding-block:24px 40px}
   .device{max-width:1180px;gap:18px}
   .mod{display:grid;grid-template-columns:minmax(340px,440px) minmax(0,1fr);gap:18px;align-items:start}
+  .stick{gap:12px;padding-bottom:12px}
   .bar{position:static;background:none;border:0;padding:0}
   .bar>div{max-width:none}
   .bar .key{flex-direction:row;min-height:44px;gap:10px}
@@ -348,7 +353,7 @@ html:not([lang=ru]):not([lang=en]) .langmenu .key{font-size:13px;padding-left:10
       <div class="bt-scale">
         <div class="tk t1"></div><div class="tk t3"></div><div class="tk t2"></div>
         <span class="lb" style="left:0%">88</span><span class="lb" style="left:20%">92</span><span class="lb" style="left:40%">96</span><span class="lb" style="left:60%">100</span><span class="lb" style="left:80%">104</span><span class="lb" style="left:100%">108</span>
-        
+
         <div class="bt-needle" id="btNeedle"></div>
       </div>
     </div>
@@ -359,6 +364,7 @@ html:not([lang=ru]):not([lang=en]) .langmenu .key{font-size:13px;padding-left:10
   </div>
 </div>
 <div class="device">
+  <div class="stick">
   <header class="top">
     <div class="brand"><div class="mark" aria-label="PC">PC</div></div>
     <div class="tools">
@@ -388,6 +394,7 @@ html:not([lang=ru]):not([lang=en]) .langmenu .key{font-size:13px;padding-left:10
       <button class="key" data-a="mode" data-v="concept" aria-pressed="false"><small>03</small><span data-t="n_concept">Концепт</span></button>
     </div>
   </nav>
+  </div>
 
   <main>
     <!-- 01 VIBE -->
@@ -1555,7 +1562,6 @@ function t(k,v){
   return v?s.replace(/\{(\w+)\}/g,(_,n)=>v[n]):s;
 }
 
-
 /* ---------- state ---------- */
 const state={
   mode:'vibe',genre:'tech',fam:'dark',bpm:134,emos:['тревога','холод'],aest:'Бетон',count:0,vn:0,vibe:null,
@@ -1610,20 +1616,27 @@ function fire(btn,out,fn,afterScroll=true){
   $('#lamp').classList.add('on');$('#dial').classList.add('scan');
   if(btn)btn.classList.add('busy');
   if(out)out.classList.add('busy');
+  if(btn&&!RM){
+    let sq=btn.querySelector('.seq');
+    if(!sq){sq=document.createElement('span');sq.className='seq';sq.setAttribute('aria-hidden','true');sq.innerHTML='<i></i>'.repeat(16);btn.appendChild(sq);}
+    const st=[...sq.children];st.forEach(x=>x.classList.remove('on'));
+    st.forEach((x,i)=>setTimeout(()=>{st.forEach(y=>y.classList.remove('on'));x.classList.add('on');},i*52));
+    setTimeout(()=>st.forEach(y=>y.classList.remove('on')),16*52+60);
+  }
   setTimeout(()=>{
     fn();
     state.count++;$('#counter').textContent=pad(state.count,4);
     if(out)out.classList.remove('busy');
     if(afterScroll&&out){
       const top=out.getBoundingClientRect().top;
-      if(top>innerHeight*.6||top<0)window.scrollTo({top:Math.max(0,scrollY+top-12),behavior:RM?'auto':'smooth'});
+      if(top>innerHeight*.6||top<$('.stick').offsetHeight)window.scrollTo({top:Math.max(0,scrollY+top-12-$('.stick').offsetHeight),behavior:RM?'auto':'smooth'});
     }
   },RM?0:240);
   setTimeout(()=>{
     $('#lamp').classList.remove('on');$('#dial').classList.remove('scan');
     if(btn)btn.classList.remove('busy');
     busy=false;
-  },RM?30:700);
+  },RM?30:880);
 }
 
 /* ---------- 01 VIBE ---------- */
@@ -1904,7 +1917,12 @@ function show(m,fromHash){
   $$('.dial .dl').forEach(l=>l.classList.toggle('on',l.dataset.m===m));
   $('#dial').style.setProperty('--pos',POS[m]+'%');
   if(!fromHash){try{if(location.hash!=='#'+m)location.hash=m;}catch(e){}}
-  window.scrollTo(0,0);
+  /* single-column layouts: land right on the generate key, just above the bottom bar; two-pane desktop stays at the top */
+  const go=!fromHash&&matchMedia('(max-width:899px)').matches&&$('#p-'+m+' .go');
+  if(go){
+    const nav=$('.bar'),navH=nav?nav.getBoundingClientRect().height:0,r=go.getBoundingClientRect();
+    window.scrollTo(0,Math.max(0,scrollY+r.bottom-(innerHeight-navH-18)));
+  }else window.scrollTo(0,0);
 }
 
 /* ---------- language + skin ---------- */
@@ -2092,6 +2110,31 @@ const SND={
     s.connect(fl);fl.connect(g);g.connect(o.out||this.master);
     s.start(t,Math.random()*.5);s.stop(t+d+.03);
   },
+  /* ---- 80s drum-machine metals (all synthesized from oscillators, no noise) ---- */
+  hat(t,d,v){
+    const c=this.ctx,hp=c.createBiquadFilter(),bp=c.createBiquadFilter(),g=c.createGain();
+    hp.type='highpass';hp.frequency.value=7000;bp.type='bandpass';bp.frequency.value=10000;bp.Q.value=.7;
+    g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v,t+.002);g.gain.exponentialRampToValueAtTime(.0001,t+d);
+    [205.3,304.4,369.6,522.7,540,800].forEach(f=>{const o=c.createOscillator();o.type='square';o.frequency.value=f*1.9;o.connect(hp);o.start(t);o.stop(t+d+.02);});
+    hp.connect(bp);bp.connect(g);g.connect(this.master);
+  },
+  cow(t,v,f){
+    const c=this.ctx,bp=c.createBiquadFilter(),g=c.createGain();f=f||1;
+    bp.type='bandpass';bp.frequency.value=1500*f;bp.Q.value=.9;
+    g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v,t+.002);g.gain.exponentialRampToValueAtTime(v*.28,t+.03);g.gain.exponentialRampToValueAtTime(.0001,t+.2);
+    [540,800].forEach(x=>{const o=c.createOscillator();o.type='square';o.frequency.value=x*f;o.connect(bp);o.start(t);o.stop(t+.22);});
+    bp.connect(g);g.connect(this.master);
+  },
+  clave(t,v){this.tone(2450,t,.035,'sine',v);this.tone(1760,t,.03,'triangle',v*.6);},
+  bell(t,f,d,v){
+    /* DX7-style tubular bell: sine carrier, 3.5x inharmonic modulator with a fast-decaying index */
+    const c=this.ctx,car=c.createOscillator(),mod=c.createOscillator(),mg=c.createGain(),g=c.createGain();
+    car.frequency.value=f;mod.frequency.value=f*3.5;
+    mg.gain.setValueAtTime(f*2.6,t);mg.gain.exponentialRampToValueAtTime(f*.05,t+d*.7);
+    g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v,t+.003);g.gain.exponentialRampToValueAtTime(.0001,t+d);
+    mod.connect(mg);mg.connect(car.frequency);car.connect(g);g.connect(this.master);
+    car.start(t);mod.start(t);car.stop(t+d+.05);mod.stop(t+d+.05);
+  },
   tick(t,v,out,major){
     /* one scale mark touched by the pointer: dry, short, fixed pitch, a little steel body. Pure tones, no noise. */
     v=v||1;
@@ -2120,11 +2163,19 @@ const SND={
       case 'wheel':
         this.wheel(t,a,9,.42);break;
       case 'gores':{
-        this.wheel(t,-1,6,.14);this.wheel(t+.15,1,8,.22);this.wheel(t+.4,-1,5,.12);
-        const N=[523.25,659.25,783.99,987.77,1174.66],i=rnd(3);
-        this.tone(N[i],t+.58,.5,'sine',.055);this.tone(N[i+2],t+.66,.55,'sine',.045);break;}
+        /* 16-step 80s drum-machine pass: metallic hats, rim/clave and cowbell on a random variation, closed by a tubular bell */
+        const q=.052,P=[[0,0,2,0,0,3,0,0,1,0,2,0,0,3,0,2],[1,0,0,2,0,0,3,0,1,0,0,2,0,3,0,0],[0,2,0,0,3,0,2,0,0,0,1,0,3,0,0,2]][rnd(3)];
+        for(let i=0;i<16;i++){
+          const ti=t+i*q,acc=i%4===0;
+          this.hat(ti,i%4===2?.07:.028,acc?.05:.03);
+          if(P[i]===1)this.cow(ti,.05,1);
+          else if(P[i]===2)this.clave(ti,.07);
+          else if(P[i]===3)this.cow(ti,.04,1.34);
+        }
+        const te=t+16*q+.01,F=[440,493.88,587.33,659.25][rnd(4)];
+        this.bell(te,F,1.1,.075);this.bell(te+.02,F*2.01,.6,.03);break;}
       case 'copy':
-        this.tone(659.25,t,.14,'sine',.065);this.tone(880,t+.07,.18,'sine',.055);break;
+        this.clave(t,.07);this.bell(t+.03,880,.35,.04);break;
       case 'tap':
         this.noise(t,.012,{f:2200,q:2,vol:.18});this.tone(1500,t,.025,'triangle',.05);break;
       case 'sw':
