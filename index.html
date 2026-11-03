@@ -3,11 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
-<title>PC</title>
-<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" href="icons/icon-192.png">
+<meta name="theme-color" content="#0D0E0D">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Producer Companion">
+<title>Producer Companion</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -17,48 +21,52 @@
 :root{
   --bg:#D4D5D2; --panel:#E2E3E0; --ink:#1A1B1A; --ink2:#575A56; --line:#A6A8A4; --line2:#C4C6C2;
   --key:#CFD0CC; --key-top:#EDEEEB; --key-sh:#9C9E9A;
-  --screen:#131413; --screen-ink:#E6E7E3; --screen-dim:#797C77;
+  --screen:#131413; --screen-ink:#E6E7E3; --screen-dim:#9A9D98;
   --on-ink:#E8E9E6; --lamp:#E8461B; --lamp-off:#8C8E8A;
+  --tex:repeating-linear-gradient(90deg,rgba(0,0,0,.022) 0 1px,transparent 1px 3px);
   --f-ui:'IBM Plex Sans Condensed','Arial Narrow',system-ui,sans-serif;
   --f-mono:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#111211; --panel:#1B1C1B; --ink:#E4E5E1; --ink2:#8E918C; --line:#3A3C39; --line2:#2A2C2A;
+    --bg:#111211; --panel:#1B1C1B; --ink:#E4E5E1; --ink2:#A0A39E; --line:#3A3C39; --line2:#2A2C2A;
     --key:#272927; --key-top:#3B3D3A; --key-sh:#0A0B0A;
-    --screen:#0A0B0A; --screen-ink:#E6E7E3; --screen-dim:#6F726D;
-    --on-ink:#141514; color-scheme:dark;
+    --screen:#0A0B0A; --screen-ink:#E6E7E3; --screen-dim:#8E918C;
+    --on-ink:#141514; color-scheme:dark; --tex:none;
   }
 }
 :root[data-theme="dark"]{
-  --bg:#111211; --panel:#1B1C1B; --ink:#E4E5E1; --ink2:#8E918C; --line:#3A3C39; --line2:#2A2C2A;
+  --tex:none;
+  --bg:#111211; --panel:#1B1C1B; --ink:#E4E5E1; --ink2:#A0A39E; --line:#3A3C39; --line2:#2A2C2A;
   --key:#272927; --key-top:#3B3D3A; --key-sh:#0A0B0A;
-  --screen:#0A0B0A; --screen-ink:#E6E7E3; --screen-dim:#6F726D;
+  --screen:#0A0B0A; --screen-ink:#E6E7E3; --screen-dim:#8E918C;
   --on-ink:#141514; color-scheme:dark;
 }
 /* manual skins, chosen with the header button; default is automatic */
 :root[data-skin="white"]{
+  --tex:none;
   --bg:#FFFFFF; --panel:#F5F5F4; --ink:#111211; --ink2:#5A5C59; --line:#BEC0BC; --line2:#E0E1DE;
   --key:#ECEDEB; --key-top:#FFFFFF; --key-sh:#B4B6B2;
-  --screen:#131413; --screen-ink:#E6E7E3; --screen-dim:#797C77;
+  --screen:#131413; --screen-ink:#E6E7E3; --screen-dim:#9A9D98;
   --on-ink:#F4F5F2; color-scheme:light;
 }
 :root[data-skin="grey"]{
   --bg:#D4D5D2; --panel:#E2E3E0; --ink:#1A1B1A; --ink2:#575A56; --line:#A6A8A4; --line2:#C4C6C2;
   --key:#CFD0CC; --key-top:#EDEEEB; --key-sh:#9C9E9A;
-  --screen:#131413; --screen-ink:#E6E7E3; --screen-dim:#797C77;
+  --screen:#131413; --screen-ink:#E6E7E3; --screen-dim:#9A9D98;
   --on-ink:#E8E9E6; color-scheme:light;
 }
 :root[data-skin="dark"]{
-  --bg:#111211; --panel:#1B1C1B; --ink:#E4E5E1; --ink2:#8E918C; --line:#3A3C39; --line2:#2A2C2A;
+  --tex:none;
+  --bg:#111211; --panel:#1B1C1B; --ink:#E4E5E1; --ink2:#A0A39E; --line:#3A3C39; --line2:#2A2C2A;
   --key:#272927; --key-top:#3B3D3A; --key-sh:#0A0B0A;
-  --screen:#0A0B0A; --screen-ink:#E6E7E3; --screen-dim:#6F726D;
+  --screen:#0A0B0A; --screen-ink:#E6E7E3; --screen-dim:#8E918C;
   --on-ink:#141514; color-scheme:dark;
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{
-  background:var(--bg);color:var(--ink);font:14px/1.45 var(--f-ui);
+  background:var(--bg) var(--tex);color:var(--ink);font:14px/1.45 var(--f-ui);
   padding-block:12px 112px;
   padding-left:max(16px,env(safe-area-inset-left,0px));
   padding-right:max(16px,env(safe-area-inset-right,0px));
@@ -72,7 +80,8 @@ button,select,input{font:inherit;color:inherit}
 /* header */
 .top{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .brand{display:flex;align-items:center;gap:10px;min-width:0}
-.mark{flex:none;width:34px;height:34px;border-radius:3px;background:var(--ink);color:var(--on-ink);font:600 13px/34px var(--f-mono);text-align:center}
+.mark{flex:none;width:48px;height:34px;border-radius:3px;background:var(--ink);color:var(--on-ink);display:flex}
+.mark svg{display:block;width:100%;height:100%}
 .meter{display:flex;align-items:center;gap:8px;flex:none}
 .lamp{width:10px;height:10px;border-radius:50%;background:var(--lamp-off);box-shadow:inset 0 0 0 1px rgba(0,0,0,.25);transition:background .08s,box-shadow .08s}
 .lamp.on{background:var(--lamp);box-shadow:0 0 0 1px rgba(0,0,0,.2),0 0 10px 2px color-mix(in srgb,var(--lamp) 60%,transparent)}
@@ -94,13 +103,17 @@ button,select,input{font:inherit;color:inherit}
 .dialrow{display:flex;gap:6px;align-items:stretch}
 /* modules */
 .mod{display:flex;flex-direction:column;gap:14px}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:14px;display:flex;flex-direction:column;gap:14px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:14px;display:flex;flex-direction:column;gap:14px;box-shadow:inset 0 1px 0 var(--key-top),0 1px 0 var(--line2)}
 .grp{display:flex;flex-direction:column;gap:8px}
 .cap{display:flex;align-items:center;gap:10px;font:600 10.5px/1 var(--f-ui);letter-spacing:.16em;text-transform:uppercase;color:var(--ink2)}
 .cap::after{content:"";flex:1;height:1px;background:var(--line)}
 .cap em{font-style:normal;color:var(--ink);font-family:var(--f-mono);letter-spacing:.04em;order:2;margin-left:auto}
 .cap em+*{order:3}
 .cap::after{order:1}
+.capb{width:100%;min-height:28px;padding:0;border:0;background:none;text-align:left;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.capb i{order:3;flex:none;display:flex;width:26px;justify-content:center;transition:transform .15s}
+.capb[aria-expanded="true"] i{transform:rotate(180deg)}
+.fb{display:flex;flex-direction:column;gap:10px}
 .grid3,.grid4{display:grid;gap:6px}
 .grid3{grid-template-columns:repeat(3,minmax(0,1fr))}
 .grid4{grid-template-columns:repeat(4,minmax(0,1fr))}
@@ -175,7 +188,7 @@ input[type=range]::-moz-range-thumb{width:16px;height:28px;border:1px solid var(
 /* output sheets */
 .out{display:block}
 .out.busy{opacity:.3;transition:opacity .1s}
-.sheet{background:var(--panel);border:1px solid var(--line);border-radius:4px;overflow:hidden}
+.sheet{background:var(--panel);border:1px solid var(--line);border-radius:4px;overflow:hidden;box-shadow:0 1px 0 var(--line2)}
 .sheet-h{background:var(--screen);color:var(--screen-ink);padding:12px 14px 14px;display:flex;flex-direction:column;gap:8px}
 .sheet-h .id{display:flex;justify-content:space-between;gap:12px;font:500 10.5px/1.2 var(--f-mono);letter-spacing:.12em;color:var(--screen-dim);text-transform:uppercase}
 .sheet-h h2{margin:0;font:600 20px/1.2 var(--f-mono);letter-spacing:-.01em;text-transform:uppercase;overflow-wrap:anywhere;min-width:0}
@@ -239,23 +252,24 @@ input[type=range]::-moz-range-thumb{width:16px;height:28px;border:1px solid var(
 }
 @media (max-width:360px){
     .lcd .big{font-size:40px}
+  .dial .dl{font-size:7.5px;letter-spacing:-.02em}
+  .tools{gap:4px}
+  .mark{width:42px}
 }
 
 /* ===== header, counter window, wide layouts, boot screen ===== */
-:root{--b-bg:#0D0E0D;--b-ink:#E8E9E5;--b-dim:#6C6F6A;--b-line:#2B2D2A}
-.mark{width:auto;min-width:48px;height:34px;padding:0 10px;font:600 16px/34px var(--f-mono);letter-spacing:.16em;text-indent:.16em}
+:root{--b-bg:#0D0E0D;--b-ink:#E8E9E5;--b-dim:#8D908A;--b-line:#2B2D2A}
 .tools{display:flex;gap:6px}
 #langBtn{font:600 11px/1 var(--f-mono);letter-spacing:.04em}
 .lw{position:relative}
 .langmenu{position:absolute;right:0;top:calc(100% + 6px);z-index:70;min-width:158px;display:flex;flex-direction:column;gap:4px;padding:6px;background:var(--panel);border:1px solid var(--line);border-radius:3px;box-shadow:0 8px 24px rgba(0,0,0,.28)}
 [hidden]{display:none!important}
-.cnt{width:auto;min-width:98px}
-.cnt .cap2{padding-right:14px}
+.cnt .cap2{padding-right:16px;letter-spacing:.09em}
 html:not([lang=ru]):not([lang=en]) .key{letter-spacing:.03em;font-size:11.5px;padding-left:3px;padding-right:3px}
 html:not([lang=ru]):not([lang=en]) .langmenu .key{font-size:13px;padding-left:10px;padding-right:10px}
 .langmenu .key{justify-content:flex-start;gap:10px;min-height:40px;padding:6px 10px;text-transform:none;letter-spacing:.02em;font-size:13px}
 .langmenu .key b{font:600 11px/1 var(--f-mono);letter-spacing:.06em;width:20px;text-align:left}
-.cnt{flex:none;position:relative;width:98px;height:50px;background:var(--screen);color:var(--screen-ink);border-radius:3px;padding:8px 9px 7px;display:flex;flex-direction:column;justify-content:space-between}
+.cnt{flex:none;position:relative;min-width:98px;height:50px;background:var(--screen);color:var(--screen-ink);border-radius:3px;padding:8px 9px 7px;display:flex;flex-direction:column;justify-content:space-between}
 .cnt .cap2{font:500 8px/1 var(--f-mono);color:var(--screen-dim);letter-spacing:.14em;text-transform:uppercase;white-space:nowrap}
 .cnt .counter{background:none;padding:0;border-radius:0;font:500 18px/1 var(--f-mono);letter-spacing:.1em;color:var(--screen-ink)}
 .cnt .lamp{position:absolute;top:8px;right:8px;width:7px;height:7px}
@@ -291,18 +305,67 @@ html:not([lang=ru]):not([lang=en]) .langmenu .key{font-size:13px;padding-left:10
 @media (min-width:1400px){.device{max-width:1280px}}
 @media (min-width:600px){.kv{grid-template-columns:minmax(100px,170px) minmax(0,1fr)}}
 
+/* ===== fidget (easter egg behind the PC mark) ===== */
+.mark{cursor:default;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none}
+ .lk{order:3;flex:none;width:30px;height:24px;display:inline-flex;align-items:center;justify-content:center;padding:0;border:1px solid var(--line);border-radius:3px;background:var(--key);color:var(--ink);cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.lk[aria-pressed="true"]{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
+.sheet-h .lk{background:transparent;border-color:#3a3d39;color:var(--screen-ink);width:28px;height:22px;margin:-4px 0}
+.sheet-h .lk[aria-pressed="true"]{background:var(--screen-ink);color:var(--screen);border-color:var(--screen-ink)}
+.sheet-h .id>span:first-child{flex:1;min-width:0}
+.acts .key.sv{grid-column:1/-1}
+#savBtn{position:relative}
+#savBtn .bd{position:absolute;top:-6px;right:-6px;min-width:15px;height:15px;padding:0 3px;border-radius:8px;background:var(--lamp);color:#fff;font:700 9px/15px var(--f-mono);text-align:center;box-sizing:border-box}
+.svp{position:fixed;inset:0;z-index:90;background:var(--bg);overflow:auto;overscroll-behavior:contain;
+  padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.sv-in{width:100%;max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+.sv-h{display:flex;align-items:center;justify-content:space-between;gap:10px;position:sticky;top:0;background:var(--bg);padding:2px 0 10px;z-index:1}
+.sv-h b{font:600 11px/1 var(--f-mono);letter-spacing:.26em;text-transform:uppercase}
+.sv-h span{display:flex;gap:6px}
+.sv-empty{font:400 12px/1.6 var(--f-mono);color:var(--ink2);text-align:center;padding:40px 12px}
+.sv-i{background:var(--panel);border:1px solid var(--line);border-radius:4px;display:flex;flex-direction:column}
+.sv-t{display:flex;flex-direction:column;gap:6px;padding:12px 14px;text-align:left;background:none;border:0;color:var(--ink);cursor:pointer;font:inherit;width:100%;touch-action:manipulation}
+.sv-t small{font:500 10px/1.2 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ink2)}
+.sv-t b{font:600 14px/1.3 var(--f-mono);text-transform:uppercase;overflow-wrap:anywhere}
+.sv-x{margin:0 14px 12px;padding:0;font:400 11.5px/1.55 var(--f-mono);color:var(--ink2);white-space:pre-wrap;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.sv-i.open .sv-x{display:block;-webkit-line-clamp:unset;color:var(--ink)}
+.sv-a{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:0 14px 14px}
+.fid{position:fixed;inset:0;z-index:90;background:var(--bg);overflow:auto;display:flex;align-items:center;justify-content:center;overscroll-behavior:contain;
+  padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+#fKeys{gap:8px}
+#fKeys .key{min-height:clamp(60px,12.5vh,108px)}
+#fKeys .key small{font:500 12px/1 var(--f-mono);opacity:.85}
+.fid-in{width:100%;max-width:420px;display:flex;flex-direction:column;gap:18px;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+.fid-h{display:flex;align-items:center;justify-content:space-between}
+.fid-h b{font:600 11px/1 var(--f-mono);letter-spacing:.26em;text-transform:uppercase}
+.knobwrap{position:relative;width:min(74vw,270px,40vh);aspect-ratio:1;margin:2px auto;touch-action:none;cursor:grab}
+.knobwrap.drag{cursor:grabbing}
+.knobwrap::before{content:"";position:absolute;inset:0;border-radius:50%;
+  background:repeating-conic-gradient(from -.4deg,var(--ink2) 0 .8deg,transparent .8deg 15deg);
+  -webkit-mask:radial-gradient(circle closest-side,transparent 0 87%,#000 88% 97%,transparent 98%);mask:radial-gradient(circle closest-side,transparent 0 87%,#000 88% 97%,transparent 98%)}
+.knobwrap::after{content:"";position:absolute;inset:11%;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle at 32% 24%,rgba(255,255,255,.38),transparent 46%);box-shadow:0 10px 18px rgba(0,0,0,.30),inset 0 -3px 0 rgba(0,0,0,.18)}
+.rotor{position:absolute;inset:11%;border-radius:50%;will-change:transform;
+  background:conic-gradient(#d8d9d5,#a6a8a3 11%,#eceeea 24%,#9a9c97 37%,#d8d9d5 50%,#a6a8a3 61%,#eceeea 74%,#9a9c97 87%,#d8d9d5)}
+.rotor::before{content:"";position:absolute;inset:0;border-radius:50%;background:repeating-conic-gradient(rgba(0,0,0,.20) 0 1.6deg,transparent 1.6deg 7.5deg);
+  -webkit-mask:radial-gradient(circle closest-side,transparent 0 79%,#000 80% 100%);mask:radial-gradient(circle closest-side,transparent 0 79%,#000 80% 100%)}
+.rotor::after{content:"";position:absolute;inset:27%;border-radius:50%;background:conic-gradient(#8b8d88,#c9cbc6,#8b8d88,#c9cbc6,#8b8d88);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 0 0 1px rgba(0,0,0,.25)}
+.rotor i{position:absolute;left:50%;top:5%;width:5px;height:15%;margin-left:-2.5px;background:var(--lamp);border-radius:1px;box-shadow:0 0 0 1px rgba(0,0,0,.25)}
+.fid .lcd .big{font-size:40px}
+
 /* boot screen: a backlit radio dial that tunes in and locks onto PC */
 #boot{position:fixed;inset:0;z-index:100;background:var(--b-bg);color:var(--b-ink);display:flex;align-items:center;justify-content:center;
-  padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));
+  padding:max(16px,env(safe-area-inset-top,0px)) max(clamp(20px,7vw,40px),env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(clamp(20px,7vw,40px),env(safe-area-inset-left,0px));
   font-family:var(--f-mono);color-scheme:dark;cursor:pointer;-webkit-tap-highlight-color:transparent;
   transition:opacity .5s ease,visibility 0s linear .5s}
 #boot.out{opacity:0;visibility:hidden;pointer-events:none}
-.bt{width:100%;max-width:640px;display:flex;flex-direction:column;gap:16px}
+.bt{width:100%;max-width:580px;display:flex;flex-direction:column;gap:clamp(12px,2.6vh,24px)}
 .bt-top{display:flex;align-items:center;justify-content:space-between;gap:12px;font:500 10.5px/1 var(--f-mono);letter-spacing:.2em;color:var(--b-dim);text-transform:uppercase}
-.bt-top b{font-weight:600;color:var(--b-ink);letter-spacing:.24em}
+.bt-brand{display:flex;align-items:center;gap:10px;min-width:0;color:var(--b-ink)}
+.bt-brand svg{flex:none;width:36px;height:24px;display:block}
+.bt-top b{font:700 10.5px/1.25 var(--f-ui);color:#A9ACA6;letter-spacing:.14em;text-transform:uppercase}
 .bt-lamp{width:9px;height:9px;border-radius:50%;background:#34362F;transition:background .2s,box-shadow .2s}
 #boot.on .bt-lamp{background:var(--lamp);box-shadow:0 0 12px 3px color-mix(in srgb,var(--lamp) 60%,transparent)}
-.bt-dial{position:relative;height:150px;border-radius:4px;overflow:hidden;background:#111211}
+.bt-dial{position:relative;height:clamp(112px,19vh,170px);border-radius:4px;overflow:hidden;background:#111211}
 .bt-tag{position:absolute;top:12px;font:500 10.5px/1 var(--f-mono);letter-spacing:.2em;color:var(--b-dim)}
 .bt-tag.l{left:22px}.bt-tag.r{right:22px}
 .bt-scale{position:absolute;left:22px;right:22px;top:0;bottom:0;opacity:.28;transition:opacity .8s ease}
@@ -312,39 +375,88 @@ html:not([lang=ru]):not([lang=en]) .langmenu .key{font-size:13px;padding-left:10
 .bt-scale .t3{height:14px;background:repeating-linear-gradient(90deg,var(--b-ink) 0 1px,transparent 1px 5%)}
 .bt-scale .t2{height:22px;background:repeating-linear-gradient(90deg,var(--b-ink) 0 1px,transparent 1px 20%)}
 .bt-scale .lb{position:absolute;bottom:28px;transform:translateX(-50%);font:500 12px/1 var(--f-mono);color:var(--b-ink)}
-.bt-needle{position:absolute;top:32px;bottom:6px;left:calc(var(--p,0) * 100%);width:2px;margin-left:-1px;background:var(--lamp);opacity:0;transition:opacity .5s .2s;box-shadow:0 0 10px 1px color-mix(in srgb,var(--lamp) 70%,transparent)}
+.bt-needle{position:absolute;top:32px;bottom:50px;left:calc(var(--p,0) * 100%);width:2px;margin-left:-1px;background:var(--lamp);opacity:0;transition:opacity .5s .2s;box-shadow:0 0 10px 1px color-mix(in srgb,var(--lamp) 70%,transparent)}
 #boot.on .bt-needle{opacity:1}
 .bt-lcd{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:end;gap:12px;border-radius:4px;padding:14px 16px;background:#080908}
 .bt-lcd .u{font:500 11px/1 var(--f-mono);color:var(--b-dim);letter-spacing:.2em;padding-bottom:6px}
-.bt-lcd .big{font:500 clamp(44px,13vw,72px)/1 var(--f-mono);letter-spacing:.02em;text-align:center;font-variant-numeric:tabular-nums;color:var(--b-ink);min-height:1em}
+.bt-lcd .big{font:500 clamp(38px,min(12.5vw,8.5vh),76px)/1 var(--f-mono);letter-spacing:.02em;text-align:center;font-variant-numeric:tabular-nums;color:var(--b-ink);min-height:1em}
 #boot.lock .bt-lcd .big{letter-spacing:.3em;text-indent:.3em}
-.bt-meter{display:flex;align-items:center;gap:12px;font:500 10px/1 var(--f-mono);color:var(--b-dim);letter-spacing:.2em}
+.bt-meter{display:flex;align-items:center;gap:16px;font:500 10px/1 var(--f-mono);color:var(--b-dim);letter-spacing:.2em}
+.bt-mc{flex:1;min-width:0;display:flex;flex-direction:column;gap:12px}
+.bt-sig{display:flex;align-items:center;gap:12px}
+.bt-lamps{display:flex;gap:18px}
+.bt-lamps .lp{display:inline-flex;align-items:center;gap:7px}
+.bt-lamps .lp i{width:7px;height:7px;border-radius:50%;background:#2A2C29;transition:background .15s,box-shadow .15s}
+#boot.lock .lp i{background:var(--lamp);box-shadow:0 0 8px color-mix(in srgb,var(--lamp) 70%,transparent)}
+#boot.lock .lp.s i{transition-delay:.35s}
+#boot.lock .lp{color:var(--b-ink)}
+.bt-dial::after{content:"";position:absolute;left:22px;right:22px;bottom:50px;height:1px;background:var(--b-line);pointer-events:none}
+.bt-needle::before{content:"";position:absolute;left:50%;top:-5px;margin-left:-4px;border:4px solid transparent;border-top:5px solid var(--lamp);border-bottom:0}
 .bt-seg{display:flex;gap:3px;flex:1}
-.bt-seg i{flex:1;height:10px;background:#1C1E1B;transition:background .06s}
+.bt-seg i{flex:1;height:12px;background:#1C1E1B;transition:background .06s}
 .bt-seg i.on{background:var(--b-ink)}
 .bt-seg i.on.hot{background:var(--lamp)}
-.bt-pwr{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;min-height:56px;border:0;border-radius:3px;background:#1A1B1A;color:var(--b-ink);font:700 13px/1 var(--f-ui);letter-spacing:.16em;text-transform:uppercase;cursor:pointer;touch-action:manipulation}
+.bt-pwr{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;min-height:clamp(48px,7.5vh,64px);border:0;border-radius:3px;background:#1A1B1A;color:var(--b-ink);font:700 13px/1 var(--f-ui);letter-spacing:.16em;text-transform:uppercase;cursor:pointer;touch-action:manipulation}
 .bt-pwr:active{transform:translateY(1px)}
-.bt-pwr:focus-visible{outline:2px solid var(--b-ink);outline-offset:3px}
+.bt-pwr:focus-visible{outline:0;background:#232523}
 .bt-pwr .led{width:8px;height:8px;border-radius:50%;background:#4A4C48;transition:background .1s}
 #boot.on .bt-pwr .led{background:var(--lamp);box-shadow:0 0 8px var(--lamp)}
 .bt-hint{margin:0;text-align:center;font:500 11px/1.4 var(--f-mono);letter-spacing:.18em;text-transform:uppercase;color:var(--b-dim);animation:bt-blink 1.6s ease-in-out infinite}
 #boot.run .bt-hint{animation:none;color:var(--b-ink)}
 @keyframes bt-blink{50%{opacity:.25}}
-@media (max-width:420px){.bt-dial{height:132px}.bt-scale .tk{bottom:46px}.bt-scale .lb{bottom:24px}}
+@media (min-width:700px) and (min-height:700px){.bt{zoom:1.25}}
+@media (max-width:420px){.bt-scale .tk{bottom:46px}.bt-scale .lb{bottom:24px}.bt-dial::after,.bt-needle{bottom:46px}.bt-lamps{gap:12px}}
 #sndBtn{width:auto;padding:0 10px;gap:7px;font:600 10px/1 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
 .bt-snd{display:inline-flex;align-items:center;gap:6px;border:0;border-radius:3px;background:#1A1B1A;color:var(--b-ink);font:600 10px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;padding:8px 9px;cursor:pointer;touch-action:manipulation;white-space:nowrap}
 .bt-snd svg{display:block}
-.bt-snd:focus-visible{outline:2px solid var(--b-ink);outline-offset:2px}
+.bt-snd:focus-visible{outline:0;background:#262826}
 .bt-r{display:flex;align-items:center;gap:12px}
+
+/* ===== short landscape (phones on their side): module keys become a left rail, header scrolls away, two panes, compact boot + fidget ===== */
+@media (orientation:landscape) and (max-height:520px){
+  :root{--rail:calc(78px + env(safe-area-inset-left,0px))}
+  body{padding-block:8px 14px;padding-left:calc(var(--rail) + 14px);padding-right:max(16px,env(safe-area-inset-right,0px))}
+  .device{max-width:1100px;gap:10px}
+  .stick{position:static;gap:8px;padding:0 0 4px;margin:0;box-shadow:none;background:none}
+  .dialrow .cnt{height:44px;padding-top:6px;padding-bottom:5px}
+  .dial{min-height:44px}
+  .bar{position:fixed;left:0;right:auto;top:0;bottom:0;width:var(--rail);padding:8px 8px 8px calc(8px + env(safe-area-inset-left,0px));border-top:0;border-right:1px solid var(--line);background:var(--panel);display:flex}
+  .bar>div{display:flex;flex-direction:column;justify-content:center;gap:8px;width:100%;max-width:none;margin:0}
+  .bar .key{flex:0 0 auto;min-height:56px;flex-direction:column;gap:3px;padding:6px 2px;font-size:10.5px;letter-spacing:.04em}
+  .toast{bottom:16px;left:calc(50% + var(--rail)/2)}
+  .foot{margin-bottom:0}
+  .langmenu{max-height:calc(100vh - 70px);overflow:auto}
+  /* boot: two columns so nothing is cut off */
+  #boot{overflow:auto;align-items:flex-start}
+  .bt{max-width:820px;margin:auto;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:10px 22px;align-items:center}
+  .bt-top{grid-column:1/-1}
+  .bt-dial{grid-column:1;grid-row:2;height:clamp(80px,27vh,124px)}
+  .bt-lcd{grid-column:1;grid-row:3;padding:8px 14px}
+  .bt-lcd .big{font-size:clamp(34px,9vh,52px)}
+  .bt-meter{grid-column:2;grid-row:2}
+  .bt-pwr{grid-column:2;grid-row:3;min-height:48px}
+  .bt-hint{grid-column:1/-1;grid-row:4}
+  .bt-scale .tk{bottom:36px}.bt-scale .lb{bottom:16px;font-size:11px}
+  .bt-dial::after{bottom:36px}  .bt-needle{top:26px;bottom:36px}
+  /* fidget: knob left, controls right */
+  .fid{align-items:flex-start}
+  .fid-in{max-width:760px;margin:auto;display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px 24px;align-items:center}
+  .fid-h{grid-column:1/-1}
+  .knobwrap{grid-column:1;grid-row:2/4;width:min(62vh,230px);margin:0}
+  .fid .lcd{grid-column:2;grid-row:2}
+  #fKeys{grid-column:2;grid-row:3}
+  #fKeys .key{min-height:clamp(52px,20vh,84px)}
+}
+@media (orientation:landscape) and (max-height:520px) and (min-width:760px){
+  .mod{display:grid;grid-template-columns:minmax(300px,380px) minmax(0,1fr);gap:12px;align-items:start}
+}
 </style>
 </head>
 <body>
 
-
 <div id="boot" role="dialog" aria-label="PC">
   <div class="bt">
-    <div class="bt-top"><b>Producer Companion</b><span class="bt-r"><button class="bt-snd" id="btSnd" data-a="snd" type="button"></button><i class="bt-lamp"></i></span></div>
+    <div class="bt-top"><span class="bt-brand"><svg viewBox="6 5 36 24" aria-hidden="true"><g transform="translate(-2.3 0)" fill="none" stroke="currentColor" stroke-width="5.6"><path d="M12 26.5V7.5"/><path d="M12 10.3H18A4.2 4.2 0 0 1 18 18.7H12"/><path d="M40.2 12A6.5 6.5 0 1 0 40.2 22"/></g></svg><b>Producer<br>Companion</b></span><span class="bt-r"><button class="bt-snd" id="btSnd" data-a="snd" type="button"></button><i class="bt-lamp"></i></span></div>
     <div class="bt-dial" aria-hidden="true">
       <span class="bt-tag l">FM</span><span class="bt-tag r">MHz</span>
       <div class="bt-scale">
@@ -355,17 +467,32 @@ html:not([lang=ru]):not([lang=en]) .langmenu .key{font-size:13px;padding-left:10
       </div>
     </div>
     <div class="bt-lcd"><span class="u">FM</span><span class="big" id="btBig">--.-</span><span class="u">MHz</span></div>
-    <div class="bt-meter"><span>SIG</span><div class="bt-seg" id="btSeg"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+    <div class="bt-meter"><div class="bt-mc"><div class="bt-lamps"><span class="lp" id="lTun"><i></i>TUNED</span><span class="lp s" id="lSt"><i></i>STEREO</span></div><div class="bt-sig"><span>SIG</span><div class="bt-seg" id="btSeg"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div></div></div>
     <button class="bt-pwr" id="btPwr" type="button"><i class="led"></i><span id="btPwrT" data-t="boot_pwr">Включить</span></button>
     <p class="bt-hint" id="btSt" data-t="boot_hint">Нажмите, чтобы включить</p>
+  </div>
+</div>
+<div class="svp" id="sv" role="dialog" aria-label="Saved" hidden>
+  <div class="sv-in">
+    <div class="sv-h"><b id="svT">Saved</b><span><button class="ib" data-a="svclear" id="svClear" type="button"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 4.5h10M6.5 4.5V2.8h3v1.7M4.5 4.5l.6 8.7h5.8l.6-8.7"/></svg></button><button class="ib" data-a="svclose" id="svClose" type="button"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button></span></div>
+    <div id="svList"></div>
+  </div>
+</div>
+<div class="fid" id="fid" role="dialog" aria-label="Fidget" hidden>
+  <div class="fid-in">
+    <div class="fid-h"><b>FIDGET</b><button class="ib" data-a="fidclose" id="fidClose" type="button"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button></div>
+    <div class="lcd"><span class="big" id="fCnt">0000</span><span class="side" data-t="fid_hint">spin · click</span></div>
+    <div class="knobwrap" id="fKnob"><div class="rotor" id="fRotor"><i></i></div></div>
+    <div class="grid4" id="fKeys"><button class="key" data-a="fkey" aria-pressed="false" type="button"><small>01</small></button><button class="key" data-a="fkey" aria-pressed="false" type="button"><small>02</small></button><button class="key" data-a="fkey" aria-pressed="false" type="button"><small>03</small></button><button class="key" data-a="fkey" aria-pressed="false" type="button"><small>04</small></button><button class="key" data-a="fkey" aria-pressed="false" type="button"><small>05</small></button><button class="key" data-a="fkey" aria-pressed="false" type="button"><small>06</small></button><button class="key" data-a="fkey" aria-pressed="false" type="button"><small>07</small></button><button class="key" data-a="fkey" aria-pressed="false" type="button"><small>08</small></button></div>
   </div>
 </div>
 <div class="device">
   <div class="stick">
   <header class="top">
-    <div class="brand"><div class="mark" aria-label="PC">PC</div></div>
+    <div class="brand"><div class="mark" role="img" aria-label="PC"><svg viewBox="0 0 48 34" aria-hidden="true"><g transform="translate(-2.3 0)" fill="none" stroke="currentColor" stroke-width="5.6"><path d="M12 26.5V7.5"/><path d="M12 10.3H18A4.2 4.2 0 0 1 18 18.7H12"/><path d="M40.2 12A6.5 6.5 0 1 0 40.2 22"/></g></svg></div></div>
     <div class="tools">
       <button class="ib" data-a="snd" id="sndBtn" aria-label="Sound"></button>
+      <button class="ib" data-a="saved" id="savBtn" aria-label="Saved"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 2.5h8v11L8 10.5l-4 3z"/></svg><i class="bd" id="savN" hidden></i></button>
       <div class="lw"><button class="ib" data-a="lang" id="langBtn" aria-label="Language" aria-haspopup="true" aria-expanded="false">RU</button><div class="langmenu" id="langMenu" role="menu" hidden></div></div>
       <button class="ib" data-a="skin" id="skinBtn" aria-label="Theme"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="8" cy="8" r="5.5"/><path d="M8 2.5a5.5 5.5 0 0 1 0 11z" fill="currentColor"/></svg></button>
     </div>
@@ -437,7 +564,7 @@ html:not([lang=ru]):not([lang=en]) .langmenu .key{font-size:13px;padding-left:10
       <div class="card">
         <div class="grp">
           <div class="cap"><span data-t="c_nstyle">Псевдоним · стиль</span></div>
-          <div class="grid4" id="nstyles"></div>
+          <div class="grid3" id="nstyles"></div>
         </div>
         <div class="grp">
           <div class="cap"><span data-t="c_lang">Язык</span></div>
@@ -521,6 +648,10 @@ const svg=(d)=>'<svg viewBox="0 0 16 16" width="15" height="15" fill="none" stro
 const IC={
   refresh:svg('<path d="M13 8a5 5 0 1 1-1.6-3.7"/><path d="M13 2.5v3h-3"/>'),
   copy:svg('<rect x="5.5" y="5.5" width="8" height="8"/><path d="M3 10.5V3h7.5"/>'),
+  chev:svg('<path d="M4 6l4 4 4-4"/>'),
+  save:svg('<path d="M4 2.5h8v11L8 10.5l-4 3z"/>'),
+  lock:svg('<rect x="3.5" y="7" width="9" height="6.5"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2"/>'),
+  unlock:svg('<rect x="3.5" y="7" width="9" height="6.5"/><path d="M5.5 7V5a2.5 2.5 0 0 1 4.8-1"/>'),
   pin:svg('<path d="M5 2.5h6l-.6 4.2 2 2.3V10H3.6V9l2-2.3z"/><path d="M8 10v4"/>')
 };
 
@@ -698,26 +829,41 @@ let AEST={
 };
 
 /* ---------- names data ---------- */
-const NS=['clean','ind','eth','bur'];
+const NS=['clean','ind','eth','bur','cos','tape'];
 const LEX={
   clean:{
-    en:{a:['Null','Static','Pale','Blank','Flat','Open','Fine','Slow'],n:['Gauge','Vector','Offset','Aperture','Tolerance','Meridian','Residue','Lattice','Signal','Axis','Grid','Index']},
-    ru:{a:['Нулевой','Статичный','Бледный','Ровный','Тихий','Тонкий','Открытый','Сухой'],n:[['Допуск','m'],['Вектор','m'],['Сигнал','m'],['Остаток','m'],['Шкала','f'],['Ось','f'],['Сетка','f'],['Апертура','f'],['Мера','f'],['Решётка','f'],['Поле','n'],['Деление','n']]}
+    en:{a:['Null', 'Static', 'Pale', 'Blank', 'Flat', 'Open', 'Fine', 'Slow', 'Dry', 'Linear', 'Neutral', 'Exact', 'Zero', 'Single', 'Even', 'Bare', 'Quiet', 'Thin', 'Plain', 'Fixed', 'Level', 'Straight', 'Mean', 'Clear'],n:['Gauge', 'Vector', 'Offset', 'Aperture', 'Tolerance', 'Meridian', 'Residue', 'Lattice', 'Signal', 'Axis', 'Grid', 'Index', 'Scale', 'Datum', 'Plane', 'Interval', 'Delta', 'Gradient', 'Threshold', 'Limit', 'Matrix', 'Mode', 'Norm', 'Pitch', 'Phase', 'Ratio', 'Reference', 'Span', 'Variance', 'Constant', 'Coordinate', 'Increment', 'Notch', 'Node', 'Margin', 'Trace', 'Cipher', 'Parity', 'Quanta', 'Unit']},
+    ru:{a:['Нулевой', 'Статичный', 'Бледный', 'Ровный', 'Тихий', 'Тонкий', 'Открытый', 'Сухой', 'Линейный', 'Нейтральный', 'Точный', 'Единый', 'Пустой', 'Прямой', 'Ясный', 'Чистый', 'Плоский', 'Мелкий', 'Голый', 'Фиксированный', 'Простой', 'Гладкий', 'Базовый', 'Условный', 'Средний'],n:[['Допуск', 'm'], ['Вектор', 'm'], ['Сигнал', 'm'], ['Остаток', 'm'], ['Шкала', 'f'], ['Ось', 'f'], ['Сетка', 'f'], ['Апертура', 'f'], ['Мера', 'f'], ['Решётка', 'f'], ['Поле', 'n'], ['Деление', 'n'], ['Интервал', 'm'], ['Градиент', 'm'], ['Порог', 'm'], ['Предел', 'm'], ['Модуль', 'm'], ['Эталон', 'm'], ['Разброс', 'm'], ['Шаг', 'm'], ['Ноль', 'm'], ['Параметр', 'm'], ['Диапазон', 'm'], ['Узел', 'm'], ['Фаза', 'f'], ['Константа', 'f'], ['Координата', 'f'], ['Точность', 'f'], ['Пропорция', 'f'], ['Плоскость', 'f'], ['Погрешность', 'f'], ['Отметка', 'f'], ['Дельта', 'f'], ['Норма', 'f'], ['Матрица', 'f'], ['Величина', 'f'], ['Единица', 'f'], ['Значение', 'n'], ['Смещение', 'n'], ['Отклонение', 'n']]}
   },
   ind:{
-    en:{a:['Rusted','Cast','Forged','Burnt','Heavy','Raw','Hollow','Cold'],n:['Slag','Kiln','Rivet','Ingot','Foundry','Piston','Furnace','Gantry','Cinder','Shear','Weld','Rebar']},
-    ru:{a:['Ржавый','Литой','Кованый','Горелый','Тяжёлый','Сырой','Полый','Холодный'],n:[['Шлак','m'],['Цех','m'],['Поршень','m'],['Слиток','m'],['Прокат','m'],['Заклёпка','f'],['Печь','f'],['Окалина','f'],['Стружка','f'],['Арматура','f'],['Сварка','f'],['Литьё','n']]}
+    en:{a:['Rusted', 'Cast', 'Forged', 'Burnt', 'Heavy', 'Raw', 'Hollow', 'Cold', 'Welded', 'Molten', 'Rolled', 'Pressed', 'Corroded', 'Riveted', 'Galvanized', 'Coarse', 'Dense', 'Scorched', 'Iron', 'Brass', 'Bolted', 'Grinding', 'Oiled', 'Idle'],n:['Slag', 'Kiln', 'Rivet', 'Ingot', 'Foundry', 'Piston', 'Furnace', 'Gantry', 'Cinder', 'Shear', 'Weld', 'Rebar', 'Girder', 'Crucible', 'Lathe', 'Anvil', 'Flange', 'Gasket', 'Turbine', 'Boiler', 'Conveyor', 'Smelter', 'Bellows', 'Mandrel', 'Press', 'Spindle', 'Valve', 'Chassis', 'Hopper', 'Sprocket', 'Camshaft', 'Quench', 'Billet', 'Scrap', 'Coil', 'Chimney', 'Pylon', 'Hangar', 'Sluice', 'Bunker']},
+    ru:{a:['Ржавый', 'Литой', 'Кованый', 'Горелый', 'Тяжёлый', 'Сырой', 'Полый', 'Холодный', 'Сварной', 'Расплавленный', 'Катаный', 'Прессованный', 'Изношенный', 'Клёпаный', 'Оцинкованный', 'Грубый', 'Плотный', 'Закалённый', 'Чугунный', 'Медный', 'Масляный', 'Холостой', 'Стальной', 'Остывший'],n:[['Шлак', 'm'], ['Цех', 'm'], ['Поршень', 'm'], ['Слиток', 'm'], ['Прокат', 'm'], ['Заклёпка', 'f'], ['Печь', 'f'], ['Окалина', 'f'], ['Стружка', 'f'], ['Арматура', 'f'], ['Сварка', 'f'], ['Литьё', 'n'], ['Тигель', 'm'], ['Горн', 'm'], ['Станок', 'm'], ['Молот', 'm'], ['Фланец', 'm'], ['Конвейер', 'm'], ['Котёл', 'm'], ['Вал', 'm'], ['Клапан', 'm'], ['Шпиндель', 'm'], ['Ангар', 'm'], ['Пресс', 'm'], ['Бункер', 'm'], ['Кран', 'm'], ['Резец', 'm'], ['Каток', 'm'], ['Отвал', 'm'], ['Лом', 'm'], ['Труба', 'f'], ['Шестерня', 'f'], ['Балка', 'f'], ['Ферма', 'f'], ['Опока', 'f'], ['Домна', 'f'], ['Мачта', 'f'], ['Турбина', 'f'], ['Прокладка', 'f'], ['Закалка', 'f'], ['Колено', 'n'], ['Колесо', 'n']]}
   },
   eth:{
-    en:{a:['Pale','Distant','Soft','Slow','Lunar','Glass','Quiet','Faint'],n:['Haze','Lumen','Drift','Tide','Vapor','Halo','Mist','Fathom','Solace','Dusk','Bloom','Hush']},
-    ru:{a:['Бледный','Далёкий','Мягкий','Медленный','Лунный','Стеклянный','Тихий','Зыбкий'],n:[['Туман','m'],['Дрейф','m'],['Прилив','m'],['Отзвук','m'],['Просвет','m'],['Сумрак','m'],['Дымка','f'],['Тишина','f'],['Пыльца','f'],['Волна','f'],['Глубина','f'],['Эхо','n']]}
+    en:{a:['Pale', 'Distant', 'Soft', 'Slow', 'Lunar', 'Glass', 'Quiet', 'Faint', 'Hazy', 'Silver', 'Weightless', 'Pearl', 'Veiled', 'Drifting', 'Hushed', 'Opal', 'Thin', 'Fading', 'Milky', 'Nocturnal', 'Gentle', 'Floating', 'Misty', 'Velvet'],n:['Haze', 'Lumen', 'Drift', 'Tide', 'Vapor', 'Halo', 'Mist', 'Fathom', 'Solace', 'Dusk', 'Bloom', 'Hush', 'Aurora', 'Veil', 'Ether', 'Murmur', 'Reverie', 'Lull', 'Nimbus', 'Zenith', 'Cirrus', 'Ripple', 'Plume', 'Mirage', 'Glow', 'Thaw', 'Wisp', 'Lagoon', 'Petal', 'Orchid', 'Silk', 'Vesper', 'Echo', 'Gossamer', 'Shimmer', 'Cove', 'Breath', 'Pollen', 'Moonlight', 'Slumber']},
+    ru:{a:['Бледный', 'Далёкий', 'Мягкий', 'Медленный', 'Лунный', 'Стеклянный', 'Тихий', 'Зыбкий', 'Дымчатый', 'Серебряный', 'Невесомый', 'Жемчужный', 'Призрачный', 'Дремлющий', 'Опаловый', 'Тонкий', 'Угасающий', 'Молочный', 'Ночной', 'Нежный', 'Парящий', 'Туманный', 'Бархатный', 'Прозрачный'],n:[['Туман', 'm'], ['Дрейф', 'm'], ['Прилив', 'm'], ['Отзвук', 'm'], ['Просвет', 'm'], ['Сумрак', 'm'], ['Дымка', 'f'], ['Тишина', 'f'], ['Пыльца', 'f'], ['Волна', 'f'], ['Глубина', 'f'], ['Эхо', 'n'], ['Шёпот', 'm'], ['Полог', 'm'], ['Закат', 'm'], ['Рассвет', 'm'], ['Мираж', 'm'], ['Отблеск', 'm'], ['Вздох', 'm'], ['Сон', 'm'], ['Покой', 'm'], ['Эфир', 'm'], ['Лепесток', 'm'], ['Шлейф', 'm'], ['Мерцание', 'n'], ['Сияние', 'n'], ['Облако', 'n'], ['Дыхание', 'n'], ['Отражение', 'n'], ['Затишье', 'n'], ['Тень', 'f'], ['Лагуна', 'f'], ['Заря', 'f'], ['Роса', 'f'], ['Мгла', 'f'], ['Нега', 'f'], ['Зыбь', 'f'], ['Бухта', 'f'], ['Греза', 'f'], ['Ночь', 'f']]}
   },
   bur:{
-    en:{a:['Internal','Filed','Classified','Standard','Void','Second','Annual','Sealed'],n:['Memo','Ledger','Archive','Registry','Protocol','Folio','Carbon','Index','Dossier','Stamp','Quota','Form']},
-    ru:{a:['Служебный','Архивный','Секретный','Типовой','Недействительный','Второй','Годовой','Опечатанный'],n:[['Протокол','m'],['Реестр','m'],['Архив','m'],['Штамп','m'],['Отдел','m'],['Бланк','m'],['Циркуляр','m'],['Отчёт','m'],['Журнал','m'],['Копия','f'],['Папка','f'],['Ведомость','f'],['Справка','f'],['Дело','n'],['Письмо','n']]}
+    en:{a:['Internal', 'Filed', 'Classified', 'Standard', 'Void', 'Second', 'Annual', 'Sealed', 'Draft', 'Final', 'Official', 'Restricted', 'Archived', 'Amended', 'Pending', 'Revised', 'Stamped', 'Quarterly', 'Duplicate', 'Interim', 'Confidential', 'Redacted', 'Provisional', 'Obsolete'],n:['Memo', 'Ledger', 'Archive', 'Registry', 'Protocol', 'Folio', 'Carbon', 'Index', 'Dossier', 'Stamp', 'Quota', 'Form', 'Circular', 'Directive', 'Affidavit', 'Docket', 'Manifest', 'Clause', 'Appendix', 'Voucher', 'Receipt', 'Inventory', 'Audit', 'Roster', 'Bulletin', 'Statute', 'Minutes', 'Waiver', 'Cabinet', 'Desk', 'Counter', 'Seal', 'Entry', 'Schedule', 'Addendum', 'Ticket', 'Warrant', 'Brief', 'Tariff', 'Cipher']},
+    ru:{a:['Служебный', 'Архивный', 'Секретный', 'Типовой', 'Недействительный', 'Второй', 'Годовой', 'Опечатанный', 'Черновой', 'Итоговый', 'Официальный', 'Ограниченный', 'Исправленный', 'Квартальный', 'Дублированный', 'Временный', 'Конфиденциальный', 'Засекреченный', 'Условный', 'Устаревший', 'Входящий', 'Исходящий', 'Внутренний', 'Заверенный'],n:[['Протокол', 'm'], ['Реестр', 'm'], ['Архив', 'm'], ['Штамп', 'm'], ['Отдел', 'm'], ['Бланк', 'm'], ['Циркуляр', 'm'], ['Отчёт', 'm'], ['Журнал', 'm'], ['Копия', 'f'], ['Папка', 'f'], ['Ведомость', 'f'], ['Справка', 'f'], ['Дело', 'n'], ['Письмо', 'n'], ['Приказ', 'm'], ['Акт', 'm'], ['Талон', 'm'], ['Номер', 'm'], ['Мандат', 'm'], ['Регламент', 'm'], ['Список', 'm'], ['Формуляр', 'm'], ['Вексель', 'm'], ['Лимит', 'm'], ['Аудит', 'm'], ['Печать', 'f'], ['Накладная', 'f'], ['Повестка', 'f'], ['Декларация', 'f'], ['Инструкция', 'f'], ['Резолюция', 'f'], ['Квитанция', 'f'], ['Картотека', 'f'], ['Опись', 'f'], ['Записка', 'f'], ['Заявка', 'f'], ['Статья', 'f'], ['Положение', 'n'], ['Донесение', 'n'], ['Уведомление', 'n']]}
+  },
+  cos:{
+    en:{a:['Distant', 'Orbital', 'Solar', 'Cold', 'Dark', 'Binary', 'Silent', 'Radial', 'Stellar', 'Lunar', 'Polar', 'Retrograde', 'Cosmic', 'Galactic', 'Interstellar', 'Remote', 'Empty', 'Spiral', 'Outer', 'Burning', 'Fixed', 'Deep', 'Eclipsed', 'Dim'],n:['Orbit', 'Pulsar', 'Vacuum', 'Nebula', 'Perihelion', 'Apogee', 'Quasar', 'Eclipse', 'Zenith', 'Comet', 'Satellite', 'Aphelion', 'Parallax', 'Cosmos', 'Horizon', 'Void', 'Meteor', 'Nova', 'Corona', 'Transit', 'Telescope', 'Probe', 'Lander', 'Capsule', 'Belt', 'Halo', 'Axis', 'Moon', 'Ring', 'Spectrum', 'Redshift', 'Singularity', 'Flare', 'Drift', 'Beacon', 'Relay', 'Gravity', 'Equinox', 'Solstice', 'Antenna']},
+    ru:{a:['Далёкий', 'Орбитальный', 'Солнечный', 'Холодный', 'Тёмный', 'Двойной', 'Безмолвный', 'Радиальный', 'Звёздный', 'Лунный', 'Полярный', 'Попятный', 'Космический', 'Галактический', 'Межзвёздный', 'Дальний', 'Пустой', 'Спиральный', 'Внешний', 'Горящий', 'Глубокий', 'Затменный', 'Тусклый', 'Одинокий'],n:[['Орбита', 'f'], ['Пульсар', 'm'], ['Вакуум', 'm'], ['Туманность', 'f'], ['Перигелий', 'm'], ['Апогей', 'm'], ['Квазар', 'm'], ['Затмение', 'n'], ['Зенит', 'm'], ['Комета', 'f'], ['Спутник', 'm'], ['Афелий', 'm'], ['Параллакс', 'm'], ['Космос', 'm'], ['Горизонт', 'm'], ['Метеор', 'm'], ['Нова', 'f'], ['Корона', 'f'], ['Транзит', 'm'], ['Телескоп', 'm'], ['Зонд', 'm'], ['Модуль', 'm'], ['Капсула', 'f'], ['Пояс', 'm'], ['Кольцо', 'n'], ['Спектр', 'm'], ['Сингулярность', 'f'], ['Вспышка', 'f'], ['Маяк', 'm'], ['Ретранслятор', 'm'], ['Гравитация', 'f'], ['Равноденствие', 'n'], ['Солнцестояние', 'n'], ['Антенна', 'f'], ['Луна', 'f'], ['Звезда', 'f'], ['Бездна', 'f'], ['Галактика', 'f'], ['Станция', 'f']]}
+  },
+  tape:{
+    en:{a:['Worn', 'Warped', 'Looped', 'Dubbed', 'Hissing', 'Faded', 'Magnetic', 'Cassette', 'Reel', 'Rewound', 'Dusty', 'Muffled', 'Saturated', 'Analog', 'Bootleg', 'Spliced', 'Wobbly', 'Degraded', 'Cracked', 'Demagnetized', 'Vintage', 'Second-hand', 'Blank', 'Scratched'],n:['Reel', 'Cassette', 'Bias', 'Flutter', 'Dropout', 'Splice', 'Loop', 'Head', 'Capstan', 'Hiss', 'Tape', 'Spool', 'Sleeve', 'Groove', 'Needle', 'Vinyl', 'Side', 'Dub', 'Take', 'Rewind', 'Playback', 'Static', 'Carrier', 'Cue', 'Transfer', 'Master', 'Bootleg', 'Tracking', 'Cartridge', 'Pressing', 'Label', 'Matrix', 'Sample', 'Noise', 'Demo', 'Session', 'Track', 'Ribbon', 'Wow', 'Rec']},
+    ru:{a:['Заезженный', 'Перекошенный', 'Зацикленный', 'Перезаписанный', 'Шипящий', 'Выцветший', 'Магнитный', 'Кассетный', 'Катушечный', 'Перемотанный', 'Пыльный', 'Глухой', 'Насыщенный', 'Аналоговый', 'Пиратский', 'Склеенный', 'Плавающий', 'Потёртый', 'Треснувший', 'Размагниченный', 'Винтажный', 'Подержанный', 'Чистый', 'Поцарапанный'],n:[['Катушка', 'f'], ['Кассета', 'f'], ['Подмагничивание', 'n'], ['Детонация', 'f'], ['Дропаут', 'm'], ['Склейка', 'f'], ['Петля', 'f'], ['Головка', 'f'], ['Шорох', 'm'], ['Шум', 'm'], ['Плёнка', 'f'], ['Бобина', 'f'], ['Конверт', 'm'], ['Канавка', 'f'], ['Игла', 'f'], ['Винил', 'm'], ['Сторона', 'f'], ['Дубль', 'm'], ['Перемотка', 'f'], ['Воспроизведение', 'n'], ['Статика', 'f'], ['Носитель', 'm'], ['Метка', 'f'], ['Перенос', 'm'], ['Мастер', 'm'], ['Бутлег', 'm'], ['Запись', 'f'], ['Трекинг', 'm'], ['Картридж', 'm'], ['Тираж', 'm'], ['Этикетка', 'f'], ['Матрица', 'f'], ['Сэмпл', 'm'], ['Демо', 'n'], ['Сессия', 'f'], ['Дорожка', 'f'], ['Лента', 'f'], ['Размагничивание', 'n']]}
   }
 };
-const adjForm=(a,g)=>g==='m'?a:a.replace(/(ый|ой|ий)$/,'')+(g==='f'?'ая':'ое');
+function adjForm(a,g){
+  if(g==='m')return a;
+  const s=a.slice(0,-2);
+  if(/ний$/.test(a))return s+(g==='f'?'яя':'ее');
+  if(/[жчшщ]ий$/.test(a))return s+(g==='f'?'ая':'ее');
+  return s+(g==='f'?'ая':'ое');
+}
+const PRE={en:['Sub','Neo','Proto','Anti','Meta','Ex','Post','Pseudo'],ru:['Нео','Мета','Анти','Прото','Пост','Псевдо','Суб','Экс']};
 const LET=()=>'ABCDEFGHJKLMNPRSTVXZ'[rnd(20)];
 const ROMS=['I','II','III','IV','V','VI','VII','VIII','IX'];
 function noun(style,lang){const L=LEX[style][lang];return lang==='en'?{w:pick(L.n),g:'m'}:(x=>({w:x[0],g:x[1]}))(pick(L.n));}
@@ -732,9 +878,15 @@ function makeAlias(style,lang,form){
   lang=lang==='MIX'?(Math.random()<.5?'en':'ru'):lang.toLowerCase();
   const L=LEX[style][lang],n=noun(style,lang);let s;
   if(form==='word'){s=n.w;}
-  else if(form==='pair'){const a=pick(L.a);s=(lang==='en'?a:adjForm(a,n.g))+' '+n.w;}
+  else if(form==='pair'){
+    const a=pick(L.a),r=Math.random();
+    if(r<.55)s=(lang==='en'?a:adjForm(a,n.g))+' '+n.w;
+    else if(r<.78)s=n.w+'-'+noun(style,lang).w;
+    else s=pick(PRE[lang])+(lang==='en'?' ':'-')+n.w;
+  }
   else{
-    const pats=[()=>LET()+LET()+'-'+ri(1,999),()=>n.w+' '+ri(1,99),()=>LET()+'/'+pad(ri(1,99)),()=>n.w+'-'+LET()+ri(1,9),()=>LET()+ri(1,9)+' '+n.w];
+    const pats=[()=>LET()+LET()+'-'+ri(1,999),()=>n.w+' '+ri(1,99),()=>LET()+'/'+pad(ri(1,99)),()=>n.w+'-'+LET()+ri(1,9),()=>LET()+ri(1,9)+' '+n.w,
+      ()=>LET()+LET()+LET()+' '+ri(100,999),()=>n.w+' '+ROMS[rnd(9)],()=>n.w+' '+LET()+'.'+ri(1,9),()=>LET()+pad(ri(1,99))+'·'+n.w];
     s=pick(pats)();
   }
   return caseFx(s,style);
@@ -749,35 +901,41 @@ function makeTitle(style,lang){
     ()=>n.w+' '+ROMS[rnd(9)],
     ()=>en?n.w+' No.'+ri(1,40):n.w+' №'+ri(1,40),
     ()=>en?n.w+' for '+n2.w:n.w+' / '+n2.w,
-    ()=>en?'No '+n.w:n.w+', часть '+ri(1,5)
+    ()=>en?'No '+n.w:n.w+', часть '+ri(1,5),
+    ()=>n.w+', '+ri(1979,1991),
+    ()=>en?n.w+' of '+n2.w:n.w+' и '+n2.w,
+    ()=>n.w+(en?' (Side ':' (сторона ')+(en?'AB':'АБ')[rnd(2)]+')',
+    ()=>n.w+' '+pad(ri(1,12)),
+    ()=>(en?a:adjForm(a,n.g))+' '+n.w+' '+ROMS[rnd(9)],
+    ()=>pick(PRE[lang])+(en?' ':'-')+n.w
   ];
   return pick(pats)();
 }
 
 /* ---------- concept data ---------- */
 let TH={
-  'Машина':{titles:['Холостой ход','Усталость металла','Допуски и посадки','Ресурс до отказа','Цех без людей','Обратная связь'],
+  'Машина':{titles:['Холостой ход','Усталость металла','Допуски и посадки','Ресурс до отказа','Цех без людей','Обратная связь','Люфт','Холодный пуск','Предельная нагрузка','Ремонт на ходу','Технический осмотр','Сбой цикла'],
     premises:['Альбом фиксирует момент, когда механизм перестаёт быть инструментом и становится свидетелем.','Музыка собрана как технический паспорт машины, которой никогда не существовало.','Станок играет сам для себя, оператор присутствует только как помеха.','Износ принят за композиционный приём: каждый повтор звучит чуть хуже предыдущего.'],
     materials:['записи токарного станка на трёх скоростях','гидравлический пресс, снятый контактными микрофонами','вентиляторы серверной, пропущенные через гребенчатые фильтры','шум холостого хода дизельного генератора']},
-  'Тело':{titles:['Остаточное тепло','Частота пульса','Анатомия тишины','Дыхание по счёту','Кожа как поверхность','Рефлекс'],
+  'Тело':{titles:['Остаточное тепло','Частота пульса','Анатомия тишины','Дыхание по счёту','Кожа как поверхность','Рефлекс','Пульс в покое','Сустав','Температура 36,6','Вдох и пауза','Мышечная память','Тонус'],
     premises:['Тело используется как единственный синтезатор: пульс задаёт темп, дыхание задаёт форму.','Альбом измеряет усталость исполнителя и строит форму по её графику.','Музыка записана в моменты, когда слушатель не замечает собственного дыхания.','Граница между инструментом и телом стёрта: микрофон закреплён на исполнителе, а не перед ним.'],
     materials:['запись сердцебиения, ускоренная до аудиодиапазона','дыхание в контактный микрофон на грудной клетке','шаги в пустом коридоре, ритм определён ходьбой автора','щелчки суставов, собранные в ударную партию']},
-  'Архив':{titles:['Опись №0','Фонд утраченных записей','Хранение 25 лет','Каталог без читателя','Копия копии','Неучтённое'],
+  'Архив':{titles:['Опись №0','Фонд утраченных записей','Хранение 25 лет','Каталог без читателя','Копия копии','Неучтённое','Единица хранения','Читальный зал','Выцветшие чернила','Список изъятого','Микрофильм','Забытый шифр'],
     premises:['Альбом собран из того, что архив предпочёл не хранить.','Каждый трек — копия копии: с каждым поколением остаётся меньше исходного сигнала.','Музыка читает каталожные карточки вслух, не понимая их смысла.','Слушатель получает не запись, а её опись: что звучало, когда и сколько секунд.'],
     materials:['перезаписанные кассеты с чужими голосами','диктофонные записи с обрезанным началом','звук сканера, перелистывающего страницы','металлические ящики картотеки, открытые в разном темпе']},
-  'Город':{titles:['Ночная смена','Транзитная зона','Эхо парковки','Гул 50 Гц','Окраина без карты','Пересадка'],
+  'Город':{titles:['Ночная смена','Транзитная зона','Эхо парковки','Гул 50 Гц','Окраина без карты','Пересадка','Ночная смена','Спальный район','Эхо двора','Последний трамвай','Бетонное лето','Свет в окнах'],
     premises:['Город воспринимается как один длинный незавершённый трек, из которого вырезаны фрагменты.','Альбом нарезан по маршруту ночного автобуса: каждая остановка — новая сцена.','Музыка собрана из звуков, которые горожане давно перестали слышать.','Инфраструктура исполняет композицию, пока люди спят.'],
     materials:['гул трансформаторных будок на ночных улицах','объявления остановок, растянутые до дрона','эхо подземного паркинга, импульсный отклик','лифтовые шахты как резонаторы']},
-  'Бюрократия':{titles:['Входящий №','Форма 27/Б','Отказ в рассмотрении','Приёмные часы','Печать и подпись','Служебная записка'],
+  'Бюрократия':{titles:['Входящий №','Форма 27/Б','Отказ в рассмотрении','Приёмные часы','Печать и подпись','Служебная записка','Входящий номер','Согласование','Печать и подпись','Срок исполнения','Приёмный день','Служебная записка'],
     premises:['Альбом оформлен как пакет документов, который невозможно подать целиком.','Ритм задаётся печатями: каждый удар штампа — доля такта.','Музыка отвечает на запрос, которого никто не отправлял.','Исполнение — очередь: трек начинается, только когда предыдущий получил отметку.'],
     materials:['штампы и степлеры в роли перкуссии','принтер, зажёвывающий бумагу, как бас-партия','шорох бумаги и клавиатур, записанный в открытом офисе','телефонные гудки в ожидании ответа']},
-  'Время':{titles:['Длительность 41:00','Задержка','Отсчёт от нуля','Период полураспада','Без начала','Последние секунды'],
+  'Время':{titles:['Длительность 41:00','Задержка','Отсчёт от нуля','Период полураспада','Без начала','Последние секунды','Секундная стрелка','Часы простоя','Длинная пауза','Запаздывание','Остановка в 4:12','Эпоха и час'],
     premises:['Альбом растянут так, что слушатель успевает заметить смену освещения за окном.','Каждый трек вдвое длиннее предыдущего, и последний не заканчивается.','Музыка идёт по часам, которые не синхронизированы между собой.','Время служит единственным инструментом: все звуки — результат измерения интервалов.'],
     materials:['метроном, уходящий по темпу на 0,3% с каждым повтором','часы с боем в разных помещениях, записанные одновременно','голосовые отсчёты на нескольких языках','тиканье реле, ускоренное до тона']},
-  'Сигнал':{titles:['Несущая частота','Помехи','Эфир без передачи','Шумовой порог','Обратный канал','Приём неуверенный'],
+  'Сигнал':{titles:['Несущая частота','Помехи','Эфир без передачи','Шумовой порог','Обратный канал','Приём неуверенный','Несущая частота','Потеря связи','Шум эфира','Азбука Морзе','Помехи в канале','Слабый приём'],
     premises:['Альбом принимает чужие передачи и не пытается их расшифровать.','Музыка возникает на границе слышимости: чем тише, тем точнее.','Шум трактуется как полноценный материал, а мелодия — как его побочный эффект.','Весь альбом — одна ошибка передачи, повторяемая с вариациями.'],
     materials:['запись между радиостанциями на коротких волнах','белый шум, отфильтрованный до тембров','наводки от телефона на колонки','электромагнитные помехи через индукционный микрофон']},
-  'Руина':{titles:['Недостроенный объект','Фундамент','Пролёт','После вывода персонала','Крыша обрушена','Остаточный объём'],
+  'Руина':{titles:['Недостроенный объект','Фундамент','Пролёт','После вывода персонала','Крыша обрушена','Остаточный объём','Обвал','Фундамент без дома','Следы жильцов','Заросший цех','Лестница в никуда','Остаточный свет'],
     premises:['Альбом записан в здании, которое больше не используется по назначению.','Музыка строится как здание, достроить которое никто не планировал.','Руина воспринимается как инструмент: каждый обвал меняет резонанс.','Тишина покинутого места заполнена не звуками, а остатками звуков.'],
     materials:['импульсные отклики заброшенного цеха','капли воды в бетонных помещениях','скрип ржавых дверей, подстроенный по высоте','кирпичи и арматура, ударяемые в разной последовательности']}
 };
@@ -987,28 +1145,28 @@ const EN_AEST=[
   {k:'Office',tex:'typewriter and 100 Hz lamp hum',proc:'narrow band 300–3400 Hz on background layers.',words:['Form','Dept.','Registry']}
 ];
 const EN_TH=[
-  {k:'Machine',titles:['Idle Run','Metal Fatigue','Limits and Fits','Run to Failure','Hall Without People','Feedback'],
+  {k:'Machine',titles:['Idle Run','Metal Fatigue','Limits and Fits','Run to Failure','Hall Without People','Feedback','Backlash','Cold Start','Load Limit','Repair in Motion','Inspection Day','Cycle Fault'],
     premises:['The album captures the moment a mechanism stops being a tool and becomes a witness.','The music is assembled as a technical datasheet for a machine that never existed.','The machine plays for itself; the operator is present only as interference.','Wear is treated as a compositional device: every repeat sounds slightly worse than the last.'],
     materials:['lathe recordings at three speeds','a hydraulic press captured with contact microphones','server-room fans run through comb filters','the idle noise of a diesel generator']},
-  {k:'Body',titles:['Residual Heat','Pulse Frequency','Anatomy of Silence','Breathing by Count','Skin as Surface','Reflex'],
+  {k:'Body',titles:['Residual Heat','Pulse Frequency','Anatomy of Silence','Breathing by Count','Skin as Surface','Reflex','Resting Pulse','Joint','Thirty-Six Point Six','Breath and Pause','Muscle Memory','Tone'],
     premises:['The body is the only synthesizer: the pulse sets the tempo, the breath sets the form.',"The album measures the performer's fatigue and builds its form from that graph.",'The music is recorded in moments when the listener does not notice their own breathing.','The line between instrument and body is erased: the microphone is attached to the performer, not placed in front.'],
     materials:['a heartbeat recording sped up into the audio range','breathing into a contact mic on the chest',"footsteps in an empty corridor, the rhythm set by the author's walk",'joint clicks assembled into a drum part']},
-  {k:'Archive',titles:['Inventory No. 0','Fund of Lost Recordings','Stored for 25 Years','Catalog Without a Reader','Copy of a Copy','Unaccounted'],
+  {k:'Archive',titles:['Inventory No. 0','Fund of Lost Recordings','Stored for 25 Years','Catalog Without a Reader','Copy of a Copy','Unaccounted','Storage Unit','Reading Room','Faded Ink','List of Seized Items','Microfilm','Forgotten Cipher'],
     premises:['The album is made of what the archive chose not to keep.','Each track is a copy of a copy: every generation keeps less of the original signal.','The music reads catalog cards aloud without understanding them.','The listener receives not a recording but its inventory: what sounded, when, and for how many seconds.'],
     materials:["overwritten cassettes with strangers' voices",'dictaphone recordings with the beginning cut off','the sound of a scanner turning pages','metal filing-cabinet drawers opened at different tempos']},
-  {k:'City',titles:['Night Shift','Transit Zone','Garage Echo','50 Hz Hum','Edge of Town Without a Map','Transfer'],
+  {k:'City',titles:['Night Shift','Transit Zone','Garage Echo','50 Hz Hum','Edge of Town Without a Map','Transfer','Night Shift','Dormitory District','Courtyard Echo','Last Tram','Concrete Summer','Lights in Windows'],
     premises:['The city is heard as one long unfinished track with fragments cut out.','The album is sliced along a night-bus route: every stop is a new scene.','The music is built from sounds citizens stopped hearing long ago.','Infrastructure performs the composition while people sleep.'],
     materials:['transformer-box hum on night streets','stop announcements stretched into a drone','the echo of an underground garage, impulse response','elevator shafts as resonators']},
-  {k:'Bureaucracy',titles:['Incoming No.','Form 27/B','Request Denied','Office Hours','Stamp and Signature','Internal Memo'],
+  {k:'Bureaucracy',titles:['Incoming No.','Form 27/B','Request Denied','Office Hours','Stamp and Signature','Internal Memo','Incoming Number','Approval Chain','Stamp and Signature','Due Date','Reception Hours','Internal Note'],
     premises:['The album is formatted as a document package that can never be submitted whole.','Rhythm is set by stamps: each stamp strike is a fraction of a bar.','The music answers a request nobody sent.','The performance is a queue: a track starts only once the previous one has been stamped.'],
     materials:['stamps and staplers as percussion','a printer chewing paper as the bass part','paper and keyboard rustle recorded in an open-plan office','phone ringing while waiting for an answer']},
-  {k:'Time',titles:['Duration 41:00','Latency','Countdown From Zero','Half-Life','No Beginning','Final Seconds'],
+  {k:'Time',titles:['Duration 41:00','Latency','Countdown From Zero','Half-Life','No Beginning','Final Seconds','Second Hand','Idle Hours','Long Pause','Latency','Stopped at 4:12','Era and Hour'],
     premises:['The album is stretched so far that the listener has time to notice the light changing outside.','Each track is twice as long as the last, and the final one never ends.','The music runs on clocks that are not synchronized with each other.','Time is the only instrument: every sound results from measuring intervals.'],
     materials:['a metronome drifting 0.3% in tempo with every repeat','chiming clocks in different rooms, recorded simultaneously','voice countdowns in several languages','relay ticking sped up into a tone']},
-  {k:'Signal',titles:['Carrier Frequency','Interference','Empty Airwaves','Noise Threshold','Return Channel','Uncertain Reception'],
+  {k:'Signal',titles:['Carrier Frequency','Interference','Empty Airwaves','Noise Threshold','Return Channel','Uncertain Reception','Carrier Frequency','Lost Contact','Ether Noise','Morse Code','Channel Interference','Weak Reception'],
     premises:["The album receives other people's transmissions and does not try to decode them.",'The music appears at the edge of audibility: the quieter, the more precise.','Noise is treated as full material, and melody as its side effect.','The whole album is a single transmission error, repeated with variations.'],
     materials:['a recording between stations on shortwave','white noise filtered into timbres','phone interference leaking into speakers','electromagnetic interference through an induction mic']},
-  {k:'Ruin',titles:['Unfinished Site','Foundation','Span','After the Staff Left','Collapsed Roof','Residual Volume'],
+  {k:'Ruin',titles:['Unfinished Site','Foundation','Span','After the Staff Left','Collapsed Roof','Residual Volume','Collapse','Foundation Without a House','Traces of Tenants','Overgrown Workshop','Staircase to Nowhere','Residual Light'],
     premises:['The album is recorded in a building no longer used for its purpose.','The music is built like a building nobody plans to finish.','The ruin is treated as an instrument: every collapse changes the resonance.','The silence of an abandoned place is filled not with sounds but with the remains of sounds.'],
     materials:['impulse responses of an abandoned workshop','water drops in concrete rooms','creaking rusty doors tuned by pitch','bricks and rebar struck in varying order']}
 ];
@@ -1204,28 +1362,28 @@ aest:[
  {k:'Oficina',tex:'máquina de escribir y zumbido de lámpara a 100 Hz',proc:'banda estrecha 300–3400 Hz en las capas de fondo.',words:['Formulario','Depto.','Registro']}
 ],
 th:[
- {k:'Máquina',titles:['Marcha en vacío','Fatiga del metal','Ajustes y tolerancias','Marcha hasta el fallo','Nave sin gente','Realimentación'],
+ {k:'Máquina',titles:['Marcha en vacío','Fatiga del metal','Ajustes y tolerancias','Marcha hasta el fallo','Nave sin gente','Realimentación','Holgura','Arranque en frío','Carga límite','Reparación en marcha','Día de inspección','Fallo de ciclo'],
   premises:['El álbum capta el instante en que un mecanismo deja de ser herramienta y se vuelve testigo.','La música se monta como una ficha técnica de una máquina que nunca existió.','La máquina toca para sí misma; el operador solo está presente como interferencia.','El desgaste se usa como recurso compositivo: cada repetición suena un poco peor que la anterior.'],
   materials:['grabaciones de un torno a tres velocidades','una prensa hidráulica captada con micrófonos de contacto','ventiladores de sala de servidores pasados por filtros de peine','el ruido en ralentí de un generador diésel']},
- {k:'Cuerpo',titles:['Calor residual','Frecuencia del pulso','Anatomía del silencio','Respirar contando','La piel como superficie','Reflejo'],
+ {k:'Cuerpo',titles:['Calor residual','Frecuencia del pulso','Anatomía del silencio','Respirar contando','La piel como superficie','Reflejo','Pulso en reposo','Articulación','Treinta y seis con seis','Inhalar y pausa','Memoria muscular','Tono'],
   premises:['El cuerpo es el único sintetizador: el pulso marca el tempo, la respiración marca la forma.','El álbum mide el cansancio del intérprete y construye su forma a partir de esa gráfica.','La música se graba en momentos en que el oyente no nota su propia respiración.','Se borra la frontera entre instrumento y cuerpo: el micrófono va sujeto al intérprete, no delante.'],
   materials:['latido grabado y acelerado hasta el rango audible','respiración sobre un micrófono de contacto en el pecho','pasos en un pasillo vacío, con el ritmo marcado por el andar del autor','chasquidos de articulaciones montados como parte de batería']},
- {k:'Archivo',titles:['Inventario n.º 0','Fondo de grabaciones perdidas','Conservado 25 años','Catálogo sin lector','Copia de una copia','Sin registrar'],
+ {k:'Archivo',titles:['Inventario n.º 0','Fondo de grabaciones perdidas','Conservado 25 años','Catálogo sin lector','Copia de una copia','Sin registrar','Unidad de conservación','Sala de lectura','Tinta descolorida','Lista de lo incautado','Microfilm','Cifra olvidada'],
   premises:['El álbum está hecho de lo que el archivo decidió no conservar.','Cada pista es una copia de una copia: cada generación conserva menos de la señal original.','La música lee en voz alta fichas de catálogo sin entenderlas.','El oyente recibe no una grabación sino su inventario: qué sonó, cuándo y durante cuántos segundos.'],
   materials:['casetes regrabados con voces de desconocidos','grabaciones de dictáfono sin el principio','el sonido de un escáner pasando páginas','cajones metálicos de archivador abiertos a distintos tempos']},
- {k:'Ciudad',titles:['Turno de noche','Zona de tránsito','Eco de garaje','Zumbido de 50 Hz','Afueras sin mapa','Transbordo'],
+ {k:'Ciudad',titles:['Turno de noche','Zona de tránsito','Eco de garaje','Zumbido de 50 Hz','Afueras sin mapa','Transbordo','Turno de noche','Barrio dormitorio','Eco del patio','Último tranvía','Verano de hormigón','Luz en las ventanas'],
   premises:['La ciudad se oye como una larga pista inacabada con fragmentos recortados.','El álbum se corta a lo largo de la ruta de un autobús nocturno: cada parada es una escena nueva.','La música se construye con sonidos que los ciudadanos dejaron de oír hace tiempo.','La infraestructura interpreta la composición mientras la gente duerme.'],
   materials:['zumbido de cajas de transformadores en calles nocturnas','avisos de parada estirados hasta un drone','el eco de un garaje subterráneo, respuesta al impulso','huecos de ascensor como resonadores']},
- {k:'Burocracia',titles:['Entrada n.º','Formulario 27/B','Solicitud denegada','Horario de atención','Sello y firma','Nota interna'],
+ {k:'Burocracia',titles:['Entrada n.º','Formulario 27/B','Solicitud denegada','Horario de atención','Sello y firma','Nota interna','Número de entrada','Cadena de aprobación','Sello y firma','Plazo de ejecución','Día de atención','Nota interna'],
   premises:['El álbum se presenta como un expediente que nunca podrá entregarse completo.','El ritmo lo marcan los sellos: cada golpe de sello es una fracción de compás.','La música responde a una solicitud que nadie envió.','La actuación es una cola: una pista empieza solo cuando la anterior ha sido sellada.'],
   materials:['sellos y grapadoras como percusión','una impresora masticando papel como línea de bajo','crujido de papel y teclados grabado en una oficina abierta','teléfono sonando mientras se espera respuesta']},
- {k:'Tiempo',titles:['Duración 41:00','Latencia','Cuenta atrás desde cero','Vida media','Sin comienzo','Últimos segundos'],
+ {k:'Tiempo',titles:['Duración 41:00','Latencia','Cuenta atrás desde cero','Vida media','Sin comienzo','Últimos segundos','Segundero','Horas muertas','Pausa larga','Latencia','Parado a las 4:12','Época y hora'],
   premises:['El álbum se estira tanto que el oyente tiene tiempo de notar cómo cambia la luz afuera.','Cada pista dura el doble que la anterior, y la última no termina nunca.','La música funciona con relojes que no están sincronizados entre sí.','El tiempo es el único instrumento: cada sonido resulta de medir intervalos.'],
   materials:['un metrónomo que deriva un 0,3 % de tempo en cada repetición','relojes de carillón en distintas habitaciones, grabados a la vez','cuentas atrás habladas en varios idiomas','chasquido de relés acelerado hasta un tono']},
- {k:'Señal',titles:['Frecuencia portadora','Interferencia','Ondas vacías','Umbral de ruido','Canal de retorno','Recepción incierta'],
+ {k:'Señal',titles:['Frecuencia portadora','Interferencia','Ondas vacías','Umbral de ruido','Canal de retorno','Recepción incierta','Frecuencia portadora','Contacto perdido','Ruido del éter','Código Morse','Interferencia en el canal','Recepción débil'],
   premises:['El álbum recibe transmisiones ajenas y no intenta descifrarlas.','La música aparece en el límite de lo audible: cuanto más bajo, más preciso.','El ruido se trata como material completo y la melodía como su efecto secundario.','Todo el álbum es un único error de transmisión, repetido con variaciones.'],
   materials:['grabación entre emisoras en onda corta','ruido blanco filtrado hasta formar timbres','interferencias de teléfono que se cuelan en los altavoces','interferencia electromagnética captada con un micrófono de inducción']},
- {k:'Ruina',titles:['Obra inacabada','Cimientos','Tramo','Tras la marcha del personal','Techo derrumbado','Volumen residual'],
+ {k:'Ruina',titles:['Obra inacabada','Cimientos','Tramo','Tras la marcha del personal','Techo derrumbado','Volumen residual','Derrumbe','Cimientos sin casa','Huellas de inquilinos','Taller cubierto de maleza','Escalera a ninguna parte','Luz residual'],
   premises:['El álbum se graba en un edificio que ya no se usa para su propósito.','La música se construye como un edificio que nadie piensa terminar.','La ruina se trata como instrumento: cada derrumbe cambia la resonancia.','El silencio de un lugar abandonado se llena no de sonidos sino de restos de sonidos.'],
   materials:['respuestas al impulso de un taller abandonado','gotas de agua en salas de hormigón','puertas oxidadas que chirrían, afinadas por altura','ladrillos y armaduras golpeados en orden variable']}
 ],
@@ -1278,28 +1436,28 @@ aest:[
  {k:'Büro',tex:'Schreibmaschine und Lampenbrummen bei 100 Hz',proc:'schmales Band 300–3400 Hz auf Hintergrundebenen.',words:['Formular','Abteilung','Register']}
 ],
 th:[
- {k:'Maschine',titles:['Leerlauf','Metallermüdung','Toleranzen und Passungen','Lauf bis zum Ausfall','Halle ohne Menschen','Rückkopplung'],
+ {k:'Maschine',titles:['Leerlauf','Metallermüdung','Toleranzen und Passungen','Lauf bis zum Ausfall','Halle ohne Menschen','Rückkopplung','Spiel','Kaltstart','Grenzlast','Reparatur im Lauf','Prüftag','Zyklusfehler'],
   premises:['Das Album hält den Moment fest, in dem ein Mechanismus aufhört, Werkzeug zu sein, und zum Zeugen wird.','Die Musik ist wie ein technisches Datenblatt für eine Maschine gebaut, die es nie gab.','Die Maschine spielt für sich selbst; der Bediener ist nur als Störgeräusch anwesend.','Verschleiß dient als Kompositionsmittel: jede Wiederholung klingt etwas schlechter als die vorige.'],
   materials:['Drehbank-Aufnahmen bei drei Drehzahlen','eine hydraulische Presse, mit Kontaktmikrofonen aufgenommen','Serverraum-Lüfter durch Kammfilter geschickt','das Leerlaufgeräusch eines Dieselgenerators']},
- {k:'Körper',titles:['Restwärme','Pulsfrequenz','Anatomie der Stille','Atmen nach Zählen','Haut als Oberfläche','Reflex'],
+ {k:'Körper',titles:['Restwärme','Pulsfrequenz','Anatomie der Stille','Atmen nach Zählen','Haut als Oberfläche','Reflex','Ruhepuls','Gelenk','Sechsunddreißig Komma sechs','Atem und Pause','Muskelgedächtnis','Spannung'],
   premises:['Der Körper ist der einzige Synthesizer: der Puls gibt das Tempo vor, der Atem die Form.','Das Album misst die Ermüdung des Interpreten und baut seine Form aus dieser Kurve.','Die Musik wird in Momenten aufgenommen, in denen der Hörer seinen eigenen Atem nicht bemerkt.','Die Grenze zwischen Instrument und Körper wird getilgt: das Mikrofon hängt am Interpreten, nicht davor.'],
   materials:['ein Herzschlag, bis in den Audiobereich beschleunigt','Atmen in ein Kontaktmikrofon auf der Brust','Schritte in einem leeren Flur, der Rhythmus vom Gang des Autors bestimmt','Gelenkknacken, zu einem Schlagzeugpart montiert']},
- {k:'Archiv',titles:['Inventar Nr. 0','Bestand verlorener Aufnahmen','25 Jahre gelagert','Katalog ohne Leser','Kopie einer Kopie','Nicht erfasst'],
+ {k:'Archiv',titles:['Inventar Nr. 0','Bestand verlorener Aufnahmen','25 Jahre gelagert','Katalog ohne Leser','Kopie einer Kopie','Nicht erfasst','Aufbewahrungseinheit','Lesesaal','Verblasste Tinte','Liste des Beschlagnahmten','Mikrofilm','Vergessene Chiffre'],
   premises:['Das Album besteht aus dem, was das Archiv nicht behalten wollte.','Jeder Track ist die Kopie einer Kopie: jede Generation bewahrt weniger vom Originalsignal.','Die Musik liest Katalogkarten laut vor, ohne sie zu verstehen.','Der Hörer erhält nicht eine Aufnahme, sondern ihr Inventar: was klang, wann und wie viele Sekunden lang.'],
   materials:['überspielte Kassetten mit fremden Stimmen','Diktiergerät-Aufnahmen ohne Anfang','das Geräusch eines Scanners, der Seiten umblättert','Metallschubladen eines Aktenschranks, in verschiedenen Tempi geöffnet']},
- {k:'Stadt',titles:['Nachtschicht','Transitzone','Garagenecho','50-Hz-Brummen','Stadtrand ohne Karte','Umstieg'],
+ {k:'Stadt',titles:['Nachtschicht','Transitzone','Garagenecho','50-Hz-Brummen','Stadtrand ohne Karte','Umstieg','Nachtschicht','Schlafstadt','Hofecho','Letzte Straßenbahn','Betonsommer','Licht in den Fenstern'],
   premises:['Die Stadt wird als ein langer unfertiger Track mit herausgeschnittenen Fragmenten gehört.','Das Album ist entlang der Route eines Nachtbusses geschnitten: jede Haltestelle ist eine neue Szene.','Die Musik besteht aus Geräuschen, die die Bewohner längst nicht mehr hören.','Die Infrastruktur führt die Komposition auf, während die Menschen schlafen.'],
   materials:['Trafohäuschen-Brummen in nächtlichen Straßen','Haltestellenansagen, zu einem Drone gedehnt','das Echo einer Tiefgarage, Impulsantwort','Aufzugsschächte als Resonatoren']},
- {k:'Bürokratie',titles:['Eingang Nr.','Formular 27/B','Antrag abgelehnt','Sprechzeiten','Stempel und Unterschrift','Hausmitteilung'],
+ {k:'Bürokratie',titles:['Eingang Nr.','Formular 27/B','Antrag abgelehnt','Sprechzeiten','Stempel und Unterschrift','Hausmitteilung','Eingangsnummer','Freigabekette','Stempel und Unterschrift','Frist','Sprechstunde','Dienstnotiz'],
   premises:['Das Album ist als Aktenpaket gestaltet, das sich nie vollständig einreichen lässt.','Den Rhythmus geben die Stempel vor: jeder Stempelschlag ist ein Bruchteil eines Taktes.','Die Musik antwortet auf einen Antrag, den niemand gestellt hat.','Die Aufführung ist eine Warteschlange: ein Track beginnt erst, wenn der vorige abgestempelt ist.'],
   materials:['Stempel und Tacker als Percussion','ein Drucker, der Papier kaut, als Basspart','Papier- und Tastaturrascheln, im Großraumbüro aufgenommen','Telefonklingeln beim Warten auf eine Antwort']},
- {k:'Zeit',titles:['Dauer 41:00','Latenz','Countdown von Null','Halbwertszeit','Ohne Anfang','Letzte Sekunden'],
+ {k:'Zeit',titles:['Dauer 41:00','Latenz','Countdown von Null','Halbwertszeit','Ohne Anfang','Letzte Sekunden','Sekundenzeiger','Leerlaufstunden','Lange Pause','Latenz','Stehengeblieben um 4:12','Epoche und Stunde'],
   premises:['Das Album ist so weit gedehnt, dass der Hörer bemerkt, wie sich draußen das Licht verändert.','Jeder Track ist doppelt so lang wie der vorige, und der letzte endet nie.','Die Musik läuft auf Uhren, die nicht miteinander synchronisiert sind.','Zeit ist das einzige Instrument: jeder Klang entsteht aus dem Messen von Intervallen.'],
   materials:['ein Metronom, das bei jeder Wiederholung um 0,3 % im Tempo abdriftet','Schlaguhren in verschiedenen Räumen, gleichzeitig aufgenommen','gesprochene Countdowns in mehreren Sprachen','Relaisticken, zu einem Ton beschleunigt']},
- {k:'Signal',titles:['Trägerfrequenz','Interferenz','Leerer Äther','Rauschschwelle','Rückkanal','Unsicherer Empfang'],
+ {k:'Signal',titles:['Trägerfrequenz','Interferenz','Leerer Äther','Rauschschwelle','Rückkanal','Unsicherer Empfang','Trägerfrequenz','Verbindung verloren','Ätherrauschen','Morsezeichen','Störung im Kanal','Schwacher Empfang'],
   premises:['Das Album empfängt fremde Sendungen und versucht nicht, sie zu entschlüsseln.','Die Musik erscheint an der Grenze der Hörbarkeit: je leiser, desto präziser.','Rauschen gilt als vollwertiges Material und Melodie als sein Nebeneffekt.','Das ganze Album ist ein einziger Übertragungsfehler, mit Variationen wiederholt.'],
   materials:['eine Aufnahme zwischen Kurzwellensendern','weißes Rauschen, zu Klangfarben gefiltert','Telefonstörungen, die in die Lautsprecher dringen','elektromagnetische Störungen über ein Induktionsmikrofon']},
- {k:'Ruine',titles:['Unvollendete Baustelle','Fundament','Spannweite','Nach dem Abzug des Personals','Eingestürztes Dach','Restvolumen'],
+ {k:'Ruine',titles:['Unvollendete Baustelle','Fundament','Spannweite','Nach dem Abzug des Personals','Eingestürztes Dach','Restvolumen','Einsturz','Fundament ohne Haus','Spuren der Mieter','Überwucherte Werkhalle','Treppe ins Nichts','Restlicht'],
   premises:['Das Album ist in einem Gebäude aufgenommen, das nicht mehr seinem Zweck dient.','Die Musik ist gebaut wie ein Haus, das niemand fertigstellen will.','Die Ruine gilt als Instrument: jeder Einsturz verändert die Resonanz.','Die Stille eines verlassenen Ortes wird nicht mit Klängen gefüllt, sondern mit Klangresten.'],
   materials:['Impulsantworten einer verlassenen Werkstatt','Wassertropfen in Betonräumen','knarrende rostige Türen, nach Tonhöhe gestimmt','Ziegel und Bewehrung, in wechselnder Reihenfolge angeschlagen']}
 ],
@@ -1352,28 +1510,28 @@ aest:[
  {k:'Bureau',tex:'machine à écrire et ronflement de lampe à 100 Hz',proc:'bande étroite 300–3400 Hz sur les couches de fond.',words:['Formulaire','Service','Registre']}
 ],
 th:[
- {k:'Machine',titles:['Marche à vide','Fatigue du métal','Ajustements et tolérances','Marche jusqu’à la panne','Hall sans personne','Rétroaction'],
+ {k:'Machine',titles:['Marche à vide','Fatigue du métal','Ajustements et tolérances','Marche jusqu’à la panne','Hall sans personne','Rétroaction','Jeu','Démarrage à froid','Charge limite','Réparation en marche','Jour d’inspection','Défaut de cycle'],
   premises:['L’album saisit l’instant où un mécanisme cesse d’être un outil pour devenir un témoin.','La musique est montée comme la fiche technique d’une machine qui n’a jamais existé.','La machine joue pour elle-même ; l’opérateur n’est présent qu’en tant que parasite.','L’usure est traitée comme procédé de composition : chaque répétition sonne un peu moins bien que la précédente.'],
   materials:['enregistrements d’un tour à trois vitesses','une presse hydraulique captée avec des micros de contact','ventilateurs de salle serveur passés dans des filtres en peigne','le bruit au ralenti d’un groupe électrogène diesel']},
- {k:'Corps',titles:['Chaleur résiduelle','Fréquence du pouls','Anatomie du silence','Respirer en comptant','La peau comme surface','Réflexe'],
+ {k:'Corps',titles:['Chaleur résiduelle','Fréquence du pouls','Anatomie du silence','Respirer en comptant','La peau comme surface','Réflexe','Pouls au repos','Articulation','Trente-six virgule six','Inspirer et pause','Mémoire musculaire','Tonus'],
   premises:['Le corps est le seul synthétiseur : le pouls fixe le tempo, le souffle fixe la forme.','L’album mesure la fatigue de l’interprète et construit sa forme à partir de cette courbe.','La musique est enregistrée à des moments où l’auditeur ne remarque pas sa propre respiration.','La frontière entre instrument et corps est effacée : le micro est fixé sur l’interprète, pas placé devant.'],
   materials:['un battement de cœur accéléré jusqu’au domaine audible','respiration dans un micro de contact posé sur la poitrine','pas dans un couloir vide, le rythme dicté par la marche de l’auteur','craquements d’articulations montés en partie de batterie']},
- {k:'Archive',titles:['Inventaire n° 0','Fonds d’enregistrements perdus','Conservé 25 ans','Catalogue sans lecteur','Copie d’une copie','Non comptabilisé'],
+ {k:'Archive',titles:['Inventaire n° 0','Fonds d’enregistrements perdus','Conservé 25 ans','Catalogue sans lecteur','Copie d’une copie','Non comptabilisé','Unité de conservation','Salle de lecture','Encre pâlie','Liste des saisies','Microfilm','Chiffre oublié'],
   premises:['L’album est fait de ce que l’archive a choisi de ne pas garder.','Chaque piste est la copie d’une copie : chaque génération conserve moins du signal d’origine.','La musique lit à voix haute des fiches de catalogue sans les comprendre.','L’auditeur reçoit non pas un enregistrement mais son inventaire : ce qui a sonné, quand et pendant combien de secondes.'],
   materials:['cassettes réenregistrées avec des voix d’inconnus','enregistrements de dictaphone dont le début est coupé','le bruit d’un scanner qui tourne les pages','tiroirs métalliques de classeur ouverts à différents tempos']},
- {k:'Ville',titles:['Équipe de nuit','Zone de transit','Écho de garage','Ronflement à 50 Hz','Lisière sans carte','Correspondance'],
+ {k:'Ville',titles:['Équipe de nuit','Zone de transit','Écho de garage','Ronflement à 50 Hz','Lisière sans carte','Correspondance','Poste de nuit','Cité dortoir','Écho de la cour','Dernier tramway','Été de béton','Lumières aux fenêtres'],
   premises:['La ville s’écoute comme une longue piste inachevée dont des fragments ont été coupés.','L’album est découpé le long du trajet d’un bus de nuit : chaque arrêt est une nouvelle scène.','La musique est bâtie avec des sons que les citadins n’entendent plus depuis longtemps.','L’infrastructure joue la composition pendant que les gens dorment.'],
   materials:['ronflement de postes de transformation dans les rues la nuit','annonces d’arrêt étirées en un drone','l’écho d’un parking souterrain, réponse impulsionnelle','cages d’ascenseur utilisées comme résonateurs']},
- {k:'Bureaucratie',titles:['Courrier arrivée n°','Formulaire 27/B','Demande rejetée','Heures de réception','Tampon et signature','Note de service'],
+ {k:'Bureaucratie',titles:['Courrier arrivée n°','Formulaire 27/B','Demande rejetée','Heures de réception','Tampon et signature','Note de service','Numéro d’entrée','Circuit de validation','Cachet et signature','Délai d’exécution','Jour de réception','Note de service'],
   premises:['L’album est présenté comme un dossier qui ne pourra jamais être déposé en entier.','Le rythme est donné par les tampons : chaque coup de tampon est une fraction de mesure.','La musique répond à une demande que personne n’a envoyée.','La performance est une file d’attente : une piste ne démarre que lorsque la précédente a été tamponnée.'],
   materials:['tampons et agrafeuses en guise de percussions','une imprimante qui mâche le papier comme ligne de basse','froissements de papier et de claviers enregistrés dans un open space','téléphone qui sonne en attendant une réponse']},
- {k:'Temps',titles:['Durée 41:00','Latence','Compte à rebours depuis zéro','Demi-vie','Sans début','Dernières secondes'],
+ {k:'Temps',titles:['Durée 41:00','Latence','Compte à rebours depuis zéro','Demi-vie','Sans début','Dernières secondes','Trotteuse','Heures creuses','Longue pause','Latence','Arrêté à 4 h 12','Époque et heure'],
   premises:['L’album est étiré au point que l’auditeur a le temps de voir la lumière changer dehors.','Chaque piste dure deux fois plus que la précédente, et la dernière ne finit jamais.','La musique tourne sur des horloges qui ne sont pas synchronisées entre elles.','Le temps est le seul instrument : chaque son résulte de la mesure d’intervalles.'],
   materials:['un métronome dont le tempo dérive de 0,3 % à chaque répétition','horloges à carillon dans différentes pièces, enregistrées simultanément','comptes à rebours parlés en plusieurs langues','cliquetis de relais accéléré jusqu’à devenir une note']},
- {k:'Signal',titles:['Fréquence porteuse','Interférence','Ondes vides','Seuil de bruit','Voie de retour','Réception incertaine'],
+ {k:'Signal',titles:['Fréquence porteuse','Interférence','Ondes vides','Seuil de bruit','Voie de retour','Réception incertaine','Fréquence porteuse','Contact perdu','Bruit de l’éther','Code Morse','Interférence sur le canal','Réception faible'],
   premises:['L’album capte des émissions étrangères et n’essaie pas de les décoder.','La musique apparaît à la limite de l’audible : plus c’est faible, plus c’est précis.','Le bruit est traité comme un matériau à part entière, et la mélodie comme son effet secondaire.','L’album entier est une seule erreur de transmission, répétée avec des variations.'],
   materials:['un enregistrement entre deux stations sur ondes courtes','bruit blanc filtré en timbres','parasites téléphoniques fuyant dans les haut-parleurs','interférences électromagnétiques captées par un micro à induction']},
- {k:'Ruine',titles:['Chantier inachevé','Fondation','Travée','Après le départ du personnel','Toit effondré','Volume résiduel'],
+ {k:'Ruine',titles:['Chantier inachevé','Fondation','Travée','Après le départ du personnel','Toit effondré','Volume résiduel','Effondrement','Fondations sans maison','Traces des locataires','Atelier envahi','Escalier vers nulle part','Lumière résiduelle'],
   premises:['L’album est enregistré dans un bâtiment qui n’a plus sa fonction d’origine.','La musique est construite comme un édifice que personne ne compte terminer.','La ruine est traitée comme un instrument : chaque effondrement change la résonance.','Le silence d’un lieu abandonné est rempli non de sons mais de restes de sons.'],
   materials:['réponses impulsionnelles d’un atelier abandonné','gouttes d’eau dans des salles en béton','portes rouillées qui grincent, accordées par hauteur','briques et armatures frappées dans un ordre variable']}
 ],
@@ -1554,6 +1712,26 @@ I18N.fr={
   snd_on:'Son : activé',snd_off:'Son : coupé',kbd:'Touches : 1–3 modules · G générer · M son'
 };
 
+Object.assign(I18N.ru,{"sv_t": "Сохранённое", "sv_save": "Сохранить", "sv_ok": "Сохранено", "sv_dup": "Уже сохранено", "sv_empty": "Пока пусто. Нажмите «Сохранить» под результатом.", "sv_copy": "Копировать", "sv_del": "Удалить", "sv_clr": "Очистить всё", "sv_clr_q": "Удалить всё сохранённое?", "sv_k_vibe": "Вайб", "sv_k_names": "Имена", "sv_k_tracks": "Треклист", "sv_k_concept": "Концепт", "lk_on": "Зафиксировано", "lk_off": "Зафиксировать"});
+Object.assign(I18N.en,{"sv_t": "Saved", "sv_save": "Save", "sv_ok": "Saved", "sv_dup": "Already saved", "sv_empty": "Nothing here yet. Press “Save” under a result.", "sv_copy": "Copy", "sv_del": "Delete", "sv_clr": "Clear all", "sv_clr_q": "Delete everything saved?", "sv_k_vibe": "Vibe", "sv_k_names": "Names", "sv_k_tracks": "Tracklist", "sv_k_concept": "Concept", "lk_on": "Locked", "lk_off": "Lock"});
+Object.assign(I18N.es,{"sv_t": "Guardado", "sv_save": "Guardar", "sv_ok": "Guardado", "sv_dup": "Ya guardado", "sv_empty": "Aún no hay nada. Pulsa «Guardar» bajo un resultado.", "sv_copy": "Copiar", "sv_del": "Borrar", "sv_clr": "Borrar todo", "sv_clr_q": "¿Borrar todo lo guardado?", "sv_k_vibe": "Vibe", "sv_k_names": "Nombres", "sv_k_tracks": "Tracklist", "sv_k_concept": "Concepto", "lk_on": "Fijado", "lk_off": "Fijar"});
+Object.assign(I18N.de,{"sv_t": "Gespeichert", "sv_save": "Speichern", "sv_ok": "Gespeichert", "sv_dup": "Schon gespeichert", "sv_empty": "Noch leer. Unter einem Ergebnis auf „Speichern“ tippen.", "sv_copy": "Kopieren", "sv_del": "Löschen", "sv_clr": "Alles löschen", "sv_clr_q": "Alles Gespeicherte löschen?", "sv_k_vibe": "Vibe", "sv_k_names": "Namen", "sv_k_tracks": "Tracklist", "sv_k_concept": "Konzept", "lk_on": "Fixiert", "lk_off": "Fixieren"});
+Object.assign(I18N.fr,{"sv_t": "Enregistré", "sv_save": "Enregistrer", "sv_ok": "Enregistré", "sv_dup": "Déjà enregistré", "sv_empty": "Rien pour l’instant. Touchez « Enregistrer » sous un résultat.", "sv_copy": "Copier", "sv_del": "Supprimer", "sv_clr": "Tout effacer", "sv_clr_q": "Supprimer tout ce qui est enregistré ?", "sv_k_vibe": "Vibe", "sv_k_names": "Noms", "sv_k_tracks": "Tracklist", "sv_k_concept": "Concept", "lk_on": "Verrouillé", "lk_off": "Verrouiller"});
+Object.assign(I18N.ru,{"ns_cos": "Космос", "ns_tape": "Плёнка"});
+Object.assign(I18N.en,{"ns_cos": "Cosmos", "ns_tape": "Tape"});
+Object.assign(I18N.es,{"ns_cos": "Cosmos", "ns_tape": "Cinta"});
+Object.assign(I18N.de,{"ns_cos": "Kosmos", "ns_tape": "Band"});
+Object.assign(I18N.fr,{"ns_cos": "Cosmos", "ns_tape": "Bande"});
+Object.assign(I18N.ru,{"fd_show": "Развернуть", "fd_hide": "Свернуть"});
+Object.assign(I18N.en,{"fd_show": "Expand", "fd_hide": "Collapse"});
+Object.assign(I18N.es,{"fd_show": "Desplegar", "fd_hide": "Plegar"});
+Object.assign(I18N.de,{"fd_show": "Ausklappen", "fd_hide": "Einklappen"});
+Object.assign(I18N.fr,{"fd_show": "Déplier", "fd_hide": "Replier"});
+Object.assign(I18N.ru,{fid_close:'Закрыть',fid_hint:'крути · щёлкай'});
+Object.assign(I18N.en,{fid_close:'Close',fid_hint:'spin · click'});
+Object.assign(I18N.es,{fid_close:'Cerrar',fid_hint:'gira · pulsa'});
+Object.assign(I18N.de,{fid_close:'Schließen',fid_hint:'drehen · klicken'});
+Object.assign(I18N.fr,{fid_close:'Fermer',fid_hint:'tourne · clique'});
 function t(k,v){
   let s=(I18N[LANG]||I18N.en)[k];if(s==null)s=I18N.en[k];if(s==null)s=k;
   return v?s.replace(/\{(\w+)\}/g,(_,n)=>v[n]):s;
@@ -1564,7 +1742,9 @@ const state={
   mode:'vibe',genre:'tech',fam:'dark',bpm:134,emos:['тревога','холод'],aest:'Бетон',count:0,vn:0,vibe:null,
   names:{style:'ind',lang:'MIX',form:'pair',list:[],pins:[]},
   trackN:8,tn:0,album:'',tracks:[],
-  concept:{themes:['Машина','Время'],tone:'p',level:3,id:0,f:{}}
+  concept:{themes:['Машина','Время'],tone:'p',level:3,id:0,f:{}},
+  lock:{harm:false,inst:false,title:false},
+  fold:{struct:false,char:true,mix:true}
 };
 
 /* ---------- animation helpers ---------- */
@@ -1607,6 +1787,7 @@ async function copyText(txt){
     toast(ok?t('ok_copy'):t('fail_copy'));
   }catch(e){toast(t('fail_copy'));}
 }
+const stickH=()=>{const s=$('.stick');return s&&getComputedStyle(s).position==='sticky'?s.offsetHeight:0;};
 let busy=false;
 function fire(btn,out,fn,afterScroll=true){
   if(busy)return;busy=true;
@@ -1626,7 +1807,7 @@ function fire(btn,out,fn,afterScroll=true){
     if(out)out.classList.remove('busy');
     if(afterScroll&&out){
       const top=out.getBoundingClientRect().top;
-      if(top>innerHeight*.6||top<$('.stick').offsetHeight)window.scrollTo({top:Math.max(0,scrollY+top-12-$('.stick').offsetHeight),behavior:RM?'auto':'smooth'});
+      if(top>innerHeight*.6||top<stickH())window.scrollTo({top:Math.max(0,scrollY+top-12-stickH()),behavior:RM?'auto':'smooth'});
     }
   },RM?0:240);
   setTimeout(()=>{
@@ -1677,21 +1858,27 @@ function buildVibe(){
   const ae=AEST[state.aest];
   const cand=g.modes.slice();
   emos.forEach(e=>EMO[e].modes.forEach(m=>{if(g.modes.includes(m))cand.push(m,m);}));
-  const modeId=pick(cand),mode=MODES[modeId],root=rnd(12);
+  const LK=state.lock,pv=state.vibe,hk=LK.harm&&pv&&pv.progDeg;
+  const modeId=hk?pv.modeId:pick(cand),mode=MODES[modeId],root=hk?pv.root:rnd(12);
   const scale=mode.iv.map(i=>(root+i)%12);
-  const prog=pick(PROGS).map(d=>chordAt(scale,d,g.ext));
-  const inst={d:pickN(g.d,2),b:pickN(g.b,1),h:pickN(g.h,1),t:[pick(g.t),ae.tex],l:pickN(g.l,1)};
+  const progDeg=hk?pv.progDeg:pick(PROGS);
+  const prog=progDeg.map(d=>chordAt(scale,d,g.ext));
+  const inst=LK.inst&&pv&&pv.g.id===g.id?pv.inst:{d:pickN(g.d,2),b:pickN(g.b,1),h:pickN(g.h,1),t:[pick(g.t),ae.tex],l:pickN(g.l,1)};
   const spb=240/bpm;let acc=0;
   const form=FORMS[g.form].map(([nm,bars,tpl])=>{
     const t0=acc*spb;acc+=bars;
     return {nm,bars,t0,t1:acc*spb,desc:tpl.replace(/\{(\w)\}/g,(_,k)=>inst[k][0])};
   });
-  const title=pick(ae.words)+' / '+pick(EMO[pick(emos)].words);
+  const title=LK.title&&pv?pv.title:pick(ae.words)+' / '+pick(EMO[pick(emos)].words);
   state.vn++;
-  return {n:state.vn,g,bpm,emos,aest:state.aest,ae,keyName:NOTES[root]+' '+MODEN[modeId],scale,prog,inst,form,total:acc*spb,totalBars:acc,
+  return {n:state.vn,g,bpm,emos,aest:state.aest,ae,keyName:NOTES[root]+' '+MODEN[modeId],root,modeId,progDeg,scale,prog,inst,form,total:acc*spb,totalBars:acc,
     mix:mixRows(g,bpm,emos),title};
 }
 function kvRow(k,v,mono){return '<div class="kv"><span class="k">'+esc(k)+'</span><div class="v'+(mono?' m':'')+'">'+v+'</div></div>';}
+function lkBtn(k){const on=state.lock[k];return '<button class="lk" data-a="lock" data-v="'+k+'" aria-pressed="'+on+'" aria-label="'+esc(t(on?'lk_on':'lk_off'))+'">'+(on?IC.lock:IC.unlock)+'</button>';}
+function saveBtn(k){return '<button class="key sv" data-a="save" data-v="'+k+'">'+IC.save+t('sv_save')+'</button>';}
+function fdCap(k,label){const o=!state.fold[k];return '<button class="cap capb" data-a="fold" data-v="'+k+'" aria-expanded="'+o+'" aria-label="'+esc(label+': '+t(o?'fd_hide':'fd_show'))+'" type="button"><span>'+label+'</span><i>'+IC.chev+'</i></button>';}
+function fb(k,inner){return '<div class="fb"'+(state.fold[k]?' hidden':'')+'>'+inner+'</div>';}
 function vibeHTML(d){
   const maxBars=Math.max(...d.form.map(f=>f.bars));
   const strip=d.form.map((f,i)=>'<div style="flex:'+f.bars+'"><i style="--i:'+i+'"></i></div>').join('');
@@ -1704,24 +1891,24 @@ function vibeHTML(d){
   const chars=d.emos.map(e=>kvRow(e,'<span class="wipe">'+esc(EMO[e].note)+'</span>')).join('')+kvRow(d.aest,'<span class="wipe">'+esc(cap1(d.ae.proc))+'</span>');
   const key=d.keyName,sub=d.bpm+' BPM · '+key,ch=d.prog.map(c=>c.name).join(' – ');
   return '<div class="sheet">'+
-    '<div class="sheet-h"><div class="id"><span>'+t('v_concept')+' '+pad(d.n,4)+'</span><span>'+esc(d.g.n)+'</span></div>'+
+    '<div class="sheet-h"><div class="id"><span>'+t('v_concept')+' '+pad(d.n,4)+'</span><span>'+esc(d.g.n)+'</span>'+lkBtn('title')+'</div>'+
     '<h2 class="sc" data-f="'+esc(d.title)+'">'+esc(d.title)+'</h2>'+
     '<div class="sub sc" data-f="'+esc(sub)+'">'+esc(sub)+'</div>'+
     '<div class="tags">'+d.emos.map(e=>'<span class="tag">'+esc(e)+'</span>').join('')+'<span class="tag">'+esc(d.aest)+'</span></div></div>'+
-    '<div class="sec"><div class="cap"><span>'+t('v_harm')+'</span></div>'+
+    '<div class="sec"><div class="cap"><span>'+t('v_harm')+'</span>'+lkBtn('harm')+'</div>'+
       kvRow(t('v_key'),'<span class="sc" data-f="'+esc(key)+'">'+esc(key)+'</span>',true)+
       kvRow(t('v_scale'),'<span>'+d.scale.map(p=>NOTES[p]).join(' ')+'</span>',true)+
       kvRow(t('v_deg'),'<span>'+d.prog.map(c=>c.rom).join(' – ')+'</span>',true)+
       kvRow(t('v_chords'),'<span class="sc" data-f="'+esc(ch)+'">'+esc(ch)+'</span>',true)+
     '</div>'+
-    '<div class="sec"><div class="cap"><span>'+t('v_struct')+'</span></div><div><div class="strip">'+strip+'</div><div class="letters" style="margin-top:4px">'+letters+'</div></div>'+rows+
-      '<div class="total"><span>'+t('v_total')+'</span><span>'+d.totalBars+' '+t('v_bars')+' · '+mmss(d.total)+'</span></div></div>'+
-    '<div class="sec"><div class="cap"><span>'+t('v_inst')+'</span></div>'+
+    '<div class="sec">'+fdCap('struct',t('v_struct'))+fb('struct','<div><div class="strip">'+strip+'</div><div class="letters" style="margin-top:4px">'+letters+'</div></div>'+rows+
+      '<div class="total"><span>'+t('v_total')+'</span><span>'+d.totalBars+' '+t('v_bars')+' · '+mmss(d.total)+'</span></div>')+'</div>'+
+    '<div class="sec"><div class="cap"><span>'+t('v_inst')+'</span>'+lkBtn('inst')+'</div>'+
       kvRow(t('v_drums'),lines(d.inst.d))+kvRow(t('v_bass'),lines(d.inst.b))+kvRow(t('v_harm'),lines(d.inst.h))+
       kvRow(t('v_tex'),lines(d.inst.t))+kvRow(t('v_lead'),lines(d.inst.l))+'</div>'+
-    '<div class="sec"><div class="cap"><span>'+t('v_char')+'</span></div>'+chars+'</div>'+
-    '<div class="sec"><div class="cap"><span>'+t('v_mix')+'</span></div>'+mix+'</div>'+
-    '<div class="acts"><button class="key" data-a="copy-vibe">'+IC.copy+t('copy')+'</button><button class="key" data-a="gen-vibe">'+IC.refresh+t('more')+'</button></div>'+
+    '<div class="sec">'+fdCap('char',t('v_char'))+fb('char',chars)+'</div>'+
+    '<div class="sec">'+fdCap('mix',t('v_mix'))+fb('mix',mix)+'</div>'+
+    '<div class="acts"><button class="key" data-a="copy-vibe">'+IC.copy+t('copy')+'</button><button class="key" data-a="gen-vibe">'+IC.refresh+t('more')+'</button>'+saveBtn('vibe')+'</div>'+
   '</div>';
 }
 function vibeText(d){
@@ -1762,7 +1949,7 @@ function aliasHTML(){
       '<div class="alias"><button class="ib" data-a="pin" data-i="'+i+'" aria-pressed="'+(!!n.pins[i])+'" aria-label="'+esc(t('aria_pin'))+'">'+IC.pin+'</button>'+
       '<span class="nm sc" data-f="'+esc(s)+'">'+esc(s)+'</span>'+
       '<button class="ib" data-a="copy1" data-i="'+i+'" aria-label="'+esc(t('aria_copy'))+'">'+IC.copy+'</button></div>').join('')+'</div>'+
-    '<div class="acts"><button class="key" data-a="copy-aliases">'+IC.copy+t('copyall')+'</button><button class="key" data-a="gen-alias">'+IC.refresh+t('more2')+'</button></div></div>';
+    '<div class="acts"><button class="key" data-a="copy-aliases">'+IC.copy+t('copyall')+'</button><button class="key" data-a="gen-alias">'+IC.refresh+t('more2')+'</button>'+saveBtn('names')+'</div></div>';
 }
 function renderAliases(anim){genAliases();const h=$('#aliasOut');h.innerHTML=aliasHTML();kick(h,anim);}
 
@@ -1794,7 +1981,7 @@ function tracksHTML(){
     '<div class="hrow"><h2 class="sc" data-f="'+esc(state.album)+'">'+esc(state.album)+'</h2><button class="ib dk" data-a="rr-album" aria-label="'+esc(t('aria_rr'))+'">'+IC.refresh+'</button></div>'+
     '<div class="sub">'+T.length+' '+t('tr_n')+' · '+mmss(total)+' · '+t('tr_avg')+' '+avg+' BPM</div></div>'+
     '<div class="sec"><div class="cap"><span>'+t('tr_order')+'</span></div>'+rows+'</div>'+
-    '<div class="acts"><button class="key" data-a="copy-tracks">'+IC.copy+t('copy')+'</button><button class="key" data-a="gen-tracks">'+IC.refresh+t('again')+'</button></div></div>';
+    '<div class="acts"><button class="key" data-a="copy-tracks">'+IC.copy+t('copy')+'</button><button class="key" data-a="gen-tracks">'+IC.refresh+t('again')+'</button>'+saveBtn('tracks')+'</div></div>';
 }
 function renderTracks(anim){
   if(anim!=='keep')genTracks();
@@ -1841,7 +2028,7 @@ function conceptHTML(){
     '<div class="hrow"><h2 class="sc" data-f="'+esc(c.f.title)+'" data-row="title">'+esc(c.f.title)+'</h2><button class="ib dk" data-a="rr-field" data-f="title" aria-label="'+esc(t('aria_rr'))+'">'+IC.refresh+'</button></div>'+
     '<div class="tags">'+ths.map(x=>'<span class="tag">'+esc(x)+'</span>').join('')+'</div></div>'+
     '<div class="sec">'+rows+'</div>'+
-    '<div class="acts"><button class="key" data-a="copy-concept">'+IC.copy+t('copy')+'</button><button class="key" data-a="gen-concept">'+IC.refresh+t('again')+'</button></div></div>';
+    '<div class="acts"><button class="key" data-a="copy-concept">'+IC.copy+t('copy')+'</button><button class="key" data-a="gen-concept">'+IC.refresh+t('again')+'</button>'+saveBtn('concept')+'</div></div>';
 }
 function renderConcept(anim){
   if(anim!=='keep')genConcept();
@@ -1915,7 +2102,7 @@ function show(m,fromHash){
   $('#dial').style.setProperty('--pos',POS[m]+'%');
   if(!fromHash){try{if(location.hash!=='#'+m)location.hash=m;}catch(e){}}
   /* single-column layouts: land right on the generate key, just above the bottom bar; two-pane desktop stays at the top */
-  const go=!fromHash&&matchMedia('(max-width:899px)').matches&&$('#p-'+m+' .go');
+  const go=!fromHash&&matchMedia('(max-width:899px)').matches&&!matchMedia('(orientation:landscape) and (max-height:520px)').matches&&$('#p-'+m+' .go');
   if(go){
     const nav=$('.bar'),navH=nav?nav.getBoundingClientRect().height:0,r=go.getBoundingClientRect();
     window.scrollTo(0,Math.max(0,scrollY+r.bottom-(innerHeight-navH-18)));
@@ -1954,12 +2141,17 @@ function applySkin(sk,notify){
 function openLangMenu(){$('#langMenu').hidden=false;$('#langBtn').setAttribute('aria-expanded','true');}
 function closeLangMenu(){const m=$('#langMenu');if(!m)return;m.hidden=true;$('#langBtn').setAttribute('aria-expanded','false');}
 document.addEventListener('click',e=>{if(!e.target.closest('.lw'))closeLangMenu();});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLangMenu();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeLangMenu();if(FID.open)closeFid();closeSv();}});
 let taps=[];
 const A={
   'lang':()=>{const m=$('#langMenu');if(m.hidden)openLangMenu();else closeLangMenu();},
   'setlang':b=>{closeLangMenu();setLang(b.dataset.v,true);},
   'fam':b=>{state.fam=b.dataset.v;drawGenres();syncUI();},
+  'fidclose':()=>closeFid(),
+  'fkey':b=>{
+    b.setAttribute('aria-pressed',String(b.getAttribute('aria-pressed')!=='true'));
+    if($$('#fKeys .key[aria-pressed=true]').length===8){SND.play('copy');setTimeout(()=>$$('#fKeys .key').forEach(k=>k.setAttribute('aria-pressed','false')),650);}
+  },
   'snd':()=>{SND.on=!SND.on;if(!SND.on)SND.bootStop();try{localStorage.setItem('pc-snd',SND.on?'1':'0');}catch(e){}updSnd();toast(t(SND.on?'snd_on':'snd_off'));if(SND.on){SND.unlock();SND.play('sw');}},
   'skin':()=>applySkin(SKINS[(SKINS.indexOf(skin)+1)%SKINS.length],true),
   'mode':b=>show(b.dataset.v),
@@ -2021,11 +2213,74 @@ const A={
   },
   'copy-concept':()=>copyText(conceptText())
 };
+/* ---------- saved ---------- */
+const SV={open:false,list:[]};
+try{const a=JSON.parse(localStorage.getItem('pc-saved')||'[]');if(Array.isArray(a))SV.list=a.filter(x=>x&&typeof x.tx==='string').slice(0,80);}catch(e){}
+function svStore(){try{localStorage.setItem('pc-saved',JSON.stringify(SV.list));}catch(e){}svBadge();}
+function svBadge(){const n=$('#savN');if(!n)return;n.hidden=!SV.list.length;n.textContent=SV.list.length>99?'99+':SV.list.length;}
+function svItem(k){
+  if(k==='vibe'&&state.vibe)return {ti:state.vibe.title,tx:vibeText(state.vibe)};
+  if(k==='names'&&state.names.list.length){
+    const n=state.names,p=n.list.filter((_,i)=>n.pins[i]),a=p.length?p:n.list;
+    return {ti:a[0]+(a.length>1?' +'+(a.length-1):''),tx:a.join('\n')};
+  }
+  if(k==='tracks'&&state.tracks.length)return {ti:state.album,tx:tracksText()};
+  if(k==='concept'&&state.concept.f.title)return {ti:state.concept.f.title,tx:conceptText()};
+  return null;
+}
+function svAdd(k){
+  const it=svItem(k);if(!it)return;
+  if(SV.list.some(x=>x.tx===it.tx)){toast(t('sv_dup'));return;}
+  SV.list.unshift({k,ti:it.ti,tx:it.tx,ts:Date.now()});
+  if(SV.list.length>80)SV.list.length=80;
+  svStore();toast(t('sv_ok'));
+}
+function svDraw(){
+  $('#svT').textContent=t('sv_t')+' · '+SV.list.length;
+  $('#svClear').hidden=!SV.list.length;
+  $('#svList').innerHTML=SV.list.length?'<div class="grp">'+SV.list.map((x,i)=>{
+    const d=new Date(x.ts),ds=isNaN(d)?'':d.toLocaleDateString(LANG,{day:'2-digit',month:'2-digit'});
+    return '<article class="sv-i"><button class="sv-t" data-a="svopen" data-i="'+i+'" type="button"><small>'+esc(t('sv_k_'+x.k))+(ds?' · '+ds:'')+'</small><b>'+esc(x.ti)+'</b></button>'+
+      '<pre class="sv-x">'+esc(x.tx)+'</pre>'+
+      '<div class="sv-a"><button class="key" data-a="svcopy" data-i="'+i+'" type="button">'+IC.copy+t('sv_copy')+'</button><button class="key" data-a="svdel" data-i="'+i+'" type="button">'+t('sv_del')+'</button></div></article>';
+  }).join('')+'</div>':'<p class="sv-empty">'+esc(t('sv_empty'))+'</p>';
+}
+function openSv(){
+  if(SV.open||$('#boot')||FID.open)return;
+  SV.open=true;svDraw();$('#sv').hidden=false;$('#sv').scrollTop=0;
+  document.documentElement.style.overflow='hidden';
+  try{$('.device').inert=true;}catch(e){}
+  $('#svClose').setAttribute('aria-label',t('fid_close'));$('#svClear').setAttribute('aria-label',t('sv_clr'));
+  try{$('#svClose').focus({preventScroll:true});}catch(e){}
+}
+function closeSv(){
+  if(!SV.open)return;
+  SV.open=false;$('#sv').hidden=true;document.documentElement.style.overflow='';
+  try{$('.device').inert=false;}catch(e){}$('.device').removeAttribute('inert');
+}
+Object.assign(A,{
+  'saved':()=>openSv(),
+  'svclose':()=>closeSv(),
+  'save':b=>svAdd(b.dataset.v),
+  'fold':b=>{
+    const k=b.dataset.v,o=state.fold[k];state.fold[k]=!o;
+    b.setAttribute('aria-expanded',String(o));b.nextElementSibling.hidden=!o;
+    b.setAttribute('aria-label',t('v_'+k)+': '+t(o?'fd_hide':'fd_show'));
+  },
+  'svopen':b=>b.closest('.sv-i').classList.toggle('open'),
+  'svcopy':b=>copyText(SV.list[+b.dataset.i].tx),
+  'svdel':b=>{SV.list.splice(+b.dataset.i,1);svStore();svDraw();},
+  'svclear':()=>{if(confirm(t('sv_clr_q'))){SV.list=[];svStore();svDraw();}},
+  'lock':b=>{
+    const k=b.dataset.v,on=!state.lock[k];state.lock[k]=on;
+    b.setAttribute('aria-pressed',String(on));b.setAttribute('aria-label',t(on?'lk_on':'lk_off'));b.innerHTML=on?IC.lock:IC.unlock;
+  }
+});
 const MODES_ORDER=['vibe','names','concept'];
 function sfxFor(a){
   if(/^gen-/.test(a))return 'gores';
   if(a==='mode')return 'wheel';
-  if(/^copy/.test(a))return 'copy';
+  if(/^copy|^save$|^svcopy/.test(a))return 'copy';
   if(a==='tap')return 'tap';
   return '';
 }
@@ -2171,6 +2426,7 @@ const SND={
         }
         const te=t+16*q+.01,F=[440,493.88,587.33,659.25][rnd(4)];
         this.bell(te,F,1.1,.075);this.bell(te+.02,F*2.01,.6,.03);break;}
+      case 'ftick':this.tick(t,.95,null,!!a);break;
       case 'copy':
         this.clave(t,.07);this.bell(t+.03,880,.35,.04);break;
       case 'tap':
@@ -2188,9 +2444,10 @@ const SND={
     const N=40;let last=-1;
     for(let k=0;k<=Math.ceil(BLOCK/.01);k++){
       const tt=Math.min(BLOCK,k*.01),m=Math.floor(bpos(tt)*N+1e-6);
-      if(m>last&&m>0){last=m;this.tick(t0+tt,.8+Math.random()*.2,bus,m%5===0);}
+      if(m>last&&m>0){last=m;this.tick(t0+tt,(.8+Math.random()*.2)*2.4,bus,m%5===0);}
     }
-    this.tick(t0+BLOCK+.02,1.5,bus,true);
+    this.tick(t0+BLOCK+.02,3.6,bus,true);
+    this.tone(150,t0,.09,'sine',.16,70,bus);this.tone(150,t0+BLOCK+.02,.12,'sine',.2,70,bus);
   },
   bootStop(){
     if(!this.bus||!this.ctx)return;
@@ -2251,6 +2508,7 @@ function runBoot(){
   }
   function begin(){
     started=true;clearTimeout(auto);
+    safety=setTimeout(finish,12000);
     el.classList.add('on','run');
     setT(pw,'boot_skip');setT(st,'boot_tune');
     if(RM){needle.style.setProperty('--p','.53');lock();setTimeout(finish,700);return;}
@@ -2279,14 +2537,75 @@ function runBoot(){
   }
   el.addEventListener('click',e=>{if(e.target.closest('[data-a="snd"]'))return;start();});
   window.addEventListener('keydown',onKey,true);
-  auto=setTimeout(()=>{if(!started&&!starting){starting=true;begin();}},2800);
-  safety=setTimeout(finish,12000);
+  /* with sound on the browser only plays after a tap, so wait for the power key instead of starting silently */
+  auto=setTimeout(()=>{if(!started&&!starting&&(!SND.on||SND.ok())){starting=true;begin();}},2800);
   try{$('#btPwr').focus({preventScroll:true});}catch(e){}
+}
+
+/* ---------- fidget: a knurled metal knob with 24 detents and 8 keys; opened by tapping the PC mark three times ---------- */
+const FID={open:false,a:0,v:0,cnt:0,det:15,raf:0,drag:false,pa:0,pt:0,lt:0};
+function fidTick(major){
+  const n=performance.now();if(n-FID.lt<14)return;FID.lt=n;
+  SND.play('ftick',major);
+}
+function fidSet(a){
+  const d=FID.det,b=Math.floor(FID.a/d),f=Math.floor(a/d);
+  FID.a=a;$('#fRotor').style.transform='rotate('+a+'deg)';
+  if(f!==b){FID.cnt+=Math.abs(f-b);$('#fCnt').textContent=pad(FID.cnt%10000,4);fidTick(f%6===0);}
+}
+function fidSpin(){
+  cancelAnimationFrame(FID.raf);let last=performance.now();
+  const step=n=>{
+    const dt=Math.min(40,n-last);last=n;
+    FID.v*=Math.exp(-dt/650);fidSet(FID.a+FID.v*dt);
+    if(Math.abs(FID.v)>.015&&FID.open)FID.raf=requestAnimationFrame(step);
+    else fidSet(Math.round(FID.a/FID.det)*FID.det+.001);
+  };
+  FID.raf=requestAnimationFrame(step);
+}
+(()=>{
+  const w=$('#fKnob'),ang=e=>{const r=w.getBoundingClientRect();return Math.atan2(e.clientY-(r.top+r.height/2),e.clientX-(r.left+r.width/2))*180/Math.PI;};
+  w.addEventListener('pointerdown',e=>{
+    e.preventDefault();SND.unlock();try{w.setPointerCapture(e.pointerId);}catch(_){}
+    cancelAnimationFrame(FID.raf);FID.drag=true;FID.v=0;FID.pa=ang(e);FID.pt=performance.now();w.classList.add('drag');
+  });
+  w.addEventListener('pointermove',e=>{
+    if(!FID.drag)return;
+    const n=performance.now(),a=ang(e);let da=a-FID.pa;if(da>180)da-=360;if(da<-180)da+=360;
+    FID.v=Math.max(-3,Math.min(3,FID.v*.55+(da/Math.max(1,n-FID.pt))*.45));
+    FID.pa=a;FID.pt=n;fidSet(FID.a+da);
+  });
+  const up=()=>{
+    if(!FID.drag)return;FID.drag=false;w.classList.remove('drag');
+    if(performance.now()-FID.pt>90)FID.v=0;
+    if(Math.abs(FID.v)>.03)fidSpin();
+  };
+  w.addEventListener('pointerup',up);w.addEventListener('pointercancel',up);
+  let mk=[];
+  $('.mark').addEventListener('click',()=>{
+    const n=performance.now();mk=mk.filter(x=>n-x<1400);mk.push(n);
+    if(mk.length>=3){mk=[];openFid();}
+  });
+})();
+function openFid(){
+  if(FID.open||$('#boot'))return;
+  FID.open=true;$('#fid').hidden=false;
+  document.documentElement.style.overflow='hidden';
+  try{$('.device').inert=true;}catch(e){}
+  $('#fidClose').setAttribute('aria-label',t('fid_close'));
+  SND.play('copy');
+  try{$('#fidClose').focus({preventScroll:true});}catch(e){}
+}
+function closeFid(){
+  if(!FID.open)return;
+  FID.open=false;FID.drag=false;cancelAnimationFrame(FID.raf);
+  $('#fid').hidden=true;document.documentElement.style.overflow='';
+  try{$('.device').inert=false;}catch(e){}
 }
 
 /* ---------- keyboard shortcuts (desktop) ---------- */
 window.addEventListener('keydown',e=>{
-  if(e.metaKey||e.ctrlKey||e.altKey||$('#boot'))return;
+  if(e.metaKey||e.ctrlKey||e.altKey||$('#boot')||FID.open||SV.open)return;
   const tg=e.target&&e.target.tagName;
   if(tg==='INPUT'||tg==='SELECT'||tg==='TEXTAREA')return;
   const k=(e.key||'').toLowerCase();
@@ -2310,9 +2629,10 @@ renderConcept(false);
 syncUI();
 (()=>{const m=(location.hash||'').slice(1);if(POS[m]!==undefined)show(m,true);else $('#dial').style.setProperty('--pos',POS.vibe+'%');})();
 window.scrollTo(0,0);
+svBadge();
 runBoot();
 })();
 </script>
-
+<script>if('serviceWorker' in navigator&&/^https?:/.test(location.protocol))addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));</script>
 </body>
 </html>
