@@ -2732,9 +2732,8 @@ function fidSpin(){
   cancelAnimationFrame(FID.raf);let last=performance.now();
   const step=n=>{
     const dt=Math.min(40,n-last);last=n;
-    FID.v*=Math.exp(-dt/650);fidSet(FID.a+FID.v*dt);
-    if(Math.abs(FID.v)>.015&&FID.open)FID.raf=requestAnimationFrame(step);
-    else fidSet(Math.round(FID.a/FID.det)*FID.det+.001);
+    FID.v*=Math.exp(-dt/1100);fidSet(FID.a+FID.v*dt);
+    if(Math.abs(FID.v)>.008&&FID.open)FID.raf=requestAnimationFrame(step);
   };
   FID.raf=requestAnimationFrame(step);
 }
@@ -2792,8 +2791,7 @@ window.addEventListener('keydown',e=>{
 /* ---------- boot ---------- */
 let savedLang=null;
 try{savedLang=localStorage.getItem('pc-lang');}catch(e){}
-const navL=(navigator.language||'en').slice(0,2).toLowerCase();
-const initLang=okLang(savedLang)?savedLang:(okLang(navL)?navL:'en');
+const initLang=okLang(savedLang)?savedLang:'en';
 if(initLang!=='ru')setLang(initLang,false);else{buildUI();applyStatic();}
 applySkin(skin,false);
 setGenre(state.genre);setBpm(state.bpm);

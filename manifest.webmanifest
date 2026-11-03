@@ -1,6 +1,6 @@
 {
   "name": "Producer Companion",
-  "short_name": "PC",
+  "short_name": "Producer Companion",
   "description": "Track concepts, aliases and album ideas for electronic music",
   "start_url": "./",
   "scope": "./",
