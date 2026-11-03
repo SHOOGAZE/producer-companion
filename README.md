@@ -2,6 +2,8 @@
 
 A single-file mobile web app for electronic music producers, styled after Braun notebooks and vintage measuring instruments: monochrome, one orange lamp, IBM Plex type, a radio-dial boot screen.
 
+<!-- Demo: in the GitHub editor, drag extras/demo.mp4 here; it is uploaded and plays inline. -->
+
 - **Vibe**: genre, tempo, emotions and aesthetic → track concept with structure, instruments and mixing parameters
 - **Names**: stage aliases and tracklists in eight styles (Clean, Factory, Ether, Bureau, Cosmos, Tape, Kaomoji, Glyphs) and seven languages (RU, EN, ES, DE, FR, JA, ZH, or mixed), thousands of word combinations
 - **Concept**: conceptual / industrial album ideas
