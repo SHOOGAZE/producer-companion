@@ -1,15 +1,15 @@
 # Producer Companion
 
-A single-file mobile web app for electronic music producers, styled after Braun notebooks and vintage measuring instruments.
+A single-file mobile web app for electronic music producers, styled after Braun notebooks and vintage measuring instruments: monochrome, one orange lamp, IBM Plex type, a radio-dial boot screen.
 
 - **Vibe**: genre, tempo, emotions and aesthetic → track concept with structure, instruments and mixing parameters
-- **Names**: stage aliases and tracklists in six styles (Clean, Factory, Ether, Bureau, Cosmos, Tape), thousands of word combinations
+- **Names**: stage aliases and tracklists in eight styles (Clean, Factory, Ether, Bureau, Cosmos, Tape, Kaomoji, Glyphs) and seven languages (RU, EN, ES, DE, FR, JA, ZH, or mixed), thousands of word combinations
 - **Concept**: conceptual / industrial album ideas
 - **Locks**: pin the harmony, the instruments or the title in a Vibe result and regenerate the rest
 - **Saved**: keep any result on the device (bookmark button in the header), copy or delete it later
 - **Installable**: add to the Home Screen and it works offline (PWA)
 
-28 genres · RU / EN / ES / DE / FR · light, grey and dark skins · radio-dial boot screen with Web Audio sounds · phone, tablet and desktop layouts.
+28 genres · interface in RU / EN / ES / DE / FR / JA · light, grey and dark skins · radio-dial boot screen with Web Audio sounds · phone, tablet and desktop layouts.
 
 Keys: `1`–`3` switch modules, `G` generate, `M` toggle sound.
 

@@ -24,8 +24,8 @@
   --screen:#131413; --screen-ink:#E6E7E3; --screen-dim:#9A9D98;
   --on-ink:#E8E9E6; --lamp:#E8461B; --lamp-off:#8C8E8A;
   --tex:repeating-linear-gradient(90deg,rgba(0,0,0,.022) 0 1px,transparent 1px 3px);
-  --f-ui:'IBM Plex Sans Condensed','Arial Narrow',system-ui,sans-serif;
-  --f-mono:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;
+  --f-ui:'IBM Plex Sans Condensed','Arial Narrow',system-ui,'Hiragino Sans','Yu Gothic','Noto Sans JP',sans-serif;
+  --f-mono:'IBM Plex Mono',ui-monospace,Menlo,Consolas,'Hiragino Sans','Yu Gothic','Noto Sans JP',monospace;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
@@ -260,6 +260,7 @@ input[type=range]::-moz-range-thumb{width:16px;height:28px;border:1px solid var(
 /* ===== header, counter window, wide layouts, boot screen ===== */
 :root{--b-bg:var(--bg);--b-ink:var(--ink);--b-dim:var(--ink2);--b-line:var(--line);--w-ink:var(--screen-ink);--w-dim:var(--screen-dim);--w-line:#2B2D2A}
 .tools{display:flex;gap:6px}
+html[lang="ja"] body *{letter-spacing:.02em!important}
 #langBtn{font:600 11px/1 var(--f-mono);letter-spacing:.04em}
 .lw{position:relative}
 .langmenu{position:absolute;right:0;top:calc(100% + 6px);z-index:70;min-width:158px;display:flex;flex-direction:column;gap:4px;padding:6px;background:var(--panel);border:1px solid var(--line);border-radius:3px;box-shadow:0 8px 24px rgba(0,0,0,.28)}
@@ -568,7 +569,7 @@ html:not([lang=ru]):not([lang=en]) .langmenu .key{font-size:13px;padding-left:10
         </div>
         <div class="grp">
           <div class="cap"><span data-t="c_lang">Язык</span></div>
-          <div class="seg" id="nlangs"></div>
+          <div class="sel"><select id="nlsel" aria-label="Language"></select></div>
         </div>
         <div class="grp">
           <div class="cap"><span data-t="c_form">Форма</span></div>
@@ -637,7 +638,7 @@ const rr=(a,b)=>a+Math.random()*(b-a), ri=(a,b)=>Math.round(rr(a,b));
 const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
 const pad=(n,l=2)=>String(n).padStart(l,'0');
 let LANG='ru';
-const fmt=(n,d=0)=>Number(n).toFixed(d).replace('.',LANG==='en'?'.':',');
+const fmt=(n,d=0)=>Number(n).toFixed(d).replace('.',LANG==='en'||LANG==='ja'?'.':',');
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const mmss=s=>{s=Math.round(s);return pad(Math.floor(s/60))+':'+pad(s%60)};
 const RM=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -829,7 +830,8 @@ let AEST={
 };
 
 /* ---------- names data ---------- */
-const NS=['clean','ind','eth','bur','cos','tape'];
+const NB=['clean','ind','eth','bur','cos','tape'];
+const NS=[...NB,'kao','sym'];
 const LEX={
   clean:{
     en:{a:['Null', 'Static', 'Pale', 'Blank', 'Flat', 'Open', 'Fine', 'Slow', 'Dry', 'Linear', 'Neutral', 'Exact', 'Zero', 'Single', 'Even', 'Bare', 'Quiet', 'Thin', 'Plain', 'Fixed', 'Level', 'Straight', 'Mean', 'Clear'],n:['Gauge', 'Vector', 'Offset', 'Aperture', 'Tolerance', 'Meridian', 'Residue', 'Lattice', 'Signal', 'Axis', 'Grid', 'Index', 'Scale', 'Datum', 'Plane', 'Interval', 'Delta', 'Gradient', 'Threshold', 'Limit', 'Matrix', 'Mode', 'Norm', 'Pitch', 'Phase', 'Ratio', 'Reference', 'Span', 'Variance', 'Constant', 'Coordinate', 'Increment', 'Notch', 'Node', 'Margin', 'Trace', 'Cipher', 'Parity', 'Quanta', 'Unit']},
@@ -863,7 +865,53 @@ function adjForm(a,g){
   if(/[жчшщ]ий$/.test(a))return s+(g==='f'?'ая':'ее');
   return s+(g==='f'?'ая':'ое');
 }
+const LX3={
+  clean:{es:['nulo,estático,pálido,plano,abierto,fino,lento,seco,lineal,neutro,exacto,único,parejo,desnudo,quieto,tenue,simple,fijo,claro,justo','Medida:f,Vector:m,Desfase:m,Apertura:f,Tolerancia:f,Meridiano:m,Residuo:m,Retícula:f,Señal:f,Eje:m,Rejilla:f,Índice:m,Escala:f,Dato:m,Plano:m,Intervalo:m,Delta:m,Gradiente:m,Umbral:m,Límite:m,Matriz:f,Módulo:m,Norma:f,Fase:f,Razón:f,Referencia:f,Margen:m,Rastro:m,Paridad:f,Cifra:f,Nodo:m,Constante:f'], de:['statisch,blass,flach,offen,fein,langsam,trocken,linear,neutral,exakt,einzeln,gleich,kahl,still,dünn,schlicht,fest,klar,gerade,rein','Pegel:m,Vektor:m,Versatz:m,Blende:f,Toleranz:f,Meridian:m,Rest:m,Raster:n,Signal:n,Achse:f,Gitter:n,Index:m,Skala:f,Datum:n,Ebene:f,Intervall:n,Delta:n,Gefälle:n,Schwelle:f,Limit:n,Matrix:f,Modus:m,Norm:f,Takt:m,Phase:f,Verhältnis:n,Spanne:f,Varianz:f,Konstante:f,Spur:f,Parität:f,Knoten:m'], fr:['statique,pâle,plat,ouvert,fin,lent,neutre,exact,seul,égal,nu,calme,mince,fixe,simple,clair,droit,pur,vide,sombre','Jauge:f,Vecteur:m,Décalage:m,Ouverture:f,Tolérance:f,Méridien:m,Résidu:m,Réseau:m,Signal:m,Axe:m,Grille:f,Indice:m,Échelle:f,Repère:m,Plan:m,Intervalle:m,Delta:m,Gradient:m,Seuil:m,Limite:f,Matrice:f,Mode:m,Norme:f,Phase:f,Rapport:m,Marge:f,Trace:f,Parité:f,Chiffre:m,Nœud:m,Constante:f,Pas:m']},
+  ind:{es:['oxidado,fundido,forjado,quemado,pesado,crudo,hueco,frío,soldado,laminado,prensado,corroído,remachado,galvanizado,burdo,denso,chamuscado,engrasado,inactivo,atornillado','Escoria:f,Yunque:m,Horno:m,Soldadura:f,Remache:m,Prensa:f,Fundición:f,Viga:f,Tornillo:m,Cadena:f,Engranaje:m,Taladro:m,Chispa:f,Caldera:f,Molde:m,Turbina:f,Válvula:f,Pistón:m,Fresadora:f,Lingote:m,Chimenea:f,Hangar:m,Grúa:f,Planta:f,Eje:m,Tubería:f,Acería:f,Cizalla:f'], de:['rostig,gegossen,geschmiedet,verbrannt,schwer,roh,hohl,kalt,geschweißt,gewalzt,gepresst,verrostet,genietet,verzinkt,grob,dicht,versengt,geölt,stillgelegt,verschraubt,hart,heiß','Schlacke:f,Amboss:m,Hochofen:m,Schweißnaht:f,Niet:m,Presse:f,Gießerei:f,Träger:m,Bolzen:m,Kette:f,Getriebe:n,Bohrer:m,Funke:m,Kessel:m,Gussform:f,Turbine:f,Ventil:n,Kolben:m,Fräse:f,Barren:m,Schlot:m,Hangar:m,Kran:m,Werk:n,Welle:f,Rohr:n,Stahlwerk:n,Schere:f'], fr:['rouillé,fondu,forgé,brûlé,lourd,brut,froid,soudé,laminé,pressé,corrodé,boulonné,galvanisé,dense,calciné,huilé,noir,usé,mort,dur','Scorie:f,Enclume:f,Four:m,Soudure:f,Rivet:m,Presse:f,Fonderie:f,Poutre:f,Boulon:m,Chaîne:f,Engrenage:m,Foret:m,Étincelle:f,Chaudière:f,Moule:m,Turbine:f,Soupape:f,Piston:m,Fraiseuse:f,Lingot:m,Cheminée:f,Hangar:m,Grue:f,Usine:f,Arbre:m,Tuyau:m,Aciérie:f,Cisaille:f']},
+  eth:{es:['pálido,lejano,suave,lento,lunar,opaco,callado,tenue,brumoso,plateado,ligero,velado,errante,opalino,fino,nocturno,dulce,flotante,nebuloso,sedoso','Bruma:f,Lumen:m,Eco:m,Vapor:m,Niebla:f,Rocío:m,Velo:m,Ceniza:f,Cristal:m,Reflejo:m,Aliento:m,Penumbra:f,Susurro:m,Marea:f,Halo:m,Destello:m,Sueño:m,Pluma:f,Humo:m,Perla:f,Aurora:f,Luz:f,Sombra:f,Ola:f,Murmullo:m,Rayo:m'], de:['blass,fern,sanft,langsam,gläsern,leis,zart,dunstig,silbern,schwerelos,verschleiert,treibend,still,dünn,schwindend,milchig,nächtlich,mild,schwebend,neblig,samtig','Dunst:m,Lumen:n,Echo:n,Hauch:m,Nebel:m,Tau:m,Schleier:m,Asche:f,Kristall:m,Spiegelung:f,Atem:m,Dämmerung:f,Flüstern:n,Halo:m,Schimmer:m,Traum:m,Feder:f,Rauch:m,Perle:f,Morgenrot:n,Glanz:m,Schatten:m,Welle:f,Raunen:n,Strahl:m'], fr:['pâle,lointain,tendre,lent,lunaire,opaque,calme,faible,argenté,voilé,errant,opalin,fin,nocturne,flottant,nacré,tiède,clair,gris,blême,diffus','Brume:f,Lumen:m,Écho:m,Vapeur:f,Brouillard:m,Rosée:f,Voile:m,Cendre:f,Cristal:m,Reflet:m,Souffle:m,Pénombre:f,Murmure:m,Marée:f,Halo:m,Éclat:m,Rêve:m,Plume:f,Fumée:f,Perle:f,Aurore:f,Lueur:f,Ombre:f,Vague:f,Onde:f,Rayon:m']},
+  bur:{es:['interno,archivado,reservado,estándar,nulo,segundo,anual,sellado,provisional,final,oficial,restringido,enmendado,pendiente,revisado,trimestral,duplicado,confidencial,tachado','Expediente:m,Formulario:m,Registro:m,Informe:m,Oficio:m,Circular:f,Acta:f,Sello:m,Trámite:m,Anexo:m,Memorándum:m,Solicitud:f,Resolución:f,Folio:m,Boletín:m,Archivo:m,Ventanilla:f,Dictamen:m,Censo:m,Licencia:f,Cuota:f,Partida:f,Orden:f,Certificado:m,Legajo:m,Pliego:m'], de:['intern,abgelegt,vertraulich,amtlich,ungültig,zweit,jährlich,versiegelt,vorläufig,endgültig,offiziell,gesperrt,archiviert,geändert,ausstehend,geprüft,gestempelt,vierteljährlich,doppelt,geheim,geschwärzt','Akte:f,Formular:n,Register:n,Bericht:m,Erlass:m,Rundschreiben:n,Protokoll:n,Stempel:m,Vorgang:m,Anlage:f,Vermerk:m,Antrag:m,Bescheid:m,Aktenzeichen:n,Bulletin:n,Archiv:n,Schalter:m,Gutachten:n,Zensus:m,Lizenz:f,Gebühr:f,Posten:m,Anordnung:f,Zeugnis:n,Ablage:f,Eingang:m'], fr:['interne,archivé,classé,standard,second,scellé,provisoire,final,réservé,restreint,amendé,révisé,tamponné,dupliqué,caviardé,visé,périmé,validé,rejeté,daté','Dossier:m,Formulaire:m,Registre:m,Rapport:m,Circulaire:f,Cachet:m,Démarche:f,Annexe:f,Mémo:m,Requête:f,Décision:f,Folio:m,Bulletin:m,Archive:f,Guichet:m,Avis:m,Recensement:m,Licence:f,Cotisation:f,Pièce:f,Ordre:m,Certificat:m,Liasse:f,Note:f,Visa:m']},
+  cos:{es:['lejano,orbital,solar,frío,oscuro,binario,silencioso,radial,estelar,lunar,polar,retrógrado,cósmico,galáctico,interestelar,remoto,vacío,espiral,exterior,ardiente,profundo,eclipsado','Órbita:f,Eclipse:m,Cometa:m,Nebulosa:f,Púlsar:m,Cuásar:m,Horizonte:m,Apogeo:m,Perigeo:m,Zenit:m,Satélite:m,Sonda:f,Aurora:f,Vacío:m,Galaxia:f,Meteoro:m,Constelación:f,Eje:m,Corona:f,Radiación:f,Luna:f,Deriva:f,Cinturón:m,Esfera:f,Paralaje:m,Telescopio:m,Singularidad:f,Equinoccio:m'], de:['fern,orbital,solar,kalt,finster,binär,stumm,radial,stellar,lunar,polar,rückläufig,kosmisch,galaktisch,interstellar,entlegen,leer,spiral,äußer,brennend,tief,verfinstert,trüb','Umlaufbahn:f,Finsternis:f,Komet:m,Nebel:m,Pulsar:m,Quasar:m,Horizont:m,Apogäum:n,Perigäum:n,Zenit:m,Satellit:m,Sonde:f,Polarlicht:n,Vakuum:n,Galaxie:f,Meteor:m,Sternbild:n,Achse:f,Korona:f,Strahlung:f,Mond:m,Drift:f,Gürtel:m,Sphäre:f,Parallaxe:f,Teleskop:n,Singularität:f,Sonnenwende:f'], fr:['lointain,orbital,solaire,froid,sombre,binaire,calme,radial,stellaire,lunaire,polaire,rétrograde,cosmique,galactique,interstellaire,distant,vide,spiral,extérieur,ardent,profond,éclipsé,ténu','Orbite:f,Éclipse:f,Comète:f,Nébuleuse:f,Pulsar:m,Quasar:m,Horizon:m,Apogée:m,Périgée:m,Zénith:m,Satellite:m,Sonde:f,Aurore:f,Vide:m,Galaxie:f,Météore:m,Constellation:f,Axe:m,Couronne:f,Radiation:f,Lune:f,Dérive:f,Ceinture:f,Sphère:f,Parallaxe:f,Télescope:m,Singularité:f,Équinoxe:m']},
+  tape:{es:['gastado,deformado,copiado,pirata,desvaído,magnético,rebobinado,polvoriento,apagado,saturado,analógico,empalmado,tembloroso,degradado,agrietado,desmagnetizado,antiguo,usado,virgen,mudo','Cinta:f,Bobina:f,Casete:m,Cabezal:m,Rebobinado:m,Siseo:m,Lazo:m,Grabación:f,Pista:f,Carrete:m,Eco:m,Mezcla:f,Toma:f,Corte:m,Empalme:m,Copia:f,Fondo:m,Ruido:m,Zumbido:m,Bucle:m,Borrado:m,Cara:f,Muestra:f,Estudio:m,Máster:m,Radiocasete:m'], de:['abgenutzt,verzogen,kopiert,rauschend,verblasst,magnetisch,rückgespult,staubig,gedämpft,gesättigt,analog,gespleißt,wackelig,verfallen,rissig,entmagnetisiert,antik,gebraucht,leer,dumpf','Band:n,Spule:f,Kassette:f,Tonkopf:m,Rücklauf:m,Rauschen:n,Schleife:f,Aufnahme:f,Spur:f,Echo:n,Mitschnitt:m,Schnitt:m,Klebestelle:f,Kopie:f,Brummen:n,Löschkopf:m,Seite:f,Sample:n,Studio:n,Master:n,Tonband:n,Bootleg:m,Mischung:f,Übersteuerung:f'], fr:['usé,déformé,copié,pirate,délavé,magnétique,rembobiné,étouffé,saturé,analogique,collé,tremblant,dégradé,fissuré,démagnétisé,vintage,vierge,sourd','Bande:f,Bobine:f,Cassette:f,Tête:f,Rembobinage:m,Souffle:m,Boucle:f,Prise:f,Piste:f,Magnéto:m,Écho:m,Mixage:m,Coupe:f,Collure:f,Copie:f,Bruit:m,Bourdonnement:m,Effacement:m,Face:f,Échantillon:m,Studio:m,Master:m,Repiquage:m,Dub:m']}
+};
+for(const s in LX3)for(const l in LX3[s]){const[a,n]=LX3[s][l];LEX[s][l]={a:a.split(','),n:n.split(',').map(x=>x.split(':'))};}
+const LX4={
+  clean:{ja:['無の,静的な,淡い,平らな,開いた,細かい,遅い,乾いた,線形の,中立の,正確な,単独の,均等の,裸の,静かな,薄い,固定の,明確な','計器,ベクトル,オフセット,開口,公差,子午線,残差,格子,信号,軸,グリッド,指標,目盛,基準点,平面,間隔,デルタ,勾配,閾値,限界,行列,モード,規範,位相,比率,余白,痕跡,暗号,偶奇,節点,定数,係数'],zh:['虚无,静态,苍白,平坦,开放,精细,缓慢,干燥,线性,中立,精确,单一,均匀,裸露,安静,稀薄,固定,清晰','量规,矢量,偏移,孔径,公差,子午线,残差,格栅,信号,轴线,网格,索引,刻度,基准,平面,间隔,三角,梯度,阈值,极限,矩阵,模式,范数,相位,比率,边距,痕迹,密码,奇偶,节点,常数,系数']},
+  ind:{ja:['錆びた,鋳造の,鍛えた,焦げた,重い,生の,空洞の,冷たい,溶接された,溶けた,圧延の,腐食した,鋲打ちの,亜鉛の,粗い,濃密な,焼けた,油差しの,休止中の,鋼鉄の,真鍮の','鉱滓,金床,溶鉱炉,溶接,リベット,プレス,鋳物,梁,ボルト,鎖,歯車,ドリル,火花,ボイラー,鋳型,タービン,バルブ,ピストン,インゴット,煙突,格納庫,クレーン,工場,配管,製鉄所,鋏,旋盤'],zh:['生锈,铸造,锻造,焦黑,沉重,粗糙,中空,冷轧,焊接,熔融,轧制,压制,腐蚀,铆接,镀锌,致密,灼烧,上油,闲置,钢铁,黄铜','炉渣,铁砧,高炉,焊缝,铆钉,冲床,铸件,横梁,螺栓,链条,齿轮,钻头,火花,锅炉,模具,涡轮,阀门,活塞,钢锭,烟囱,机库,吊车,工厂,管道,钢厂,剪刀,车床']},
+  eth:{ja:['青白い,遠い,柔らかな,ゆるやかな,月の,硝子の,静かな,かすかな,霞んだ,銀の,無重力の,真珠の,ベールの,漂う,囁きの,乳白の,夜の,優しい,浮かぶ,朧な,ビロードの','靄,残響,微光,霧,露,面紗,灰,水晶,反射,吐息,薄明,囁き,潮,光輪,閃き,夢,羽根,煙,真珠,暁,光,影,波,余韻,光線,月影'],zh:['苍白,遥远,柔软,缓慢,月色,玻璃,静谧,微弱,朦胧,银色,失重,珍珠,面纱,漂浮,低语,乳白,夜间,温柔,雾状,天鹅绒','薄雾,微光,回声,烟霭,露水,面纱,灰烬,水晶,倒影,气息,黄昏,低语,潮汐,光晕,闪光,梦境,羽毛,青烟,珍珠,晨曦,光线,阴影,波纹,余韵,月影']},
+  bur:{ja:['社内の,保管された,極秘の,標準の,無効の,第二の,年次の,封印された,草案の,最終の,公式の,制限付きの,保存の,修正された,保留の,改訂した,押印済みの,四半期の,複製の,暫定の,機密の,黒塗りの','書類,様式,台帳,報告書,通達,回覧,議事録,印鑑,手続き,添付,覚書,申請,決裁,頁,会報,文書庫,窓口,答申,国勢調査,許可証,会費,項目,命令,証明書,綴り,稟議'],zh:['内部,归档,机密,标准,作废,第二,年度,封存,草案,最终,正式,受限,存档,修订,待办,盖章,季度,副本,临时,涂黑','档案,表格,台账,报告,通知,公文,会议纪要,印章,手续,附件,备忘录,申请,批复,页码,公报,档案馆,窗口,答复,普查,执照,会费,条目,指令,证书,卷宗,公函']},
+  cos:{ja:['遠い,軌道の,太陽の,冷たい,暗い,二重の,無音の,放射状の,恒星の,月の,極の,逆行の,宇宙の,銀河の,星間の,辺境の,空っぽの,渦巻く,外縁の,燃える,深い,食の','軌道,日食,彗星,星雲,パルサー,クエーサー,地平線,遠地点,近地点,天頂,衛星,探査機,オーロラ,真空,銀河,流星,星座,軸,コロナ,放射線,月,漂流,小惑星帯,天球,視差,望遠鏡,特異点,春分'],zh:['遥远,轨道,太阳,寒冷,黑暗,双星,无声,放射,恒星,月球,极地,逆行,宇宙,银河,星际,边远,空旷,螺旋,外层,燃烧,深邃','轨道,日食,彗星,星云,脉冲星,类星体,地平线,远地点,近地点,天顶,卫星,探测器,极光,真空,银河,流星,星座,轴心,日冕,辐射,月亮,漂移,小行星带,天球,视差,望远镜,奇点,春分']},
+  tape:{ja:['擦り切れた,歪んだ,ループした,複製の,ヒスノイズの,色褪せた,磁気の,カセットの,巻き戻した,埃だらけの,くぐもった,飽和した,アナログの,海賊版の,継ぎ接ぎの,揺れる,劣化した,ひび割れた,消磁した,古い,中古の,空白の','テープ,リール,カセット,ヘッド,巻き戻し,ヒス,ループ,録音,トラック,エコー,ミックス,テイク,編集,継ぎ目,複製,雑音,ハム,消去,B面,サンプル,スタジオ,マスター,ブートレグ,ダビング'],zh:['磨损,扭曲,循环,翻录,嘶嘶,褪色,磁性,卡带,倒带,积尘,闷响,饱和,模拟,盗版,拼接,颤动,退化,开裂,消磁,古旧,二手,空白','磁带,卷盘,卡带,磁头,倒带,嘶声,回路,录音,音轨,回声,混音,录制,剪辑,接缝,拷贝,噪声,嗡鸣,抹除,B面,采样,录音棚,母带,私录,转录']}
+};
+for(const s in LX4)for(const l in LX4[s]){const[a,n]=LX4[s][l];LEX[s][l]={a:a.split(','),n:n.split(',').map(x=>[x,'m'])};}
+const NLANGS=['en','ru','es','de','fr','ja','zh'];
+function resolveLang(l){return l==='AUTO'?LANG:l==='MIX'?pick(NLANGS):l.toLowerCase();}
+const KAO=['ʕ•ᴥ•ʔ','(ᵔ◡ᵔ)','(¬_¬)','(｡•́︿•̀｡)','(づ｡◕‿‿◕｡)づ','¯\\_(ツ)_/¯','(≖_≖)','(ಠ_ಠ)','(•_•)','(✿◠‿◠)','ᕕ( ᐛ )ᕗ','(⌐■_■)','(◔_◔)','♪(´▽｀)','(╥﹏╥)','(੭ ˙ᗜ˙ )੭','ʘ‿ʘ','(⊙_⊙)','(－_－) zzz','(^_^)','(≧◡≦)','٩(◕‿◕)۶','(づ￣ ³￣)づ','(≖‿≖)','(>_<)','( ・ω・)','(-ω-)','ヽ(´ー｀)ノ','(ㅅ´ ˘ `)','(˘▾˘)','(☞ﾟヮﾟ)☞','(°ロ°)','(ᗒᗣᗕ)','(•̀ᴗ•́)و','(︶︹︺)','(*´-`)'];
+const ORN=[w=>'░▒ '+w+' ▒░',w=>'◢ '+w+' ◣',w=>'☆ '+w+' ☆',w=>'▲ '+w,w=>'[ '+w+' ]',w=>'« '+w+' »',w=>'✦ '+w+' ✦',w=>'▌'+w+'▐',w=>'⟦ '+w+' ⟧',w=>'∷ '+w+' ∷',w=>w+' ◼',w=>[...w.toUpperCase()].join(' '),w=>'/// '+w,w=>'~ '+w+' ~',w=>'◇ '+w+' ◇',w=>'· '+w+' ·'];
+function decorate(style,s){
+  if(style==='kao'){const k=pick(KAO),r=Math.random();return r<.18?k:r<.6?s+' '+k:k+' '+s;}
+  return pick(ORN)(s);
+}
+const SEPS={ja:'・',zh:'·'};
 const PRE={en:['Sub','Neo','Proto','Anti','Meta','Ex','Post','Pseudo'],ru:['Нео','Мета','Анти','Прото','Пост','Псевдо','Суб','Экс']};
+PRE.es=PRE.de=PRE.fr=PRE.en;
+PRE.ja=['ネオ','メタ','アンチ','プロト','ポスト','サブ','エクス','疑似'];PRE.zh=['新','元','反','原','后','伪','亚','前'];
+function agree(a,g,lang){
+  if(lang==='ru')return adjForm(a,g);
+  if(lang==='es')return g==='f'&&/o$/.test(a)?a.slice(0,-1)+'a':a;
+  if(lang==='fr')return g==='f'&&!/e$/.test(a)?a+'e':a;
+  if(lang==='de')return cap1(a)+(g==='m'?'er':g==='f'?'e':'es');
+  return a;
+}
+function adjN(a,n,lang){
+  const f=agree(a,n.g,lang);
+  return lang==='es'||lang==='fr'?n.w+' '+f:SEPS[lang]?f+n.w:f+' '+n.w;
+}
+const W3={
+  es:{no:'n.º ',for:' para ',of:' de ',part:', parte ',side:' (cara ',sans:'Sin '},
+  de:{no:'Nr. ',for:' für ',of:' von ',part:', Teil ',side:' (Seite ',sans:'Ohne '},
+  fr:{no:'n° ',for:' pour ',of:' de ',part:', partie ',side:' (face ',sans:'Sans '}
+};
+
 const LET=()=>'ABCDEFGHJKLMNPRSTVXZ'[rnd(20)];
 const ROMS=['I','II','III','IV','V','VI','VII','VIII','IX'];
 function noun(style,lang){const L=LEX[style][lang];return lang==='en'?{w:pick(L.n),g:'m'}:(x=>({w:x[0],g:x[1]}))(pick(L.n));}
@@ -875,14 +923,15 @@ function caseFx(s,style){
   return s;
 }
 function makeAlias(style,lang,form){
-  lang=lang==='MIX'?(Math.random()<.5?'en':'ru'):lang.toLowerCase();
+  lang=resolveLang(lang);
+  if(style==='kao'||style==='sym')return decorate(style,makeAlias(pick(NB),lang,form));
   const L=LEX[style][lang],n=noun(style,lang);let s;
   if(form==='word'){s=n.w;}
   else if(form==='pair'){
     const a=pick(L.a),r=Math.random();
-    if(r<.55)s=(lang==='en'?a:adjForm(a,n.g))+' '+n.w;
-    else if(r<.78)s=n.w+'-'+noun(style,lang).w;
-    else s=pick(PRE[lang])+(lang==='en'?' ':'-')+n.w;
+    if(r<.55)s=adjN(a,n,lang);
+    else if(r<.78)s=n.w+(SEPS[lang]||'-')+noun(style,lang).w;
+    else s=pick(PRE[lang])+(lang==='en'?' ':SEPS[lang]?'':'-')+n.w;
   }
   else{
     const pats=[()=>LET()+LET()+'-'+ri(1,999),()=>n.w+' '+ri(1,99),()=>LET()+'/'+pad(ri(1,99)),()=>n.w+'-'+LET()+ri(1,9),()=>LET()+ri(1,9)+' '+n.w,
@@ -891,10 +940,31 @@ function makeAlias(style,lang,form){
   }
   return caseFx(s,style);
 }
+const CJ={
+  ja:{no:' 第',noS:'番',and:'と',of:'の',part:' 第',partS:'部',sans:'無',face:'面'},
+  zh:{no:' 第',noS:'号',and:'与',of:'之',part:' 第',partS:'部',sans:'无',face:'面'}
+};
 function makeTitle(style,lang){
-  lang=lang==='MIX'?(Math.random()<.5?'en':'ru'):lang.toLowerCase();
+  lang=resolveLang(lang);
+  if(style==='kao'||style==='sym')return decorate(style,makeTitle(pick(NB),lang));
   const L=LEX[style][lang],n=noun(style,lang),n2=noun(style,lang),a=pick(L.a);
-  const en=lang==='en';
+  const en=lang==='en',w=W3[lang],c=CJ[lang];
+  if(c){
+    const A=()=>adjN(a,n,lang);
+    return pick([
+      ()=>n.w,A,()=>n.w+' '+ROMS[rnd(9)],()=>n.w+c.no+ri(1,40)+c.noS,()=>n.w+c.and+n2.w,
+      ()=>c.sans+n.w,()=>n.w+c.part+ri(1,5)+c.partS,()=>n.w+'、'+ri(1979,1991),()=>n.w+c.of+n2.w,
+      ()=>n.w+'（'+'AB'[rnd(2)]+c.face+'）',()=>n.w+' '+pad(ri(1,12)),()=>A()+' '+ROMS[rnd(9)],()=>pick(PRE[lang])+n.w
+    ])();
+  }
+  if(w){
+    const A=()=>adjN(a,n,lang);
+    return pick([
+      ()=>n.w,A,()=>n.w+' '+ROMS[rnd(9)],()=>n.w+' '+w.no+ri(1,40),()=>n.w+w.for+n2.w,
+      ()=>w.sans+n.w,()=>n.w+w.part+ri(1,5),()=>n.w+', '+ri(1979,1991),()=>n.w+w.of+n2.w,
+      ()=>n.w+w.side+'AB'[rnd(2)]+')',()=>n.w+' '+pad(ri(1,12)),()=>A()+' '+ROMS[rnd(9)],()=>pick(PRE[lang])+'-'+n.w
+    ])();
+  }
   const pats=[
     ()=>n.w,
     ()=>(en?a:adjForm(a,n.g))+' '+n.w,
@@ -1550,6 +1620,81 @@ lab:{
 moden:{minor:'mineur',dorian:'dorien',phrygian:'phrygien',locrian:'locrien',lydian:'lydien',major:'majeur',mixo:'mixolydien',harm:'mineur harmonique'}
 };
 
+TR.ja={
+forms:{
+ club:['ドラム：{d}；テクスチャ：{t}；ベースなし','ベース登場：{b}；フィルターが曲線を描いて開き、最後の2小節でライザー','フルアレンジ。ベース：{b}；テーマ：{h}','ドラムが抜ける。残るのは {h} と {t}；復帰前に1小節の無音','テーマの変奏（{h}）；上に重ねる：{l}','レイヤーが一つずつ抜けていき、{d} だけが残る'],
+ lofi:['テクスチャ：{t}；続いてドラムなしの {h}','入ってくる：{d} と {b}','{h} がコードを変え、加わる：{l}','ドラムが抜け、{h} と {t} が残る','テーマが戻る、パート：{l}','フェードアウト：{t}'],
+ amb:['テクスチャ：{t}；ひとつの音だけ — {h}','テーマ：{h}、ゆっくり展開；8小節ごとに — {l}','頂点：レイヤーが積み重なる、土台 — {b}','{t} だけが残る；空虚な感覚','溶けていく：{h} が最後に消える'],
+ drone:['{t}、ほとんど聞こえない','レイヤーが音程でずれていく：{h} と {b}','変化のない持続レイヤー；唯一の出来事 — {l}','周波数が高域から削られ、{b} が残る'],
+ trip:['テクスチャ：{t}；続いてドラム：{d}','ベース：{b}；ハーモニー：{h}；静かなボーカルサンプル','ステレオが広がり、入ってくる：{l}','ドラムが抜け、パート {h} に長い余韻','ベースの変奏（{b}）；テクスチャが大きくなる：{t}','サンプルが繰り返されて消える'],
+ idm:['テクスチャ：{t}；ざらついた微細リズム：{d}','ベース：{b}；ハーモニー：{h}；変拍子（7/8 または 5/4）','ドラムが1/32まで細分化（{d}）；{l} がランダムな位置に','すべてが凍りつき、{t} が残る','テーマが戻り、4拍ごとに崩れる','要素が崩れ落ち、{t} が残る'],
+ trance:['ドラム：{d}；テクスチャ：{t}；メロディなし','ベース登場：{b}；アルペジオ：{h}','ドラムが抜ける。{h} と {t} が残る；エモーショナルなテーマ：{l}','加速するスネアロール、ノイズライザー、フィルターが開く','フルアレンジ：{d}、{b}、テーマ — {l}','レイヤーが一つずつ抜け、{d} が残る'],
+ drop:['テクスチャ：{t}；雰囲気：{h}','スネアロールとノイズライザーが入る；{l}','フルアレンジ。ベース：{b}；ドラム：{d}','{h} と {t} が残る；ドラムなし','ピッチが上がるライザー、{l}','ベースの変奏（{b}）、加わる：{l}','要素が抜け、{t} が残る']
+},
+emo:[
+ {k:'不安',note:'不安定なピッチ：長い音で±10〜15セント、不規則な間。',words:['震え','予感','信号']},
+ {k:'憂鬱',note:'中域の下降ライン、ハーモニーに長いリリース。',words:['名残','秋','記憶']},
+ {k:'冷たさ',note:'2〜5 kHz を強調、金属的な倍音、ビブラートは最小限。',words:['霜','ゼロ','硝子']},
+ {k:'トランス',note:'フィルターをゆっくり動かしながら、ひとつのフレーズを8小節以上繰り返す。',words:['反復','循環','ループ']},
+ {k:'攻撃性',note:'マスター入力でのクリッピング、短い間、裏拍のアクセント。',words:['打撃','圧力','亀裂']},
+ {k:'優しさ',note:'30〜80 ms のやわらかいアタック、オクターブ重ね、打楽器は控えめ。',words:['温もり','触れる','光']},
+ {k:'ノスタルジア',note:'テープ：ワウとフラッターは0.3％、9 kHz 以上は穏やかに減衰。',words:['記録','コマ','残響']},
+ {k:'疎外感',note:'非対称なフレーズ（4/4の中の5/4）、リバーブのないドライな声。',words:['距離','他人','隙間']},
+ {k:'多幸感',note:'最後の2小節にノイズライザー、フィルター全開。',words:['浮上','閃光','波']},
+ {k:'空虚',note:'より多くの無音：小節の30％は打楽器なし、隙間に単音。',words:['静寂','虚空','無']}
+],
+aest:[
+ {k:'コンクリート',tex:'コンクリートの駐車場のインパルス：轟くリバーブ',proc:'12 kHz 以上を急峻にカット、密度のある低域。',words:['コンクリート','鉄筋','径間']},
+ {k:'VHSテープ',tex:'VHSテープのノイズとドロップアウト',proc:'ピッチ変調 ±8セント、6 kHz でロールオフ。',words:['テープ','ドロップアウト','コマ']},
+ {k:'実験室',tex:'計器の信号、オシロスコープのスパイク',proc:'無菌でドライな音、リバーブは0.6秒以下。',words:['試料','計器','計測値']},
+ {k:'廃墟',tex:'空き建物の反響、滴る水',proc:'ハーモニーを10〜15セントデチューン。',words:['廃墟','骨組み','荒地']},
+ {k:'夜の街',tex:'遠くの車の音と50 Hz のネオンのハム',proc:'長めのプリディレイ、約80 ms。',words:['ネオン','夜','乗り継ぎ']},
+ {k:'砂漠',tex:'金属に吹きつける風と砂',proc:'中央はモノ、初期反射はまばら。',words:['砂','地平線','蜃気楼']},
+ {k:'地下鉄',tex:'トンネルの轟音、軋むブレーキ',proc:'200 Hz と 800 Hz に共振ピーク。',words:['トンネル','ホーム','路線']},
+ {k:'宇宙',tex:'電波干渉とパルサー',proc:'オクターブ上のグラニュラーリバーブ。',words:['軌道','パルサー','真空']},
+ {k:'事務所',tex:'タイプライターと100 Hz の蛍光灯のハム',proc:'背景レイヤーは 300〜3400 Hz の狭帯域。',words:['書式','部署','台帳']}
+],
+th:[
+ {k:'機械',titles:['空運転','金属疲労','はめあいと公差','故障まで','無人のホール','フィードバック','バックラッシュ','冷間始動','負荷限界','稼働中の修理','点検日','サイクル異常'],
+  premises:['このアルバムは、機構が道具をやめて目撃者になる瞬間を捉える。','音楽は、存在しなかった機械の技術データシートとして組み立てられる。','機械は自分のために演奏し、オペレーターは雑音としてのみ存在する。','摩耗は作曲手法として扱われる：繰り返すたびに、前より少し悪く響く。'],
+  materials:['3つの回転数で録った旋盤の音','コンタクトマイクで捉えた油圧プレス','コムフィルターに通したサーバールームのファン','ディーゼル発電機のアイドリング音']},
+ {k:'身体',titles:['残留熱','脈拍数','沈黙の解剖','数えながら呼吸する','表面としての皮膚','反射','安静時の脈','関節','三十六度六分','息と間','筋肉の記憶','緊張'],
+  premises:['身体は唯一のシンセサイザー：脈がテンポを、呼吸がフォルムを決める。','アルバムは演奏者の疲労を測り、そのグラフから形を組み立てる。','音楽は、聴き手が自分の呼吸に気づかない瞬間に録音される。','楽器と身体の境界は消される：マイクは前に置かれず、演奏者に取り付けられる。'],
+  materials:['可聴域まで早回しした心拍の録音','胸に当てたコンタクトマイクへの呼吸','空っぽの廊下の足音、歩き方がリズムを決める','ドラムパートに組み上げた関節の鳴る音']},
+ {k:'アーカイブ',titles:['目録 第0号','失われた録音の収蔵','25年保管','読者のいない目録','コピーのコピー','未計上','保管単位','閲覧室','褪せたインク','押収品リスト','マイクロフィルム','忘れられた暗号'],
+  premises:['このアルバムは、アーカイブが残さなかったものでできている。','各トラックはコピーのコピー：世代を重ねるごとに元の信号が減っていく。','音楽は、理解しないまま目録カードを朗読する。','聴き手が受け取るのは録音ではなくその目録：何が、いつ、何秒鳴ったか。'],
+  materials:['他人の声が入った上書きカセット','冒頭が切れたボイスレコーダーの録音','ページをめくるスキャナーの音','異なるテンポで開けるスチール製キャビネットの引き出し']},
+ {k:'都市',titles:['夜勤','乗り換えゾーン','ガレージの反響','50 Hz のハム','地図のない町外れ','乗り継ぎ','夜勤','ベッドタウン','中庭の反響','終電の路面電車','コンクリートの夏','窓の灯り'],
+  premises:['都市は、断片が切り取られた一本の長い未完のトラックとして聴こえる。','アルバムは夜行バスの路線に沿って切り分けられる：停留所ごとに新しい場面。','音楽は、市民がとうに聞こえなくなった音でできている。','人々が眠る間、インフラが作品を演奏する。'],
+  materials:['夜の通りの変圧器ボックスのハム','ドローンに引き伸ばした停留所のアナウンス','地下駐車場の反響、インパルス応答','共振器として使うエレベーターシャフト']},
+ {k:'官僚制',titles:['受付番号','様式27/B','申請却下','窓口時間','押印と署名','社内メモ','受付番号','決裁ルート','押印と署名','期日','受付時間','社内連絡'],
+  premises:['このアルバムは、全部は提出できない書類一式として体裁を整えられている。','リズムは判子が決める：ひと押しが小節の一部になる。','音楽は、誰も送っていない申請に答える。','上演は行列：前のトラックに判が押されて初めて次が始まる。'],
+  materials:['打楽器として使う判子とホッチキス','ベースパートとして紙を噛むプリンター','オープンオフィスで録った紙とキーボードのざわめき','返答を待つあいだ鳴り続ける電話']},
+ {k:'時間',titles:['長さ 41:00','レイテンシー','ゼロからのカウントダウン','半減期','始まりのない','最後の数秒','秒針','閑散時間','長い休止','レイテンシー','4時12分で停止','時代と時刻'],
+  premises:['このアルバムは、聴き手が外の光の変化に気づくほど引き伸ばされている。','各トラックは前の倍の長さで、最後のトラックは終わらない。','音楽は、互いに同期していない時計で動く。','時間が唯一の楽器：あらゆる音は間隔の計測から生まれる。'],
+  materials:['繰り返すたびにテンポが0.3％ずれるメトロノーム','別々の部屋で同時に録った鳴り時計','数か国語の声によるカウントダウン','音程になるまで早めたリレーのカチカチ音']},
+ {k:'信号',titles:['搬送周波数','干渉','空っぽの電波','ノイズ閾値','帰還チャンネル','不確かな受信','搬送周波数','交信途絶','エーテルのノイズ','モールス符号','チャンネル干渉','微弱な受信'],
+  premises:['このアルバムは他人の送信を受け取り、解読しようとしない。','音楽は可聴域の縁に現れる：小さいほど正確になる。','ノイズはひとつの素材として扱われ、メロディはその副作用になる。','アルバム全体がひとつの伝送エラーであり、変奏を伴って繰り返される。'],
+  materials:['短波の局と局のあいだの録音','音色にフィルターしたホワイトノイズ','スピーカーに漏れる電話の干渉','誘導マイクで拾った電磁干渉']},
+ {k:'廃墟',titles:['未完の現場','基礎','径間','職員が去った後','崩れた屋根','残された容積','崩落','家のない基礎','入居者の痕跡','草に埋もれた工房','どこにも行かない階段','残光'],
+  premises:['このアルバムは、本来の用途で使われなくなった建物で録音される。','音楽は、誰も完成させるつもりのない建物のように作られる。','廃墟は楽器として扱われる：崩れるたびに共鳴が変わる。','打ち捨てられた場所の沈黙は、音ではなく音の名残で満たされる。'],
+  materials:['廃工房のインパルス応答','コンクリートの部屋に落ちる水滴','ピッチを合わせた錆びたドアの軋み','順序を変えながら叩くレンガと鉄筋']}
+],
+methods:['すべてのドラムを、100 ms より短い単一のサンプルから作る。','各トラックを編集なしのワンテイクで録る。','各トラックのテンポは外部の源で決める：時計、脈、足音。','同時に鳴らせる音は3つまで。','どの音も、アルバム全体で一度しか使えない。','新しいトラックは前のトラックの残り物で作る：切れ端、余韻、ミス。','メロディは作曲せず、ノイズのスペクトルから取り出す。','トラックの音量は、録音した日の天気で決める。','作者は録音を始めたら部屋を出て、環境がアルバムを完成させる。','アルバムの構成は、電話帳からの数字の無作為抽選で決める。','各トラックは、前のトラックを記憶から再現したように鳴らす。','アルバムは終わりから始める：最後のトラックを最初に録り、残りはそれを否定する。','誰も求めていない音だけが許される。','演奏者は録音中の音を聴けない：セッションが終わるまでモニターは切ったままにする。'],
+formats:['デジタルリリース、8曲、曲間のギャップなし。','コンクリートのケースに入ったC-60カセット、33部限定。','12インチ2枚組ヴァイナル、4面目は空溝。','41分の1トラック、分割しない。','7インチを7枚のシリーズで、毎月1枚ずつリリース。','USBメモリ入りの書類フォルダ：書式に記入して初めて音声が解除される。','音の代わりに指示書のスコア：聴き手が自分でアルバムを演奏する。','音はギャラリーにのみ存在し、展示の終了とともに消去される。','アルバムは媒体のない空のパッケージで無料配布する。','1部限定：最初に手紙をくれた人に作者が手渡す。'],
+visuals:['白黒のコピー、すべての文字が下端に沿ったゼロポイントの級数。','コンクリートの壁を正面から撮った写真、構図なし。','間違いだけが書き込まれた方眼紙。','灰色のボール紙に判子ひとつ：タイトル、番号、日付。','存在しない物体の技術図面、寸法は未知の単位。','カバーは真っ黒に塗られ、タイトルはエンボスを触って読める。','適切な大きさの空の枠：聴き手が自分の画像を貼る。','アルバムが一度も演奏されなかったホールの写真。'],
+perfs:['空っぽの工房でのコンサート：観客が感じるのは床の振動だけ。','閉じたドアの向こうでのライブ、スピーカーは外の廊下に置く。','同じトラックを5時間、観客は自由に出入りする。','音のない上演：測定値の記録が画面を流れる。','コンサートは夜に行われ、ポスターには座標だけが載る。','演奏者はホールにいて、音楽は壁の向こうの隣室で鳴る。','開演の1時間前に公演は中止となり、ポスターが作品として残る。','空の部屋でアルバムが流れ、人々は一人ずつ入ってくる。'],
+princ:{
+ p:['結果は一度だけ記録する。複製は破棄する。','方法からの逸脱はすべて、作品の一部として記録に残す。','美的判断は手続きから除外する。','プロセスが始まったら、作者は介入しない。','すべての素材は、コメントなしでアーカイブに収める。','エラーの許容：1トラックにつき1回、必須とする。'],
+ m:['私たちは作曲せず、録音する。','美しさは副産物であり、目的ではない。','聴き手は構造の一部であり、消費者ではない。','音の効率は美徳とみなされない。','沈黙もまた素材であり、私たちはその代価を払う。','私たちは結末を拒否する。']
+},
+lab:{
+ p:{thesis:'前提',method:'方法',material:'素材',format:'媒体',visual:'見せ方',performance:'上演',principle:'原則'},
+ m:{thesis:'主張',method:'規則',material:'素材',format:'形式',visual:'カバー',performance:'パフォーマンス',principle:'標語'}
+},
+moden:{minor:'マイナー',dorian:'ドリアン',phrygian:'フリジアン',locrian:'ロクリアン',lydian:'リディアン',major:'メジャー',mixo:'ミクソリディアン',harm:'ハーモニックマイナー'}
+};
+
 function mkLang(tr){
   const ek=Object.keys(RU.EMO);
   return {
@@ -1561,8 +1706,8 @@ function mkLang(tr){
     METHODS:tr.methods,FORMATS:tr.formats,VISUALS:tr.visuals,PERFS:tr.perfs,PRINC:tr.princ,LAB:tr.lab,MODEN:tr.moden
   };
 }
-const DATA={ru:RU,en:EN,es:mkLang(TR.es),de:mkLang(TR.de),fr:mkLang(TR.fr)};
-const LANGS=[['ru','Русский'],['en','English'],['es','Español'],['de','Deutsch'],['fr','Français']];
+const DATA={ru:RU,en:EN,es:mkLang(TR.es),de:mkLang(TR.de),fr:mkLang(TR.fr),ja:mkLang(TR.ja)};
+const LANGS=[['ru','Русский'],['en','English'],['es','Español'],['de','Deutsch'],['fr','Français'],['ja','日本語']];
 const okLang=x=>LANGS.some(l=>l[0]===x);
 function useData(D){GENRES=D.GENRES;FORMS=D.FORMS;EMO=D.EMO;AEST=D.AEST;TH=D.TH;METHODS=D.METHODS;FORMATS=D.FORMATS;VISUALS=D.VISUALS;PERFS=D.PERFS;PRINC=D.PRINC;LAB=D.LAB;MODEN=D.MODEN;}
 
@@ -1727,11 +1872,46 @@ Object.assign(I18N.en,{"fd_show": "Expand", "fd_hide": "Collapse"});
 Object.assign(I18N.es,{"fd_show": "Desplegar", "fd_hide": "Plegar"});
 Object.assign(I18N.de,{"fd_show": "Ausklappen", "fd_hide": "Einklappen"});
 Object.assign(I18N.fr,{"fd_show": "Déplier", "fd_hide": "Replier"});
+Object.assign(I18N.ru,{"nl_auto": "Авто (язык приложения)", "nl_mix": "Микс · все языки", "ns_kao": "Каомодзи", "ns_sym": "Знаки"});
+Object.assign(I18N.en,{"nl_auto": "Auto (app language)", "nl_mix": "Mix · all languages", "ns_kao": "Kaomoji", "ns_sym": "Glyphs"});
+Object.assign(I18N.es,{"nl_auto": "Auto (idioma de la app)", "nl_mix": "Mezcla · todos", "ns_kao": "Kaomoji", "ns_sym": "Glifos"});
+Object.assign(I18N.de,{"nl_auto": "Auto (App-Sprache)", "nl_mix": "Mix · alle Sprachen", "ns_kao": "Kaomoji", "ns_sym": "Glyphen"});
+Object.assign(I18N.fr,{"nl_auto": "Auto (langue de l’app)", "nl_mix": "Mix · toutes langues", "ns_kao": "Kaomoji", "ns_sym": "Glyphes"});
 Object.assign(I18N.ru,{fid_close:'Закрыть',fid_hint:'крути · щёлкай'});
 Object.assign(I18N.en,{fid_close:'Close',fid_hint:'spin · click'});
 Object.assign(I18N.es,{fid_close:'Cerrar',fid_hint:'gira · pulsa'});
 Object.assign(I18N.de,{fid_close:'Schließen',fid_hint:'drehen · klicken'});
 Object.assign(I18N.fr,{fid_close:'Fermer',fid_hint:'tourne · clique'});
+I18N.ja={
+  dl_vibe:'01 ヴァイブ',dl_names:'02 ネーム',dl_concept:'03 コンセプト',
+  n_vibe:'ヴァイブ',n_names:'ネーム',n_concept:'コンセプト',
+  c_genre:'ジャンル',c_tempo:'テンポ',c_emos:'感情',c_aest:'美学',c_nstyle:'別名 · スタイル',c_lang:'言語',c_form:'形式',
+  c_tgenre:'トラックリスト · ジャンル',c_tcount:'トラック数',c_themes:'テーマ',c_tone:'文書のトーン',c_level:'抽象度',
+  auto:'自動',go_vibe:'コンセプトを生成',go_alias:'別名を生成',go_tracks:'トラックリストを作る',go_concept:'コンセプトを書く',
+  note_pin:'左のロックは名前を固定し、次の生成でも残します。',
+  note_tracks:'名前のスタイルと言語は上のブロックから取られます。テンポとキーはジャンルに従い、エネルギーの曲線を描きます。',
+  lv_lo:'具体的',lv_hi:'抽象的',foot:'ミックスの数値は目安です。最後は耳で決めてください。',
+  all:'すべて',f_word:'単語',f_pair:'ペア',f_code:'コード',
+  ns_clean:'クリーン',ns_ind:'工場',ns_eth:'エーテル',ns_bur:'事務',tone_p:'議定書',tone_m:'宣言',
+  rng_in:'ジャンル内 · ',rng_out:'範囲外 · ',beat:'拍 ',bar:'小節 ',u_ms:' ms',u_s:' 秒',
+  v_concept:'コンセプト No.',v_harm:'ハーモニー',v_key:'キー',v_scale:'スケール',v_deg:'度数',v_chords:'コード',
+  v_struct:'構成',v_bars:'小節',v_total:'合計',v_inst:'楽器',v_drums:'ドラム',v_bass:'ベース',v_tex:'テクスチャ',v_lead:'リード / FX',
+  v_char:'キャラクター',v_mix:'ミックス',copy:'コピー',more:'別テイク',again:'もう一度',more2:'さらに',copyall:'すべてコピー',
+  g_time:'時間とグリッド',g_space:'空間',g_dyn:'ダイナミクスと音色',g_master:'マスター',
+  m_swing:'スウィング',v_swing:'1/16 に {n}％',m_d8:'ディレイ 付点8分',m_d4t:'ディレイ 4分3連',m_pre:'プリディレイ（1/64）',
+  m_rev:'リバーブ',v_rev:'{r} 秒 · {t}',m_width:'ステレオ幅',v_width:'{w}％、{m} Hz 以下はモノ',m_hpf:'ハーモニーとテクスチャのHPF',v_hpf:'{h} Hz、12 dB/oct',
+  m_sc:'サイドチェイン',sc_on:'キック → ベースとハーモニー、{r}:1、アタック {a} ms、リリース {rel} ms（1/8）、GR 最大 {gr} dB',sc_off:'使用しない',
+  m_sat:'サチュレーション',v_sat:'{s}、ドライブ {d} dB',m_tone:'バスの音色',tone_neutral:'ニュートラル',tone_shelf:'8 kHz にハイシェルフ {v} dB',
+  m_chain:'チェーン',m_loud:'ラウドネス',v_loud:'{l} LUFS（インテグレーテッド）、トゥルーピーク −1.0 dBTP',m_dyn:'ダイナミクス',v_dyn:'LRA {l} LU、マスター前に −6 dB のヘッドルーム',
+  a_head:'別名',aria_pin:'名前を固定',aria_copy:'コピー',aria_rr:'別の案',
+  tr_album:'アルバム No.',tr_n:'曲',tr_avg:'平均テンポ',tr_order:'順序 · バー = トラックのテンポ',
+  d_doc:'文書',d_man:'宣言',d_abs:'抽象度',d_any:'すべてのテーマ',d_anys:'すべて',d_docu:'文書',d_manu:'宣言',
+  ok_copy:'コピーしました',snd_s_on:'サウンド オン',snd_s_off:'サウンド オフ',fail_copy:'コピーできません',theme_t:'テーマ',sk_auto:'自動',sk_white:'白',sk_grey:'灰',sk_dark:'黒',
+  boot_pwr:'電源オン',boot_skip:'スキップ',boot_hint:'タップして電源オン',boot_tune:'チューニング中…',boot_lock:'信号ロック',
+  fam_all:'すべて',fam_club:'クラブ',fam_bass:'ベース',fam_soft:'ソフト',fam_dark:'ダーク',c_gens:'生成回数',snd_on:'サウンド：オン',snd_off:'サウンド：オフ',kbd:'キー：1–3 モジュール · G 生成 · M サウンド'
+};
+Object.assign(I18N.ja,{"sv_t": "保存済み", "sv_save": "保存", "sv_ok": "保存しました", "sv_dup": "保存済みです", "sv_empty": "まだ何もありません。結果の下の「保存」を押してください。", "sv_copy": "コピー", "sv_del": "削除", "sv_clr": "すべて消去", "sv_clr_q": "保存したものをすべて削除しますか？", "sv_k_vibe": "ヴァイブ", "sv_k_names": "ネーム", "sv_k_tracks": "トラックリスト", "sv_k_concept": "コンセプト", "lk_on": "固定中", "lk_off": "固定"});
+Object.assign(I18N.ja,{"ns_cos": "宇宙", "ns_tape": "テープ", "fd_show": "開く", "fd_hide": "閉じる", "nl_auto": "自動（アプリの言語）", "nl_mix": "ミックス · 全言語", "ns_kao": "顔文字", "ns_sym": "記号", fid_close:'閉じる',fid_hint:'回す · 押す'});
 function t(k,v){
   let s=(I18N[LANG]||I18N.en)[k];if(s==null)s=I18N.en[k];if(s==null)s=k;
   return v?s.replace(/\{(\w+)\}/g,(_,n)=>v[n]):s;
@@ -1740,7 +1920,7 @@ function t(k,v){
 /* ---------- state ---------- */
 const state={
   mode:'vibe',genre:'tech',fam:'dark',bpm:134,emos:['тревога','холод'],aest:'Бетон',count:0,vn:0,vibe:null,
-  names:{style:'ind',lang:'MIX',form:'pair',list:[],pins:[]},
+  names:{style:'ind',lang:'AUTO',form:'pair',list:[],pins:[]},
   trackN:8,tn:0,album:'',tracks:[],
   concept:{themes:['Машина','Время'],tone:'p',level:3,id:0,f:{}},
   lock:{harm:false,inst:false,title:false},
@@ -1944,7 +2124,7 @@ function genAliases(){
 }
 function aliasHTML(){
   const n=state.names;
-  return '<div class="sheet"><div class="sheet-h"><div class="id"><span>'+t('a_head')+'</span><span>'+esc(t('ns_'+n.style))+' · '+n.lang+' · '+esc(t('f_'+n.form).toLowerCase())+'</span></div></div>'+
+  return '<div class="sheet"><div class="sheet-h"><div class="id"><span>'+t('a_head')+'</span><span>'+esc(t('ns_'+n.style))+' · '+(n.lang==='AUTO'?LANG:n.lang).toUpperCase()+' · '+esc(t('f_'+n.form).toLowerCase())+'</span></div></div>'+
     '<div class="sec">'+n.list.map((s,i)=>
       '<div class="alias"><button class="ib" data-a="pin" data-i="'+i+'" aria-pressed="'+(!!n.pins[i])+'" aria-label="'+esc(t('aria_pin'))+'">'+IC.pin+'</button>'+
       '<span class="nm sc" data-f="'+esc(s)+'">'+esc(s)+'</span>'+
@@ -2050,7 +2230,7 @@ function buildUI(){
   $('#emos').innerHTML=Object.keys(EMO).map(e=>'<button class="key" data-a="emo" data-v="'+esc(e)+'" aria-pressed="false">'+esc(e)+'</button>').join('');
   $('#aests').innerHTML=Object.keys(AEST).map(a=>'<button class="key" data-a="aest" data-v="'+esc(a)+'" aria-pressed="false">'+esc(a)+'</button>').join('');
   $('#nstyles').innerHTML=NS.map(id=>'<button class="key" data-a="nstyle" data-v="'+id+'" aria-pressed="false">'+esc(t('ns_'+id))+'</button>').join('');
-  $('#nlangs').innerHTML=['RU','EN','MIX'].map(x=>'<button class="key" data-a="nlang" data-v="'+x+'" aria-pressed="false">'+x+'</button>').join('');
+  $('#nlsel').innerHTML=[['AUTO',t('nl_auto')],['MIX',t('nl_mix')],['RU','Русский'],['EN','English'],['ES','Español'],['DE','Deutsch'],['FR','Français'],['JA','日本語'],['ZH','中文']].map(x=>'<option value="'+x[0]+'">'+esc(x[1])+'</option>').join('');
   $('#nforms').innerHTML=['word','pair','code'].map(x=>'<button class="key" data-a="nform" data-v="'+x+'" aria-pressed="false">'+esc(t('f_'+x))+'</button>').join('');
   $('#themes').innerHTML=Object.keys(TH).map(x=>'<button class="key" data-a="theme" data-v="'+esc(x)+'" aria-pressed="false">'+esc(x)+'</button>').join('');
   $('#tones').innerHTML=['p','m'].map(x=>'<button class="key" data-a="tone" data-v="'+x+'" aria-pressed="false">'+esc(t('tone_'+x))+'</button>').join('');
@@ -2072,7 +2252,7 @@ function syncUI(){
   set('[data-a=emo]',v=>state.emos.includes(v));
   set('[data-a=aest]',v=>v===state.aest);
   set('[data-a=nstyle]',v=>v===state.names.style);
-  set('[data-a=nlang]',v=>v===state.names.lang);
+  $('#nlsel').value=state.names.lang;
   set('[data-a=nform]',v=>v===state.names.form);
   set('[data-a=theme]',v=>state.concept.themes.includes(v));
   set('[data-a=tone]',v=>v===state.concept.tone);
@@ -2175,7 +2355,6 @@ const A={
   'copy-vibe':()=>state.vibe&&copyText(vibeText(state.vibe)),
 
   'nstyle':b=>{state.names.style=b.dataset.v;syncUI();},
-  'nlang':b=>{state.names.lang=b.dataset.v;syncUI();},
   'nform':b=>{state.names.form=b.dataset.v;syncUI();},
   'gen-alias':b=>fire(b.classList.contains('go')?b:$('[data-a=gen-alias].go'),$('#aliasOut'),()=>renderAliases(true),false),
   'pin':b=>{const i=+b.dataset.i,p=state.names.pins;p[i]=!p[i];b.setAttribute('aria-pressed',String(!!p[i]));},
@@ -2310,6 +2489,7 @@ let lastSl=0;
 const slideSnd=f=>{const n=performance.now();if(n-lastSl>45){lastSl=n;SND.play('slide',f);}};
 $('#bpm').addEventListener('input',e=>{setBpm(+e.target.value);slideSnd(500+(state.bpm-40)/140*900);});
 $('#lvl').addEventListener('input',e=>{state.concept.level=+e.target.value;syncUI();slideSnd(520+state.concept.level*150);});
+$('#nlsel').addEventListener('change',e=>{SND.play('kdown');state.names.lang=e.target.value;syncUI();});
 $('#gsel').addEventListener('change',e=>{SND.play('kdown');setGenre(e.target.value);});
 window.addEventListener('hashchange',()=>{
   const m=location.hash.slice(1);
