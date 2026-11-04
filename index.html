@@ -830,7 +830,7 @@ let AEST={
 };
 
 /* ---------- names data ---------- */
-const NB=['clean','ind','eth','bur','cos','tape'];
+const NB=['human','clean','ind','eth','bur','cos','tape'];
 const NS=[...NB,'kao','sym'];
 const LEX={
   clean:{
@@ -884,6 +884,27 @@ const LX4={
 };
 for(const s in LX4)for(const l in LX4[s]){const[a,n]=LX4[s][l];LEX[s][l]={a:a.split(','),n:n.split(',').map(x=>[x,'m'])};}
 const NLANGS=['en','ru','es','de','fr','ja','zh'];
+const HUM={"en":{"e":["Waiting Room|Leaving the Light On|Third Cup of Coffee|Can You Hear That|Almost Midnight|Static|Hands Won't Stay Still|Everything Is Fine|Unread|Shaking Quietly|Two A.M. Math|Before the Phone Rings","Last Leaves|Rain on the Window|Slow Sunday|What Remains|Autumn Again|Empty Chair|Tea Gone Cold|Soft Goodbye|November|Quiet Trains|Old Photographs|The Long Way Home","Frozen Lake|Glass Hours|Winter Light|Zero Degrees|Breath on the Window|Blue Hour|Steel Morning|Thin Ice|Frost|Clear and Cold|Silver Wire|Snow Without Sound","Round and Round|Again and Again|The Loop|Hypnosis|One More Hour|Spinning|Under the Wave|Repeat After Me|Slow Spiral|Eyes Closed|Circle Dance|Held Breath","Break Something|No Mercy|Slam|Hard Landing|Red Light|Teeth|Pressure Drop|Clenched|Knock Knock|Rough Night|Burn It Down|Fists Up","Warm Hands|Small Light|Lullaby|Soft Focus|Hold Me Slowly|Morning Tea|Sleepy Sun|Gentle Machine|Your Shoulder|Honey|Quiet Kindness|Barefoot","Summer of ’94|Home Video|Old Tape|Faded Polaroid|Kitchen Radio|Back Then|Cassette Summer|Childhood Street|Rewind|Grandma’s Living Room|Last Day of School|Courtyard at Dusk","Stranger on the Platform|Wrong Side of the Glass|Somewhere Else|Foreign Station|Out of Phase|Not Home|Spare Room|Observer|Nobody Calls|Behind the Window|City of Strangers|Different Weather","Sunrise on the Roof|All Lights On|Can’t Stop Smiling|Lift|Golden Hour|Everybody Now|Free Fall|Pure Joy|Open Windows|Hands Up|Brighter|Running Home","Nobody Here|Silence Between|Blank Page|Empty Room|After Everything|Void|Echo of Nothing|Dust|The Gap|Still Air|Not a Soul|Unfilled"],"f":{"club":"Last Call|Floor Is Open|Queue Around the Block|Strobe|Afterhours|Sweat|Coat Check|Midnight Bus|Dancing Alone|Bass in Your Chest|Two Drinks In|Closing Time","bass":"Subwoofer Love|Low End Weather|Rattle|Heavy Water|Shake the Walls|Deep Down|Pressure Cooker|Wobble|Basement Show|Speaker Thunder|Ground Floor|Rumble","soft":"Sunday Morning|Blanket Fort|Slow Coffee|Window Seat|Lazy River|Tape Hiss|Cloud Watching|Warm Rain|Late Breakfast|Couch Season|Quiet Corner|Paper Plane","dark":"After Dark|Basement Light|Black Water|Night Shift|Closed Door|Concrete Prayer|Cold Smoke|Last Train|Shadow Play|Under the Bridge|Iron Hour|Dead of Night"}},"ru":{"e":["Комната ожидания|Свет не гасить|Третья чашка кофе|Ты это слышишь|Почти полночь|Помехи|Руки не слушаются|Всё в порядке|Непрочитанное|Дрожь тихо|Два часа ночи|Перед звонком","Последние листья|Дождь за окном|Медленное воскресенье|Что осталось|Снова осень|Пустой стул|Остывший чай|Тихое прощание|Ноябрь|Ночные электрички|Старые фотографии|Долгая дорога домой","Замёрзшее озеро|Стеклянные часы|Зимний свет|Ноль градусов|Дыхание на стекле|Синий час|Стальное утро|Тонкий лёд|Иней|Ясно и холодно|Серебряная проволока|Снег без звука","По кругу|Снова и снова|Петля|Гипноз|Ещё один час|Вращение|Под волной|Повторяй за мной|Медленная спираль|С закрытыми глазами|Круговой танец|Задержанное дыхание","Сломать что-нибудь|Без пощады|Удар|Жёсткая посадка|Красный свет|Зубы|Падение давления|Сжатые кулаки|Стук в дверь|Тяжёлая ночь|Сжечь всё|Кулаки вверх","Тёплые руки|Маленький свет|Колыбельная|Мягкий фокус|Обними медленно|Утренний чай|Сонное солнце|Нежная машина|Твоё плечо|Мёд|Тихая доброта|Босиком","Лето девяносто четвёртого|Домашнее видео|Старая плёнка|Выцветший полароид|Кухонное радио|Тогда|Кассетное лето|Улица детства|Перемотка|Гостиная у бабушки|Последний звонок|Двор в сумерках","Чужой на платформе|По ту сторону стекла|Где-то в другом месте|Чужой вокзал|Не в фазе|Не дома|Запасная комната|Наблюдатель|Никто не звонит|За окном|Город чужих|Другая погода","Рассвет на крыше|Весь свет включён|Не могу не улыбаться|Подъём|Золотой час|Все вместе|Свободное падение|Чистая радость|Окна настежь|Руки вверх|Ярче|Бегом домой","Здесь никого|Тишина между|Чистый лист|Пустая комната|После всего|Пустота|Эхо ничего|Пыль|Промежуток|Неподвижный воздух|Ни души|Незаполненное"],"f":{"club":"Последний заказ|Танцпол открыт|Очередь вокруг квартала|Стробоскоп|Афтер|Пот|Гардероб|Ночной автобус|Танец в одиночку|Бас в груди|После второго бокала|Закрываемся","bass":"Любовь к сабу|Низкая погода|Дребезг|Тяжёлая вода|Стены дрожат|Глубоко внизу|Скороварка|Качает|Концерт в подвале|Гром в динамиках|Нулевой этаж|Рокот","soft":"Воскресное утро|Шалаш из одеял|Медленный кофе|Место у окна|Ленивая река|Шипение плёнки|Облака|Тёплый дождь|Поздний завтрак|Сезон дивана|Тихий угол|Бумажный самолётик","dark":"После темноты|Свет в подвале|Чёрная вода|Ночная смена|Закрытая дверь|Бетонная молитва|Холодный дым|Последняя электричка|Игра теней|Под мостом|Железный час|Глухая ночь"}},"es":{"e":["Sala de espera|Dejar la luz encendida|Tercer café|¿Lo oyes?|Casi medianoche|Estática|Las manos no paran|Todo va bien|Sin leer|Temblar en silencio|Las dos de la madrugada|Antes de que suene el teléfono","Últimas hojas|Lluvia en la ventana|Domingo lento|Lo que queda|Otra vez otoño|Silla vacía|Té frío|Adiós suave|Noviembre|Trenes tranquilos|Fotos viejas|El camino largo a casa","Lago helado|Horas de cristal|Luz de invierno|Cero grados|Aliento en el cristal|Hora azul|Mañana de acero|Hielo fino|Escarcha|Claro y frío|Hilo de plata|Nieve sin ruido","Vueltas y vueltas|Otra vez|El bucle|Hipnosis|Una hora más|Girando|Bajo la ola|Repite conmigo|Espiral lenta|Ojos cerrados|Danza en círculo|Aire contenido","Romper algo|Sin piedad|Golpe|Aterrizaje duro|Luz roja|Dientes|Caída de presión|Puños cerrados|Toc toc|Noche áspera|Quemarlo todo|Puños arriba","Manos tibias|Luz pequeña|Nana|Foco suave|Abrázame despacio|Té de la mañana|Sol dormido|Máquina amable|Tu hombro|Miel|Amabilidad callada|Descalzos","Verano del 94|Vídeo casero|Cinta vieja|Polaroid desteñida|Radio de la cocina|Entonces|Verano de casete|Calle de la infancia|Rebobinar|Salón de la abuela|Último día de clase|Patio al anochecer","Extraño en el andén|Al otro lado del cristal|En otra parte|Estación ajena|Fuera de fase|No es casa|Cuarto de sobra|Observador|Nadie llama|Tras la ventana|Ciudad de extraños|Otro clima","Amanecer en la azotea|Todas las luces|No paro de sonreír|Subida|Hora dorada|Todos ahora|Caída libre|Alegría pura|Ventanas abiertas|Manos arriba|Más brillante|Corriendo a casa","Aquí no hay nadie|Silencio entre medias|Página en blanco|Cuarto vacío|Después de todo|Vacío|Eco de nada|Polvo|El hueco|Aire quieto|Ni un alma|Sin llenar"],"f":{"club":"Última ronda|La pista está abierta|Cola de la esquina|Estroboscopio|Afterhours|Sudor|Guardarropa|Autobús de medianoche|Bailar solo|Bajo en el pecho|Dos copas después|Hora de cerrar","bass":"Amor por el sub|Clima grave|Vibración|Agua pesada|Tiembla la pared|Muy abajo|Olla a presión|Retumba|Concierto en el sótano|Trueno de altavoz|Planta baja|Rumor","soft":"Domingo por la mañana|Fuerte de mantas|Café lento|Asiento junto a la ventana|Río perezoso|Siseo de cinta|Mirar nubes|Lluvia tibia|Desayuno tardío|Temporada de sofá|Rincón tranquilo|Avión de papel","dark":"Después del anochecer|Luz del sótano|Agua negra|Turno de noche|Puerta cerrada|Oración de hormigón|Humo frío|Último tren|Juego de sombras|Bajo el puente|Hora de hierro|Noche cerrada"}},"de":{"e":["Wartezimmer|Licht anlassen|Dritte Tasse Kaffee|Hörst du das|Fast Mitternacht|Rauschen|Die Hände zittern|Alles in Ordnung|Ungelesen|Leise zittern|Zwei Uhr nachts|Bevor das Telefon klingelt","Letzte Blätter|Regen am Fenster|Langsamer Sonntag|Was bleibt|Wieder Herbst|Leerer Stuhl|Kalter Tee|Sanfter Abschied|November|Stille Züge|Alte Fotos|Der lange Weg nach Hause","Gefrorener See|Gläserne Stunden|Winterlicht|Null Grad|Atem am Fenster|Blaue Stunde|Stahlmorgen|Dünnes Eis|Frost|Klar und kalt|Silberdraht|Schnee ohne Laut","Rundherum|Immer wieder|Die Schleife|Hypnose|Noch eine Stunde|Drehen|Unter der Welle|Sprich mir nach|Langsame Spirale|Augen zu|Kreistanz|Angehaltener Atem","Etwas kaputtmachen|Keine Gnade|Schlag|Harte Landung|Rotes Licht|Zähne|Druckabfall|Geballte Fäuste|Klopf klopf|Raue Nacht|Alles niederbrennen|Fäuste hoch","Warme Hände|Kleines Licht|Wiegenlied|Weiches Licht|Halt mich langsam|Morgentee|Müde Sonne|Sanfte Maschine|Deine Schulter|Honig|Leise Güte|Barfuß","Sommer ’94|Heimvideo|Altes Band|Verblasstes Polaroid|Küchenradio|Damals|Kassettensommer|Straße der Kindheit|Zurückspulen|Omas Wohnzimmer|Letzter Schultag|Hof im Abendlicht","Fremder am Bahnsteig|Hinter dem Glas|Woanders|Fremder Bahnhof|Phasenverschoben|Nicht zu Hause|Gästezimmer|Beobachter|Niemand ruft an|Hinter dem Fenster|Stadt der Fremden|Anderes Wetter","Sonnenaufgang auf dem Dach|Alle Lichter an|Ich muss lächeln|Auftrieb|Goldene Stunde|Alle zusammen|Freier Fall|Pure Freude|Offene Fenster|Hände hoch|Heller|Nach Hause rennen","Niemand hier|Stille dazwischen|Leeres Blatt|Leerer Raum|Nach allem|Leere|Echo von Nichts|Staub|Die Lücke|Stehende Luft|Keine Menschenseele|Unausgefüllt"],"f":{"club":"Letzte Runde|Tanzfläche frei|Schlange um den Block|Stroboskop|Afterhour|Schweiß|Garderobe|Nachtbus|Allein tanzen|Bass in der Brust|Zwei Drinks später|Feierabend","bass":"Liebe zum Sub|Tiefes Wetter|Klirren|Schweres Wasser|Wände wackeln|Ganz unten|Dampfkochtopf|Es wummert|Kellerkonzert|Lautsprecherdonner|Erdgeschoss|Grollen","soft":"Sonntagmorgen|Deckenburg|Langsamer Kaffee|Fensterplatz|Träger Fluss|Bandrauschen|Wolken schauen|Warmer Regen|Spätes Frühstück|Sofazeit|Ruhige Ecke|Papierflieger","dark":"Nach Einbruch der Dunkelheit|Kellerlicht|Schwarzes Wasser|Nachtschicht|Geschlossene Tür|Betongebet|Kalter Rauch|Letzter Zug|Schattenspiel|Unter der Brücke|Eiserne Stunde|Tiefe Nacht"}},"fr":{"e":["Salle d’attente|Laisser la lumière|Troisième café|Tu entends ça|Presque minuit|Parasites|Les mains tremblent|Tout va bien|Non lu|Trembler doucement|Deux heures du matin|Avant que le téléphone sonne","Dernières feuilles|Pluie à la fenêtre|Dimanche lent|Ce qui reste|Encore l’automne|Chaise vide|Thé refroidi|Doux adieu|Novembre|Trains tranquilles|Vieilles photos|Le long chemin du retour","Lac gelé|Heures de verre|Lumière d’hiver|Zéro degré|Buée sur la vitre|Heure bleue|Matin d’acier|Glace mince|Givre|Clair et froid|Fil d’argent|Neige sans bruit","Tourner en rond|Encore et encore|La boucle|Hypnose|Encore une heure|Tournoyer|Sous la vague|Répète après moi|Spirale lente|Les yeux fermés|Danse en cercle|Souffle retenu","Casser quelque chose|Sans pitié|Coup|Atterrissage dur|Feu rouge|Les dents|Chute de pression|Poings serrés|Toc toc|Nuit rude|Tout brûler|Poings en l’air","Mains chaudes|Petite lumière|Berceuse|Flou doux|Serre-moi lentement|Thé du matin|Soleil endormi|Machine douce|Ton épaule|Miel|Gentillesse tranquille|Pieds nus","Été 94|Film de famille|Vieille bande|Polaroïd passé|Radio de cuisine|Autrefois|Été cassette|Rue de l’enfance|Rembobiner|Salon de mamie|Dernier jour d’école|Cour au crépuscule","Étranger sur le quai|De l’autre côté de la vitre|Ailleurs|Gare inconnue|Hors phase|Pas chez moi|Chambre d’ami|Observateur|Personne n’appelle|Derrière la fenêtre|Ville d’inconnus|Autre météo","Aube sur le toit|Toutes les lumières|Impossible de ne pas sourire|Élan|Heure dorée|Tous ensemble|Chute libre|Joie pure|Fenêtres ouvertes|Mains en l’air|Plus lumineux|Courir jusqu’à la maison","Personne ici|Silence entre|Page blanche|Pièce vide|Après tout|Le vide|Écho de rien|Poussière|L’intervalle|Air immobile|Pas une âme|Non rempli"],"f":{"club":"Dernier verre|Piste ouverte|File autour du pâté|Stroboscope|Afterhours|Sueur|Vestiaire|Bus de minuit|Danser seul|Basse dans la poitrine|Deux verres plus tard|Heure de fermer","bass":"Amour du sub|Météo grave|Vibration|Eau lourde|Les murs tremblent|Tout en bas|Cocotte-minute|Ça gronde|Concert en sous-sol|Tonnerre d’enceinte|Rez-de-chaussée|Grondement","soft":"Dimanche matin|Cabane de couvertures|Café lent|Place côté fenêtre|Rivière paresseuse|Souffle de bande|Regarder les nuages|Pluie tiède|Petit déjeuner tardif|Saison canapé|Coin tranquille|Avion en papier","dark":"Après la nuit tombée|Lumière de cave|Eau noire|Équipe de nuit|Porte fermée|Prière de béton|Fumée froide|Dernier train|Jeu d’ombres|Sous le pont|Heure de fer|Nuit noire"}},"ja":{"e":["待合室|灯りをつけたまま|三杯目のコーヒー|聞こえる？|もうすぐ零時|ノイズ|手が止まらない|全部大丈夫|未読|静かに震える|午前二時の計算|電話が鳴る前に","最後の葉|窓の雨|ゆっくりの日曜日|残ったもの|また秋|空いた椅子|冷めたお茶|やさしいさよなら|十一月|静かな電車|古い写真|帰り道は遠い","凍った湖|ガラスの時間|冬の光|零度|窓の息|ブルーアワー|鋼の朝|薄氷|霜|澄んで冷たい|銀の糸|音のない雪","ぐるぐる|何度も何度も|ループ|催眠|あと一時間|回る|波の下|私のあとに続いて|ゆるい螺旋|目を閉じて|輪になって踊る|息をとめて","何か壊したい|容赦なし|一撃|ハードランディング|赤信号|歯|気圧低下|握りしめた拳|ノック|荒れた夜|全部燃やせ|拳を上げろ","あたたかい手|小さな灯り|子守唄|やわらかい焦点|ゆっくり抱いて|朝のお茶|眠い太陽|やさしい機械|きみの肩|はちみつ|静かなやさしさ|はだし","九十四年の夏|ホームビデオ|古いテープ|色褪せたポラロイド|台所のラジオ|あの頃|カセットの夏|子どもの頃の道|巻き戻し|おばあちゃんの居間|最後の登校日|夕暮れの中庭","ホームの見知らぬ人|ガラスの向こう側|どこか別の場所|知らない駅|位相がずれて|ここは家じゃない|空き部屋|観察者|誰も電話しない|窓の外|他人の街|違う天気","屋上の夜明け|灯りは全部つけて|笑いが止まらない|浮上|ゴールデンアワー|みんなで今|自由落下|純粋な喜び|窓を開けて|手を上げて|もっと明るく|走って帰ろう","ここには誰もいない|あいだの静けさ|白紙|空っぽの部屋|すべてのあとで|虚空|何もない残響|埃|隙間|動かない空気|人影なし|満たされないまま"],"f":{"club":"ラストオーダー|フロア開放|角まで続く行列|ストロボ|アフターアワーズ|汗|クローク|深夜バス|ひとりで踊る|胸の中の低音|二杯目のあとで|閉店時間","bass":"サブウーファーへの愛|低い天気|ビリつき|重い水|壁が揺れる|ずっと下|圧力鍋|響く|地下ライブ|スピーカーの雷|地上階|地鳴り","soft":"日曜の朝|毛布の砦|ゆっくりのコーヒー|窓際の席|のんびりした川|テープのヒス|雲を眺める|あたたかい雨|遅い朝食|ソファの季節|静かな隅|紙飛行機","dark":"日が暮れたあと|地下室の灯り|黒い水|夜勤|閉じたドア|コンクリートの祈り|冷たい煙|終電|影絵|橋の下|鉄の時間|真夜中"}},"zh":{"e":["候诊室|灯别关|第三杯咖啡|你听见了吗|快到午夜|杂音|手停不下来|一切都好|未读|静静发抖|凌晨两点的算术|电话响起之前","最后的叶子|窗上的雨|缓慢的周日|剩下的|又是秋天|空椅子|凉了的茶|轻轻告别|十一月|安静的列车|旧照片|回家的长路","冻湖|玻璃时刻|冬日的光|零度|窗上的呼吸|蓝调时刻|钢色清晨|薄冰|霜|清澈而冷|银丝|无声的雪","一圈又一圈|一遍又一遍|循环|催眠|再一小时|旋转|浪下|跟我重复|缓慢的螺旋|闭上眼睛|圆圈舞|屏住呼吸","砸点什么|毫不留情|一击|硬着陆|红灯|牙齿|气压骤降|握紧的拳头|敲门|粗糙的夜|全部烧掉|举起拳头","温暖的手|小小的光|摇篮曲|柔焦|慢慢抱紧我|早晨的茶|困倦的太阳|温柔的机器|你的肩膀|蜂蜜|安静的善意|赤脚","九四年夏天|家庭录像|旧磁带|褪色的拍立得|厨房里的收音机|那时候|卡带的夏天|童年的街|倒带|外婆的客厅|最后一天上学|黄昏的院子","站台上的陌生人|玻璃的另一边|在别处|陌生车站|相位偏移|不是家|空着的房间|旁观者|没人来电|窗外|陌生人的城市|不同的天气","屋顶上的日出|所有灯都亮着|忍不住笑|上升|黄金时刻|大家一起|自由落体|纯粹的喜悦|窗户敞开|举起手|更明亮|跑回家","这里没有人|之间的寂静|空白页|空房间|一切之后|虚空|无物的回声|灰尘|缝隙|静止的空气|空无一人|未填满"],"f":{"club":"最后一轮|舞池开放|绕街区的队伍|频闪灯|通宵场|汗水|衣帽间|午夜巴士|独自起舞|胸口的低音|两杯之后|打烊时间","bass":"爱上低音炮|低沉的天气|颤响|重水|墙在抖|很深的地方|高压锅|轰鸣|地下室演出|音箱的雷声|底层|隆隆声","soft":"周日早晨|毯子堡垒|慢咖啡|靠窗的座位|懒散的河|磁带嘶声|看云|温暖的雨|晚到的早餐|沙发季|安静的角落|纸飞机","dark":"天黑之后|地下室的灯|黑水|夜班|关着的门|混凝土祈祷|冷烟|末班车|影子戏|桥下|铁色时刻|深夜"}}};
+const HUMUSED=new Set();
+const wcount=(s,l)=>l==='ja'||l==='zh'?s.length:s.split(/\s+/).length;
+function humanPool(lang){
+  const H=HUM[lang],ks=Object.keys(EMO),ix=state.emos.map(k=>ks.indexOf(k)).filter(i=>i>=0);
+  const ei=ix.length?pick(ix):rnd(10),g=G(state.genre),fam=g&&H.f[g.fam]?g.fam:pick(Object.keys(H.f));
+  return (Math.random()<.68?H.e[ei]:H.f[fam]).split('|');
+}
+function humanTitle(lang){
+  let s,g=0;
+  do{s=pick(humanPool(lang));g++;}while(HUMUSED.has(lang+s)&&g<25);
+  if(HUMUSED.size>80)HUMUSED.clear();
+  HUMUSED.add(lang+s);return s;
+}
+function humanAlias(lang,form){
+  const cj=lang==='ja'||lang==='zh',lim=form==='word'?(cj?3:1):(cj?6:2);
+  let s,g=0;
+  do{s=pick(humanPool(lang));g++;}while(wcount(s,lang)>lim&&g<40);
+  if(wcount(s,lang)>lim)s=pick(humanPool(lang));
+  return form==='code'?s+' '+pad(ri(1,24)):s;
+}
 function resolveLang(l){return l==='AUTO'?LANG:l==='MIX'?pick(NLANGS):l.toLowerCase();}
 const KAO=['ʕ•ᴥ•ʔ','(ᵔ◡ᵔ)','(¬_¬)','(｡•́︿•̀｡)','(づ｡◕‿‿◕｡)づ','¯\\_(ツ)_/¯','(≖_≖)','(ಠ_ಠ)','(•_•)','(✿◠‿◠)','ᕕ( ᐛ )ᕗ','(⌐■_■)','(◔_◔)','♪(´▽｀)','(╥﹏╥)','(੭ ˙ᗜ˙ )੭','ʘ‿ʘ','(⊙_⊙)','(－_－) zzz','(^_^)','(≧◡≦)','٩(◕‿◕)۶','(づ￣ ³￣)づ','(≖‿≖)','(>_<)','( ・ω・)','(-ω-)','ヽ(´ー｀)ノ','(ㅅ´ ˘ `)','(˘▾˘)','(☞ﾟヮﾟ)☞','(°ロ°)','(ᗒᗣᗕ)','(•̀ᴗ•́)و','(︶︹︺)','(*´-`)'];
 const ORN=[w=>'░▒ '+w+' ▒░',w=>'◢ '+w+' ◣',w=>'☆ '+w+' ☆',w=>'▲ '+w,w=>'[ '+w+' ]',w=>'« '+w+' »',w=>'✦ '+w+' ✦',w=>'▌'+w+'▐',w=>'⟦ '+w+' ⟧',w=>'∷ '+w+' ∷',w=>w+' ◼',w=>[...w.toUpperCase()].join(' '),w=>'/// '+w,w=>'~ '+w+' ~',w=>'◇ '+w+' ◇',w=>'· '+w+' ·'];
@@ -925,6 +946,7 @@ function caseFx(s,style){
 function makeAlias(style,lang,form){
   lang=resolveLang(lang);
   if(style==='kao'||style==='sym')return decorate(style,makeAlias(pick(NB),lang,form));
+  if(style==='human')return humanAlias(lang,form);
   const L=LEX[style][lang],n=noun(style,lang);let s;
   if(form==='word'){s=n.w;}
   else if(form==='pair'){
@@ -947,6 +969,7 @@ const CJ={
 function makeTitle(style,lang){
   lang=resolveLang(lang);
   if(style==='kao'||style==='sym')return decorate(style,makeTitle(pick(NB),lang));
+  if(style==='human')return humanTitle(lang);
   const L=LEX[style][lang],n=noun(style,lang),n2=noun(style,lang),a=pick(L.a);
   const en=lang==='en',w=W3[lang],c=CJ[lang];
   if(c){
@@ -1912,6 +1935,12 @@ I18N.ja={
 };
 Object.assign(I18N.ja,{"sv_t": "保存済み", "sv_save": "保存", "sv_ok": "保存しました", "sv_dup": "保存済みです", "sv_empty": "まだ何もありません。結果の下の「保存」を押してください。", "sv_copy": "コピー", "sv_del": "削除", "sv_clr": "すべて消去", "sv_clr_q": "保存したものをすべて削除しますか？", "sv_k_vibe": "ヴァイブ", "sv_k_names": "ネーム", "sv_k_tracks": "トラックリスト", "sv_k_concept": "コンセプト", "lk_on": "固定中", "lk_off": "固定"});
 Object.assign(I18N.ja,{"ns_cos": "宇宙", "ns_tape": "テープ", "fd_show": "開く", "fd_hide": "閉じる", "nl_auto": "自動（アプリの言語）", "nl_mix": "ミックス · 全言語", "ns_kao": "顔文字", "ns_sym": "記号", fid_close:'閉じる',fid_hint:'回す · 押す'});
+Object.assign(I18N.ru,{"ns_human": "Живой", "note_tracks": "Названия берут стиль и язык из блока выше и опираются на эмоции и жанр из Vibe. Темп и тональности следуют жанру и рисуют кривую энергии."});
+Object.assign(I18N.en,{"ns_human": "Human", "note_tracks": "Titles use the style and language above and lean on the emotions and genre from Vibe. Tempo and keys follow the genre and shape an energy curve."});
+Object.assign(I18N.es,{"ns_human": "Humano", "note_tracks": "Los títulos usan el estilo y el idioma de arriba y se apoyan en las emociones y el género de Vibe. El tempo y las tonalidades siguen el género y trazan una curva de energía."});
+Object.assign(I18N.de,{"ns_human": "Menschlich", "note_tracks": "Die Titel nutzen Stil und Sprache von oben und orientieren sich an Emotionen und Genre aus Vibe. Tempo und Tonarten folgen dem Genre und bilden eine Energiekurve."});
+Object.assign(I18N.fr,{"ns_human": "Humain", "note_tracks": "Les titres suivent le style et la langue ci-dessus et s’appuient sur les émotions et le genre de Vibe. Le tempo et les tonalités suivent le genre et dessinent une courbe d’énergie."});
+Object.assign(I18N.ja,{"ns_human": "人間味", "note_tracks": "タイトルは上のスタイルと言語に従い、ヴァイブで選んだ感情とジャンルを手がかりにします。テンポとキーはジャンルに合わせ、エネルギーの曲線を描きます。"});
 function t(k,v){
   let s=(I18N[LANG]||I18N.en)[k];if(s==null)s=I18N.en[k];if(s==null)s=k;
   return v?s.replace(/\{(\w+)\}/g,(_,n)=>v[n]):s;
@@ -1920,7 +1949,7 @@ function t(k,v){
 /* ---------- state ---------- */
 const state={
   mode:'vibe',genre:'tech',fam:'dark',bpm:134,emos:['тревога','холод'],aest:'Бетон',count:0,vn:0,vibe:null,
-  names:{style:'ind',lang:'AUTO',form:'pair',list:[],pins:[]},
+  names:{style:'human',lang:'AUTO',form:'pair',list:[],pins:[]},
   trackN:8,tn:0,album:'',tracks:[],
   concept:{themes:['Машина','Время'],tone:'p',level:3,id:0,f:{}},
   lock:{harm:false,inst:false,title:false},
@@ -2137,6 +2166,7 @@ const MINORISH=['minor','dorian','phrygian','locrian','harm'];
 function genTracks(){
   const g=G(state.genre),n=state.trackN,ns=state.names,root=rnd(12);
   const offs=[0,7,5,10,3,8],minor=MINORISH.includes(g.modes[0]);
+  HUMUSED.clear();
   state.album=makeTitle(ns.style,ns.lang);
   state.tn++;
   state.tracks=Array.from({length:n},(_,i)=>{
@@ -2516,6 +2546,7 @@ const SND={
     if(this.ctx)return true;
     try{
       const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return false;
+      try{if(navigator.audioSession)navigator.audioSession.type='playback';}catch(e){} /* iOS: sound even with the silent switch on */
       const c=new AC(),ws=c.createWaveShaper(),cv=new Float32Array(2048);
       for(let k=0;k<2048;k++)cv[k]=Math.tanh(2*(k/1023.5-1))/2; /* soft limiter: linear when quiet, never above 0.5, keeps sharp clicks sharp */
       ws.curve=cv;ws.oversample='2x';
@@ -2525,7 +2556,7 @@ const SND={
       this.ctx=c;this.master=m;this.noiseBuf=buf;return true;
     }catch(e){return false;}
   },
-  unlock(){if(!this.init())return;if(this.ctx.state!=='running'){try{this.ctx.resume().catch(()=>{});}catch(e){}}},
+  unlock(){if(!this.init())return;try{if(navigator.audioSession&&navigator.audioSession.type!=='playback')navigator.audioSession.type='playback';}catch(e){}if(this.ctx.state!=='running'){try{this.ctx.resume().catch(()=>{});}catch(e){}}},
   ok(){return !!(this.on&&this.ctx&&this.ctx.state==='running');},
   tone(f,t,d,type,vol,f2,out){
     const c=this.ctx,o=c.createOscillator(),g=c.createGain();
@@ -2688,6 +2719,7 @@ function runBoot(){
     setT(pw,'boot_skip');setT(st,'boot_tune');
     if(RM){needle.style.setProperty('--p','.53');lock();setTimeout(finish,700);return;}
     if(SND.ok()){try{SND.bootAudio();}catch(e){}}
+    else if(SND.on&&SND.ctx){try{SND.ctx.resume().then(()=>{if(!ended&&SND.ok())SND.bootAudio();}).catch(()=>{});}catch(e){}}
     tStart=performance.now();
     requestAnimationFrame(frame);
   }
@@ -2699,9 +2731,9 @@ function runBoot(){
     SND.unlock();
     let done=false;
     const go=()=>{if(done)return;done=true;begin();};
-    if(SND.on&&SND.ctx&&SND.ctx.state==='suspended'){
+    if(SND.on&&SND.ctx&&SND.ctx.state!=='running'){
       try{SND.ctx.resume().then(go,go);}catch(e){go();}
-      setTimeout(go,220);
+      setTimeout(go,350);
     }else go();
   }
   function onKey(e){
