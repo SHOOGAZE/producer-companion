@@ -2,6 +2,8 @@
 
 A single-file mobile web app for electronic music producers, styled after Braun notebooks and vintage measuring instruments: monochrome, one orange lamp, IBM Plex type, a radio-dial boot screen.
 
+▶ Listen: https://shoogaze.github.io/producer-companion/
+
 <!-- Demo: in the GitHub editor, drag extras/demo.mp4 here; it is uploaded and plays inline. -->
 
 - **Vibe**: genre, tempo, emotions and aesthetic → track concept with structure, instruments and mixing parameters
