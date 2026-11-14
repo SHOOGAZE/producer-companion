@@ -1,5 +1,7 @@
 # Producer Companion
 
+**[▶ Open the app](https://shoogaze.github.io/producer-companion/)**  ·  works in the browser, installs to the Home Screen
+
 A single-file mobile web app for electronic music producers, styled after Braun notebooks and vintage measuring instruments: monochrome, one orange lamp, IBM Plex type, a radio-dial boot screen.
 
 <!-- Demo: in the GitHub editor, drag extras/demo.mp4 here; it is uploaded and plays inline. -->
@@ -26,15 +28,23 @@ Keys: `1`–`3` switch modules, `G` generate, `M` toggle sound.
 |---|---|---|
 | ![](screenshots/05-concept.png) | ![](screenshots/06-dark-dubstep.png) | ![](screenshots/07-vibe-locks.png) |
 
+**Share as a picture and print on A4**
+
+<img src="screenshots/09-share-png.png" width="420">
+
+<img src="screenshots/10-print-a4.png" width="300">
+
 **Desktop**
 
-![](screenshots/08-desktop-vibe.png)
+<img src="screenshots/08-desktop-vibe.png" width="640">
 
 ## Companion project
 
-**[Sequential Companion](https://github.com/SHOOGAZE/sequential-companion)** is the sister app in the same design language: pattern cards for Digitakt 2 and other 16-step sequencers, 164 genre presets in 28 genres, A/B/FILL variations, MIDI export, a seeded generator, and a dot-matrix boot screen that writes a pattern instead of tuning a radio. Producer Companion gives you the idea and the structure of a track; Sequential Companion gives you the first drum pattern to start it with.
+**[Sequential Companion](https://github.com/SHOOGAZE/sequential-companion)** ([live](https://shoogaze.github.io/sequential-companion/)) is the sister app in the same design language: pattern cards for Digitakt 2 and other 16-step sequencers, 164 genre presets in 28 genres, A/B/FILL variations, MIDI export, a seeded generator, and a dot-matrix boot screen that writes a pattern instead of tuning a radio. Producer Companion gives you the idea and the structure of a track; Sequential Companion gives you the first drum pattern to start it with.
 
 ## Run
+
+Live build: https://shoogaze.github.io/producer-companion/
 
 Open `index.html` in a browser. No build step. For GitHub Pages: Settings → Pages → deploy from branch `main`, root.
 
