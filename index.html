@@ -80,8 +80,10 @@ button,select,input{font:inherit;color:inherit}
 /* header */
 .top{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .brand{display:flex;align-items:center;gap:10px;min-width:0}
-.mark{flex:none;width:48px;height:34px;border-radius:3px;background:var(--ink);color:var(--on-ink);display:flex}
-.mark svg{display:block;width:100%;height:100%}
+.mark{flex:none;display:flex;align-items:center;color:var(--ink)}
+.mark svg{display:block;width:46px;height:auto}
+.wm{display:flex;min-width:0;color:var(--ink)}
+.wm .nm{display:block;height:28px;width:auto}
 .meter{display:flex;align-items:center;gap:8px;flex:none}
 .lamp{width:10px;height:10px;border-radius:50%;background:var(--lamp-off);box-shadow:inset 0 0 0 1px rgba(0,0,0,.25);transition:background .08s,box-shadow .08s}
 .lamp.on{background:var(--lamp);box-shadow:0 0 0 1px rgba(0,0,0,.2),0 0 10px 2px color-mix(in srgb,var(--lamp) 60%,transparent)}
@@ -254,7 +256,8 @@ input[type=range]::-moz-range-thumb{width:16px;height:28px;border:1px solid var(
     .lcd .big{font-size:40px}
   .dial .dl{font-size:7.5px;letter-spacing:-.02em}
   .tools{gap:4px}
-  .mark{width:42px}
+  .mark svg{width:38px}
+  .wm .nm{height:23px}
 }
 
 /* ===== header, counter window, wide layouts, boot screen ===== */
@@ -362,7 +365,10 @@ html:not([lang=ru]):not([lang=en]) .langmenu .key{font-size:13px;padding-left:10
 .bt{width:100%;max-width:580px;display:flex;flex-direction:column;gap:clamp(12px,2.6vh,24px)}
 .bt-top{display:flex;align-items:center;justify-content:space-between;gap:12px;font:500 10.5px/1 var(--f-mono);letter-spacing:.2em;color:var(--b-dim);text-transform:uppercase}
 .bt-brand{display:flex;align-items:center;gap:10px;min-width:0;color:var(--b-ink)}
-.bt-brand svg{flex:none;width:36px;height:24px;display:block}
+.bt-brand svg{flex:none;display:block}
+.bt-brand .m{width:42px;height:auto}
+.bt-brand .n{height:25px;width:auto}
+.bt-big svg{display:block;margin:0 auto;height:.78em;width:auto}
 .bt-top b{font:700 10.5px/1.25 var(--f-ui);color:var(--ink2);letter-spacing:.14em;text-transform:uppercase}
 .bt-lamp{width:9px;height:9px;border-radius:50%;background:var(--lamp-off);transition:background .2s,box-shadow .2s}
 #boot.on .bt-lamp{background:var(--lamp);box-shadow:0 0 12px 3px color-mix(in srgb,var(--lamp) 60%,transparent)}
@@ -451,13 +457,32 @@ html:not([lang=ru]):not([lang=en]) .langmenu .key{font-size:13px;padding-left:10
 @media (orientation:landscape) and (max-height:520px) and (min-width:760px){
   .mod{display:grid;grid-template-columns:minmax(300px,380px) minmax(0,1fr);gap:12px;align-items:start}
 }
+@media (max-width:339px){.wm{display:none}}
+/* glass over the displays: bezel, depth, soft diagonal reflection (no glow) */
+.lcd,.cnt,.bt-lcd,.bt-dial{position:relative;isolation:isolate;box-shadow:inset 0 0 0 1px rgba(255,255,255,.07),inset 0 8px 16px -6px rgba(0,0,0,.6),0 0 0 1px rgba(0,0,0,.38),0 1px 0 1px rgba(255,255,255,.28)}
+.lcd::after,.cnt::after,.bt-lcd::after,.bt-dial::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:4;
+  background:linear-gradient(118deg,rgba(255,255,255,.11) 0,rgba(255,255,255,.045) 38%,rgba(255,255,255,0) 38.4%),linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,0) 26%),linear-gradient(0deg,rgba(0,0,0,.28),rgba(0,0,0,0) 30%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.12)}
+
+#pcPrint{display:none}
+@media print{
+  @page{margin:14mm}
+  html,body{background:#fff!important}
+  body.pp>*:not(#pcPrint){display:none!important}
+  body.pp #pcPrint{display:block;color:#000;font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;border:1.5px solid #000;padding:0}
+  #pcPrint .pp-h{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;background:#000;color:#fff;font-size:10px;letter-spacing:.16em;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  #pcPrint .pp-h i{width:9px;height:9px;border-radius:50%;background:#E8461B}
+  #pcPrint h1{font-size:26px;line-height:1.2;margin:18px 16px 14px;font-weight:600}
+  #pcPrint pre{white-space:pre-wrap;font:400 12.5px/1.6 "IBM Plex Mono",ui-monospace,Menlo,monospace;margin:0 16px 18px}
+  #pcPrint .pp-f{border-top:1px solid #000;padding:8px 16px;font-size:9px;letter-spacing:.14em}
+}
 </style>
 </head>
 <body>
 
 <div id="boot" role="dialog" aria-label="PC">
   <div class="bt">
-    <div class="bt-top"><span class="bt-brand"><svg viewBox="6 5 36 24" aria-hidden="true"><g transform="translate(-2.3 0)" fill="none" stroke="currentColor" stroke-width="5.6"><path d="M12 26.5V7.5"/><path d="M12 10.3H18A4.2 4.2 0 0 1 18 18.7H12"/><path d="M40.2 12A6.5 6.5 0 1 0 40.2 22"/></g></svg><b>Producer<br>Companion</b></span><span class="bt-r"><button class="bt-snd" id="btSnd" data-a="snd" type="button"></button><i class="bt-lamp"></i></span></div>
+    <div class="bt-top"><span class="bt-brand"><svg class="m" viewBox="0 0 43.4 27.4" aria-hidden="true"><path d="M17.7 1.7h0M5.7 5.7h0M9.7 5.7h0M13.7 5.7h0M5.7 9.7h0M9.7 9.7h0M13.7 9.7h0M17.7 13.7h0M5.7 17.7h0M9.7 17.7h0M13.7 17.7h0M17.7 17.7h0M5.7 21.7h0M9.7 21.7h0M13.7 21.7h0M17.7 21.7h0M5.7 25.7h0M9.7 25.7h0M13.7 25.7h0M17.7 25.7h0M25.7 1.7h0M41.7 1.7h0M29.7 5.7h0M33.7 5.7h0M37.7 5.7h0M29.7 9.7h0M33.7 9.7h0M37.7 9.7h0M41.7 9.7h0M29.7 13.7h0M33.7 13.7h0M37.7 13.7h0M41.7 13.7h0M29.7 17.7h0M33.7 17.7h0M37.7 17.7h0M41.7 17.7h0M29.7 21.7h0M33.7 21.7h0M37.7 21.7h0M25.7 25.7h0M41.7 25.7h0" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" fill="none" opacity="0.16"/><path d="M1.7 1.7h0M5.7 1.7h0M9.7 1.7h0M13.7 1.7h0M1.7 5.7h0M17.7 5.7h0M1.7 9.7h0M17.7 9.7h0M1.7 13.7h0M5.7 13.7h0M9.7 13.7h0M13.7 13.7h0M1.7 17.7h0M1.7 21.7h0M1.7 25.7h0M29.7 1.7h0M33.7 1.7h0M37.7 1.7h0M25.7 5.7h0M41.7 5.7h0M25.7 9.7h0M25.7 13.7h0M25.7 17.7h0M25.7 21.7h0M41.7 21.7h0M29.7 25.7h0M33.7 25.7h0M37.7 25.7h0" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" fill="none"/></svg><svg class="n" viewBox="0 0 105.7 32.4" aria-hidden="true"><g><path d="M0.85 0.85h0M2.85 0.85h0M4.85 0.85h0M6.85 0.85h0M0.85 2.85h0M8.85 2.85h0M0.85 4.85h0M8.85 4.85h0M0.85 6.85h0M2.85 6.85h0M4.85 6.85h0M6.85 6.85h0M0.85 8.85h0M0.85 10.85h0M0.85 12.85h0M12.85 0.85h0M14.85 0.85h0M16.85 0.85h0M18.85 0.85h0M12.85 2.85h0M20.85 2.85h0M12.85 4.85h0M20.85 4.85h0M12.85 6.85h0M14.85 6.85h0M16.85 6.85h0M18.85 6.85h0M12.85 8.85h0M16.85 8.85h0M12.85 10.85h0M18.85 10.85h0M12.85 12.85h0M20.85 12.85h0M26.85 0.85h0M28.85 0.85h0M30.85 0.85h0M24.85 2.85h0M32.85 2.85h0M24.85 4.85h0M32.85 4.85h0M24.85 6.85h0M32.85 6.85h0M24.85 8.85h0M32.85 8.85h0M24.85 10.85h0M32.85 10.85h0M26.85 12.85h0M28.85 12.85h0M30.85 12.85h0M36.85 0.85h0M38.85 0.85h0M40.85 0.85h0M42.85 0.85h0M36.85 2.85h0M44.85 2.85h0M36.85 4.85h0M44.85 4.85h0M36.85 6.85h0M44.85 6.85h0M36.85 8.85h0M44.85 8.85h0M36.85 10.85h0M44.85 10.85h0M36.85 12.85h0M38.85 12.85h0M40.85 12.85h0M42.85 12.85h0M48.85 0.85h0M56.85 0.85h0M48.85 2.85h0M56.85 2.85h0M48.85 4.85h0M56.85 4.85h0M48.85 6.85h0M56.85 6.85h0M48.85 8.85h0M56.85 8.85h0M48.85 10.85h0M56.85 10.85h0M50.85 12.85h0M52.85 12.85h0M54.85 12.85h0M62.85 0.85h0M64.85 0.85h0M66.85 0.85h0M60.85 2.85h0M68.85 2.85h0M60.85 4.85h0M60.85 6.85h0M60.85 8.85h0M60.85 10.85h0M68.85 10.85h0M62.85 12.85h0M64.85 12.85h0M66.85 12.85h0M72.85 0.85h0M74.85 0.85h0M76.85 0.85h0M78.85 0.85h0M80.85 0.85h0M72.85 2.85h0M72.85 4.85h0M72.85 6.85h0M74.85 6.85h0M76.85 6.85h0M78.85 6.85h0M72.85 8.85h0M72.85 10.85h0M72.85 12.85h0M74.85 12.85h0M76.85 12.85h0M78.85 12.85h0M80.85 12.85h0M84.85 0.85h0M86.85 0.85h0M88.85 0.85h0M90.85 0.85h0M84.85 2.85h0M92.85 2.85h0M84.85 4.85h0M92.85 4.85h0M84.85 6.85h0M86.85 6.85h0M88.85 6.85h0M90.85 6.85h0M84.85 8.85h0M88.85 8.85h0M84.85 10.85h0M90.85 10.85h0M84.85 12.85h0M92.85 12.85h0" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" fill="none"/></g><g transform="translate(0 18.7)"><path d="M2.85 0.85h0M4.85 0.85h0M6.85 0.85h0M0.85 2.85h0M8.85 2.85h0M0.85 4.85h0M0.85 6.85h0M0.85 8.85h0M0.85 10.85h0M8.85 10.85h0M2.85 12.85h0M4.85 12.85h0M6.85 12.85h0M14.85 0.85h0M16.85 0.85h0M18.85 0.85h0M12.85 2.85h0M20.85 2.85h0M12.85 4.85h0M20.85 4.85h0M12.85 6.85h0M20.85 6.85h0M12.85 8.85h0M20.85 8.85h0M12.85 10.85h0M20.85 10.85h0M14.85 12.85h0M16.85 12.85h0M18.85 12.85h0M24.85 0.85h0M32.85 0.85h0M24.85 2.85h0M26.85 2.85h0M30.85 2.85h0M32.85 2.85h0M24.85 4.85h0M28.85 4.85h0M32.85 4.85h0M24.85 6.85h0M28.85 6.85h0M32.85 6.85h0M24.85 8.85h0M32.85 8.85h0M24.85 10.85h0M32.85 10.85h0M24.85 12.85h0M32.85 12.85h0M36.85 0.85h0M38.85 0.85h0M40.85 0.85h0M42.85 0.85h0M36.85 2.85h0M44.85 2.85h0M36.85 4.85h0M44.85 4.85h0M36.85 6.85h0M38.85 6.85h0M40.85 6.85h0M42.85 6.85h0M36.85 8.85h0M36.85 10.85h0M36.85 12.85h0M50.85 0.85h0M52.85 0.85h0M54.85 0.85h0M48.85 2.85h0M56.85 2.85h0M48.85 4.85h0M56.85 4.85h0M48.85 6.85h0M50.85 6.85h0M52.85 6.85h0M54.85 6.85h0M56.85 6.85h0M48.85 8.85h0M56.85 8.85h0M48.85 10.85h0M56.85 10.85h0M48.85 12.85h0M56.85 12.85h0M60.85 0.85h0M68.85 0.85h0M60.85 2.85h0M62.85 2.85h0M68.85 2.85h0M60.85 4.85h0M64.85 4.85h0M68.85 4.85h0M60.85 6.85h0M66.85 6.85h0M68.85 6.85h0M60.85 8.85h0M68.85 8.85h0M60.85 10.85h0M68.85 10.85h0M60.85 12.85h0M68.85 12.85h0M74.85 0.85h0M76.85 0.85h0M78.85 0.85h0M76.85 2.85h0M76.85 4.85h0M76.85 6.85h0M76.85 8.85h0M76.85 10.85h0M74.85 12.85h0M76.85 12.85h0M78.85 12.85h0M86.85 0.85h0M88.85 0.85h0M90.85 0.85h0M84.85 2.85h0M92.85 2.85h0M84.85 4.85h0M92.85 4.85h0M84.85 6.85h0M92.85 6.85h0M84.85 8.85h0M92.85 8.85h0M84.85 10.85h0M92.85 10.85h0M86.85 12.85h0M88.85 12.85h0M90.85 12.85h0M96.85 0.85h0M104.85 0.85h0M96.85 2.85h0M98.85 2.85h0M104.85 2.85h0M96.85 4.85h0M100.85 4.85h0M104.85 4.85h0M96.85 6.85h0M102.85 6.85h0M104.85 6.85h0M96.85 8.85h0M104.85 8.85h0M96.85 10.85h0M104.85 10.85h0M96.85 12.85h0M104.85 12.85h0" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" fill="none"/></g></svg></span><span class="bt-r"><button class="bt-snd" id="btSnd" data-a="snd" type="button"></button><i class="bt-lamp"></i></span></div>
     <div class="bt-dial" aria-hidden="true">
       <span class="bt-tag l">FM</span><span class="bt-tag r">MHz</span>
       <div class="bt-scale">
@@ -467,7 +492,7 @@ html:not([lang=ru]):not([lang=en]) .langmenu .key{font-size:13px;padding-left:10
         <div class="bt-needle" id="btNeedle"></div>
       </div>
     </div>
-    <div class="bt-lcd"><span class="u">FM</span><span class="big" id="btBig">--.-</span><span class="u">MHz</span></div>
+    <div class="bt-lcd"><span class="u">FM</span><span class="big bt-big" id="btBig" role="img" aria-label="FM">--.-</span><span class="u">MHz</span></div>
     <div class="bt-meter"><div class="bt-mc"><div class="bt-lamps"><span class="lp" id="lTun"><i></i>TUNED</span><span class="lp s" id="lSt"><i></i>STEREO</span></div><div class="bt-sig"><span>SIG</span><div class="bt-seg" id="btSeg"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div></div></div>
     <button class="bt-pwr" id="btPwr" type="button"><i class="led"></i><span id="btPwrT" data-t="boot_pwr">Включить</span></button>
     <p class="bt-hint" id="btSt" data-t="boot_hint">Нажмите, чтобы включить</p>
@@ -490,7 +515,7 @@ html:not([lang=ru]):not([lang=en]) .langmenu .key{font-size:13px;padding-left:10
 <div class="device">
   <div class="stick">
   <header class="top">
-    <div class="brand"><div class="mark" role="img" aria-label="PC"><svg viewBox="0 0 48 34" aria-hidden="true"><g transform="translate(-2.3 0)" fill="none" stroke="currentColor" stroke-width="5.6"><path d="M12 26.5V7.5"/><path d="M12 10.3H18A4.2 4.2 0 0 1 18 18.7H12"/><path d="M40.2 12A6.5 6.5 0 1 0 40.2 22"/></g></svg></div></div>
+    <div class="brand"><div class="mark" role="img" aria-label="PC"><svg viewBox="0 0 43.4 27.4" aria-hidden="true"><path d="M17.7 1.7h0M5.7 5.7h0M9.7 5.7h0M13.7 5.7h0M5.7 9.7h0M9.7 9.7h0M13.7 9.7h0M17.7 13.7h0M5.7 17.7h0M9.7 17.7h0M13.7 17.7h0M17.7 17.7h0M5.7 21.7h0M9.7 21.7h0M13.7 21.7h0M17.7 21.7h0M5.7 25.7h0M9.7 25.7h0M13.7 25.7h0M17.7 25.7h0M25.7 1.7h0M41.7 1.7h0M29.7 5.7h0M33.7 5.7h0M37.7 5.7h0M29.7 9.7h0M33.7 9.7h0M37.7 9.7h0M41.7 9.7h0M29.7 13.7h0M33.7 13.7h0M37.7 13.7h0M41.7 13.7h0M29.7 17.7h0M33.7 17.7h0M37.7 17.7h0M41.7 17.7h0M29.7 21.7h0M33.7 21.7h0M37.7 21.7h0M25.7 25.7h0M41.7 25.7h0" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" fill="none" opacity="0.16"/><path d="M1.7 1.7h0M5.7 1.7h0M9.7 1.7h0M13.7 1.7h0M1.7 5.7h0M17.7 5.7h0M1.7 9.7h0M17.7 9.7h0M1.7 13.7h0M5.7 13.7h0M9.7 13.7h0M13.7 13.7h0M1.7 17.7h0M1.7 21.7h0M1.7 25.7h0M29.7 1.7h0M33.7 1.7h0M37.7 1.7h0M25.7 5.7h0M41.7 5.7h0M25.7 9.7h0M25.7 13.7h0M25.7 17.7h0M25.7 21.7h0M41.7 21.7h0M29.7 25.7h0M33.7 25.7h0M37.7 25.7h0" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" fill="none"/></svg></div><span class="wm" role="img" aria-label="Producer Companion"><svg class="nm" viewBox="0 0 105.7 32.4" aria-hidden="true"><g><path d="M0.85 0.85h0M2.85 0.85h0M4.85 0.85h0M6.85 0.85h0M0.85 2.85h0M8.85 2.85h0M0.85 4.85h0M8.85 4.85h0M0.85 6.85h0M2.85 6.85h0M4.85 6.85h0M6.85 6.85h0M0.85 8.85h0M0.85 10.85h0M0.85 12.85h0M12.85 0.85h0M14.85 0.85h0M16.85 0.85h0M18.85 0.85h0M12.85 2.85h0M20.85 2.85h0M12.85 4.85h0M20.85 4.85h0M12.85 6.85h0M14.85 6.85h0M16.85 6.85h0M18.85 6.85h0M12.85 8.85h0M16.85 8.85h0M12.85 10.85h0M18.85 10.85h0M12.85 12.85h0M20.85 12.85h0M26.85 0.85h0M28.85 0.85h0M30.85 0.85h0M24.85 2.85h0M32.85 2.85h0M24.85 4.85h0M32.85 4.85h0M24.85 6.85h0M32.85 6.85h0M24.85 8.85h0M32.85 8.85h0M24.85 10.85h0M32.85 10.85h0M26.85 12.85h0M28.85 12.85h0M30.85 12.85h0M36.85 0.85h0M38.85 0.85h0M40.85 0.85h0M42.85 0.85h0M36.85 2.85h0M44.85 2.85h0M36.85 4.85h0M44.85 4.85h0M36.85 6.85h0M44.85 6.85h0M36.85 8.85h0M44.85 8.85h0M36.85 10.85h0M44.85 10.85h0M36.85 12.85h0M38.85 12.85h0M40.85 12.85h0M42.85 12.85h0M48.85 0.85h0M56.85 0.85h0M48.85 2.85h0M56.85 2.85h0M48.85 4.85h0M56.85 4.85h0M48.85 6.85h0M56.85 6.85h0M48.85 8.85h0M56.85 8.85h0M48.85 10.85h0M56.85 10.85h0M50.85 12.85h0M52.85 12.85h0M54.85 12.85h0M62.85 0.85h0M64.85 0.85h0M66.85 0.85h0M60.85 2.85h0M68.85 2.85h0M60.85 4.85h0M60.85 6.85h0M60.85 8.85h0M60.85 10.85h0M68.85 10.85h0M62.85 12.85h0M64.85 12.85h0M66.85 12.85h0M72.85 0.85h0M74.85 0.85h0M76.85 0.85h0M78.85 0.85h0M80.85 0.85h0M72.85 2.85h0M72.85 4.85h0M72.85 6.85h0M74.85 6.85h0M76.85 6.85h0M78.85 6.85h0M72.85 8.85h0M72.85 10.85h0M72.85 12.85h0M74.85 12.85h0M76.85 12.85h0M78.85 12.85h0M80.85 12.85h0M84.85 0.85h0M86.85 0.85h0M88.85 0.85h0M90.85 0.85h0M84.85 2.85h0M92.85 2.85h0M84.85 4.85h0M92.85 4.85h0M84.85 6.85h0M86.85 6.85h0M88.85 6.85h0M90.85 6.85h0M84.85 8.85h0M88.85 8.85h0M84.85 10.85h0M90.85 10.85h0M84.85 12.85h0M92.85 12.85h0" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" fill="none"/></g><g transform="translate(0 18.7)"><path d="M2.85 0.85h0M4.85 0.85h0M6.85 0.85h0M0.85 2.85h0M8.85 2.85h0M0.85 4.85h0M0.85 6.85h0M0.85 8.85h0M0.85 10.85h0M8.85 10.85h0M2.85 12.85h0M4.85 12.85h0M6.85 12.85h0M14.85 0.85h0M16.85 0.85h0M18.85 0.85h0M12.85 2.85h0M20.85 2.85h0M12.85 4.85h0M20.85 4.85h0M12.85 6.85h0M20.85 6.85h0M12.85 8.85h0M20.85 8.85h0M12.85 10.85h0M20.85 10.85h0M14.85 12.85h0M16.85 12.85h0M18.85 12.85h0M24.85 0.85h0M32.85 0.85h0M24.85 2.85h0M26.85 2.85h0M30.85 2.85h0M32.85 2.85h0M24.85 4.85h0M28.85 4.85h0M32.85 4.85h0M24.85 6.85h0M28.85 6.85h0M32.85 6.85h0M24.85 8.85h0M32.85 8.85h0M24.85 10.85h0M32.85 10.85h0M24.85 12.85h0M32.85 12.85h0M36.85 0.85h0M38.85 0.85h0M40.85 0.85h0M42.85 0.85h0M36.85 2.85h0M44.85 2.85h0M36.85 4.85h0M44.85 4.85h0M36.85 6.85h0M38.85 6.85h0M40.85 6.85h0M42.85 6.85h0M36.85 8.85h0M36.85 10.85h0M36.85 12.85h0M50.85 0.85h0M52.85 0.85h0M54.85 0.85h0M48.85 2.85h0M56.85 2.85h0M48.85 4.85h0M56.85 4.85h0M48.85 6.85h0M50.85 6.85h0M52.85 6.85h0M54.85 6.85h0M56.85 6.85h0M48.85 8.85h0M56.85 8.85h0M48.85 10.85h0M56.85 10.85h0M48.85 12.85h0M56.85 12.85h0M60.85 0.85h0M68.85 0.85h0M60.85 2.85h0M62.85 2.85h0M68.85 2.85h0M60.85 4.85h0M64.85 4.85h0M68.85 4.85h0M60.85 6.85h0M66.85 6.85h0M68.85 6.85h0M60.85 8.85h0M68.85 8.85h0M60.85 10.85h0M68.85 10.85h0M60.85 12.85h0M68.85 12.85h0M74.85 0.85h0M76.85 0.85h0M78.85 0.85h0M76.85 2.85h0M76.85 4.85h0M76.85 6.85h0M76.85 8.85h0M76.85 10.85h0M74.85 12.85h0M76.85 12.85h0M78.85 12.85h0M86.85 0.85h0M88.85 0.85h0M90.85 0.85h0M84.85 2.85h0M92.85 2.85h0M84.85 4.85h0M92.85 4.85h0M84.85 6.85h0M92.85 6.85h0M84.85 8.85h0M92.85 8.85h0M84.85 10.85h0M92.85 10.85h0M86.85 12.85h0M88.85 12.85h0M90.85 12.85h0M96.85 0.85h0M104.85 0.85h0M96.85 2.85h0M98.85 2.85h0M104.85 2.85h0M96.85 4.85h0M100.85 4.85h0M104.85 4.85h0M96.85 6.85h0M102.85 6.85h0M104.85 6.85h0M96.85 8.85h0M104.85 8.85h0M96.85 10.85h0M104.85 10.85h0M96.85 12.85h0M104.85 12.85h0" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" fill="none"/></g></svg></span></div>
     <div class="tools">
       <button class="ib" data-a="snd" id="sndBtn" aria-label="Sound"></button>
       <button class="ib" data-a="saved" id="savBtn" aria-label="Saved"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 2.5h8v11L8 10.5l-4 3z"/></svg><i class="bd" id="savN" hidden></i></button>
@@ -651,6 +676,8 @@ const IC={
   copy:svg('<rect x="5.5" y="5.5" width="8" height="8"/><path d="M3 10.5V3h7.5"/>'),
   chev:svg('<path d="M4 6l4 4 4-4"/>'),
   save:svg('<path d="M4 2.5h8v11L8 10.5l-4 3z"/>'),
+  img:svg('<rect x="2.5" y="3" width="11" height="10"/><circle cx="6" cy="6.5" r="1"/><path d="M2.5 11l3.5-3 3 2.5 2-1.5 2.5 2"/>'),
+  print:svg('<path d="M4.5 6V2.5h7V6"/><rect x="2.5" y="6" width="11" height="5"/><path d="M4.5 9.5h7v4h-7z"/>'),
   lock:svg('<rect x="3.5" y="7" width="9" height="6.5"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2"/>'),
   unlock:svg('<rect x="3.5" y="7" width="9" height="6.5"/><path d="M5.5 7V5a2.5 2.5 0 0 1 4.8-1"/>'),
   pin:svg('<path d="M5 2.5h6l-.6 4.2 2 2.3V10H3.6V9l2-2.3z"/><path d="M8 10v4"/>')
@@ -1880,11 +1907,11 @@ I18N.fr={
   snd_on:'Son : activé',snd_off:'Son : coupé',kbd:'Touches : 1–3 modules · G générer · M son'
 };
 
-Object.assign(I18N.ru,{"sv_t": "Сохранённое", "sv_save": "Сохранить", "sv_ok": "Сохранено", "sv_dup": "Уже сохранено", "sv_empty": "Пока пусто. Нажмите «Сохранить» под результатом.", "sv_copy": "Копировать", "sv_del": "Удалить", "sv_clr": "Очистить всё", "sv_clr_q": "Удалить всё сохранённое?", "sv_k_vibe": "Вайб", "sv_k_names": "Имена", "sv_k_tracks": "Треклист", "sv_k_concept": "Концепт", "lk_on": "Зафиксировано", "lk_off": "Зафиксировать"});
-Object.assign(I18N.en,{"sv_t": "Saved", "sv_save": "Save", "sv_ok": "Saved", "sv_dup": "Already saved", "sv_empty": "Nothing here yet. Press “Save” under a result.", "sv_copy": "Copy", "sv_del": "Delete", "sv_clr": "Clear all", "sv_clr_q": "Delete everything saved?", "sv_k_vibe": "Vibe", "sv_k_names": "Names", "sv_k_tracks": "Tracklist", "sv_k_concept": "Concept", "lk_on": "Locked", "lk_off": "Lock"});
-Object.assign(I18N.es,{"sv_t": "Guardado", "sv_save": "Guardar", "sv_ok": "Guardado", "sv_dup": "Ya guardado", "sv_empty": "Aún no hay nada. Pulsa «Guardar» bajo un resultado.", "sv_copy": "Copiar", "sv_del": "Borrar", "sv_clr": "Borrar todo", "sv_clr_q": "¿Borrar todo lo guardado?", "sv_k_vibe": "Vibe", "sv_k_names": "Nombres", "sv_k_tracks": "Tracklist", "sv_k_concept": "Concepto", "lk_on": "Fijado", "lk_off": "Fijar"});
-Object.assign(I18N.de,{"sv_t": "Gespeichert", "sv_save": "Speichern", "sv_ok": "Gespeichert", "sv_dup": "Schon gespeichert", "sv_empty": "Noch leer. Unter einem Ergebnis auf „Speichern“ tippen.", "sv_copy": "Kopieren", "sv_del": "Löschen", "sv_clr": "Alles löschen", "sv_clr_q": "Alles Gespeicherte löschen?", "sv_k_vibe": "Vibe", "sv_k_names": "Namen", "sv_k_tracks": "Tracklist", "sv_k_concept": "Konzept", "lk_on": "Fixiert", "lk_off": "Fixieren"});
-Object.assign(I18N.fr,{"sv_t": "Enregistré", "sv_save": "Enregistrer", "sv_ok": "Enregistré", "sv_dup": "Déjà enregistré", "sv_empty": "Rien pour l’instant. Touchez « Enregistrer » sous un résultat.", "sv_copy": "Copier", "sv_del": "Supprimer", "sv_clr": "Tout effacer", "sv_clr_q": "Supprimer tout ce qui est enregistré ?", "sv_k_vibe": "Vibe", "sv_k_names": "Noms", "sv_k_tracks": "Tracklist", "sv_k_concept": "Concept", "lk_on": "Verrouillé", "lk_off": "Verrouiller"});
+Object.assign(I18N.ru,{"sh_png": "PNG · поделиться", "sh_print": "Печать · A4", "sv_t": "Сохранённое", "sv_save": "Сохранить", "sv_ok": "Сохранено", "sv_dup": "Уже сохранено", "sv_empty": "Пока пусто. Нажмите «Сохранить» под результатом.", "sv_copy": "Копировать", "sv_del": "Удалить", "sv_clr": "Очистить всё", "sv_clr_q": "Удалить всё сохранённое?", "sv_k_vibe": "Вайб", "sv_k_names": "Имена", "sv_k_tracks": "Треклист", "sv_k_concept": "Концепт", "lk_on": "Зафиксировано", "lk_off": "Зафиксировать"});
+Object.assign(I18N.en,{"sh_png": "PNG · share", "sh_print": "Print · A4", "sv_t": "Saved", "sv_save": "Save", "sv_ok": "Saved", "sv_dup": "Already saved", "sv_empty": "Nothing here yet. Press “Save” under a result.", "sv_copy": "Copy", "sv_del": "Delete", "sv_clr": "Clear all", "sv_clr_q": "Delete everything saved?", "sv_k_vibe": "Vibe", "sv_k_names": "Names", "sv_k_tracks": "Tracklist", "sv_k_concept": "Concept", "lk_on": "Locked", "lk_off": "Lock"});
+Object.assign(I18N.es,{"sh_png": "PNG · compartir", "sh_print": "Imprimir · A4", "sv_t": "Guardado", "sv_save": "Guardar", "sv_ok": "Guardado", "sv_dup": "Ya guardado", "sv_empty": "Aún no hay nada. Pulsa «Guardar» bajo un resultado.", "sv_copy": "Copiar", "sv_del": "Borrar", "sv_clr": "Borrar todo", "sv_clr_q": "¿Borrar todo lo guardado?", "sv_k_vibe": "Vibe", "sv_k_names": "Nombres", "sv_k_tracks": "Tracklist", "sv_k_concept": "Concepto", "lk_on": "Fijado", "lk_off": "Fijar"});
+Object.assign(I18N.de,{"sh_png": "PNG · teilen", "sh_print": "Drucken · A4", "sv_t": "Gespeichert", "sv_save": "Speichern", "sv_ok": "Gespeichert", "sv_dup": "Schon gespeichert", "sv_empty": "Noch leer. Unter einem Ergebnis auf „Speichern“ tippen.", "sv_copy": "Kopieren", "sv_del": "Löschen", "sv_clr": "Alles löschen", "sv_clr_q": "Alles Gespeicherte löschen?", "sv_k_vibe": "Vibe", "sv_k_names": "Namen", "sv_k_tracks": "Tracklist", "sv_k_concept": "Konzept", "lk_on": "Fixiert", "lk_off": "Fixieren"});
+Object.assign(I18N.fr,{"sh_png": "PNG · partager", "sh_print": "Imprimer · A4", "sv_t": "Enregistré", "sv_save": "Enregistrer", "sv_ok": "Enregistré", "sv_dup": "Déjà enregistré", "sv_empty": "Rien pour l’instant. Touchez « Enregistrer » sous un résultat.", "sv_copy": "Copier", "sv_del": "Supprimer", "sv_clr": "Tout effacer", "sv_clr_q": "Supprimer tout ce qui est enregistré ?", "sv_k_vibe": "Vibe", "sv_k_names": "Noms", "sv_k_tracks": "Tracklist", "sv_k_concept": "Concept", "lk_on": "Verrouillé", "lk_off": "Verrouiller"});
 Object.assign(I18N.ru,{"ns_cos": "Космос", "ns_tape": "Плёнка"});
 Object.assign(I18N.en,{"ns_cos": "Cosmos", "ns_tape": "Tape"});
 Object.assign(I18N.es,{"ns_cos": "Cosmos", "ns_tape": "Cinta"});
@@ -1933,7 +1960,7 @@ I18N.ja={
   boot_pwr:'電源オン',boot_skip:'スキップ',boot_hint:'タップして電源オン',boot_tune:'チューニング中…',boot_lock:'信号ロック',
   fam_all:'すべて',fam_club:'クラブ',fam_bass:'ベース',fam_soft:'ソフト',fam_dark:'ダーク',c_gens:'生成回数',snd_on:'サウンド：オン',snd_off:'サウンド：オフ',kbd:'キー：1–3 モジュール · G 生成 · M サウンド'
 };
-Object.assign(I18N.ja,{"sv_t": "保存済み", "sv_save": "保存", "sv_ok": "保存しました", "sv_dup": "保存済みです", "sv_empty": "まだ何もありません。結果の下の「保存」を押してください。", "sv_copy": "コピー", "sv_del": "削除", "sv_clr": "すべて消去", "sv_clr_q": "保存したものをすべて削除しますか？", "sv_k_vibe": "ヴァイブ", "sv_k_names": "ネーム", "sv_k_tracks": "トラックリスト", "sv_k_concept": "コンセプト", "lk_on": "固定中", "lk_off": "固定"});
+Object.assign(I18N.ja,{"sh_png": "PNG · 共有", "sh_print": "印刷 · A4", "sv_t": "保存済み", "sv_save": "保存", "sv_ok": "保存しました", "sv_dup": "保存済みです", "sv_empty": "まだ何もありません。結果の下の「保存」を押してください。", "sv_copy": "コピー", "sv_del": "削除", "sv_clr": "すべて消去", "sv_clr_q": "保存したものをすべて削除しますか？", "sv_k_vibe": "ヴァイブ", "sv_k_names": "ネーム", "sv_k_tracks": "トラックリスト", "sv_k_concept": "コンセプト", "lk_on": "固定中", "lk_off": "固定"});
 Object.assign(I18N.ja,{"ns_cos": "宇宙", "ns_tape": "テープ", "fd_show": "開く", "fd_hide": "閉じる", "nl_auto": "自動（アプリの言語）", "nl_mix": "ミックス · 全言語", "ns_kao": "顔文字", "ns_sym": "記号", fid_close:'閉じる',fid_hint:'回す · 押す'});
 Object.assign(I18N.ru,{"ns_human": "Живой", "note_tracks": "Названия берут стиль и язык из блока выше и опираются на эмоции и жанр из Vibe. Темп и тональности следуют жанру и рисуют кривую энергии."});
 Object.assign(I18N.en,{"ns_human": "Human", "note_tracks": "Titles use the style and language above and lean on the emotions and genre from Vibe. Tempo and keys follow the genre and shape an energy curve."});
@@ -2085,7 +2112,7 @@ function buildVibe(){
 }
 function kvRow(k,v,mono){return '<div class="kv"><span class="k">'+esc(k)+'</span><div class="v'+(mono?' m':'')+'">'+v+'</div></div>';}
 function lkBtn(k){const on=state.lock[k];return '<button class="lk" data-a="lock" data-v="'+k+'" aria-pressed="'+on+'" aria-label="'+esc(t(on?'lk_on':'lk_off'))+'">'+(on?IC.lock:IC.unlock)+'</button>';}
-function saveBtn(k){return '<button class="key sv" data-a="save" data-v="'+k+'">'+IC.save+t('sv_save')+'</button>';}
+function saveBtn(k){return '<button class="key" data-a="png" data-v="'+k+'">'+IC.img+t('sh_png')+'</button><button class="key" data-a="print" data-v="'+k+'">'+IC.print+t('sh_print')+'</button>'+'<button class="key sv" data-a="save" data-v="'+k+'">'+IC.save+t('sv_save')+'</button>';}
 function fdCap(k,label){const o=!state.fold[k];return '<button class="cap capb" data-a="fold" data-v="'+k+'" aria-expanded="'+o+'" aria-label="'+esc(label+': '+t(o?'fd_hide':'fd_show'))+'" type="button"><span>'+label+'</span><i>'+IC.chev+'</i></button>';}
 function fb(k,inner){return '<div class="fb"'+(state.fold[k]?' hidden':'')+'>'+inner+'</div>';}
 function vibeHTML(d){
@@ -2420,7 +2447,9 @@ const A={
     const row=$('[data-row="'+f+'"]',$('#conceptOut'));
     if(f==='title'&&row)scramble(row,320,0);else if(row)flash($('.v',row));
   },
-  'copy-concept':()=>copyText(conceptText())
+  'copy-concept':()=>copyText(conceptText()),
+  'png':b=>savePNG(b.dataset.v),
+  'print':b=>printCard(b.dataset.v)
 };
 /* ---------- saved ---------- */
 const SV={open:false,list:[]};
@@ -2436,6 +2465,44 @@ function svItem(k){
   if(k==='tracks'&&state.tracks.length)return {ti:state.album,tx:tracksText()};
   if(k==='concept'&&state.concept.f.title)return {ti:state.concept.f.title,tx:conceptText()};
   return null;
+}
+/* ---------- share as picture, print ---------- */
+function cardPNG(it){
+  const W=1200,P=70,F='"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace',x0=document.createElement('canvas').getContext('2d');
+  const wrap=(txt,font,maxW)=>{x0.font=font;const out=[];String(txt).split('\n').forEach(par=>{if(!par){out.push('');return;}let line='';const toks=par.split(/(\s+)/);
+    for(const w of toks){if(x0.measureText(line+w).width<=maxW){line+=w;continue;}
+      if(line.trim())out.push(line.trimEnd());line=w.trimStart();
+      while(x0.measureText(line).width>maxW){let k=line.length;while(k>1&&x0.measureText(line.slice(0,k)).width>maxW)k--;out.push(line.slice(0,k));line=line.slice(k);}}
+    out.push(line.trimEnd());});return out;};
+  const tf='600 44px '+F,bf='400 24px '+F,tl=wrap(it.ti,tf,W-2*P-60),bl=wrap(it.tx,bf,W-2*P-60),LH=36;
+  const H=Math.max(520,60+90+tl.length*56+30+bl.length*LH+150),c=document.createElement('canvas');c.width=W;c.height=H;const x=c.getContext('2d');
+  x.fillStyle='#D4D5D2';x.fillRect(0,0,W,H);x.fillStyle='#E2E3E0';x.fillRect(30,30,W-60,H-60);x.strokeStyle='#A6A8A4';x.lineWidth=2;x.strokeRect(30,30,W-60,H-60);
+  x.fillStyle='#131413';x.fillRect(30,30,W-60,70+tl.length*56);
+  x.fillStyle='#9A9D98';x.font='500 15px '+F;x.fillText('PRODUCER COMPANION',P,68);
+  x.fillStyle='#E8461B';x.beginPath();x.arc(W-P-6,62,6,0,7);x.fill();
+  x.fillStyle='#E6E7E3';x.font=tf;tl.forEach((l,i)=>x.fillText(l,P,112+i*56));
+  let y=30+70+tl.length*56+50;x.fillStyle='#1A1B1A';x.font=bf;bl.forEach(l=>{x.fillText(l,P,y);y+=LH;});
+  x.fillStyle='#1A1B1A';x.fillRect(P,H-100,W-2*P,2);
+  x.fillStyle='#575A56';x.font='400 14px '+F;x.fillText('PRODUCER COMPANION · KIRILL KINDERHART',P,H-62);
+  return c;
+}
+function savePNG(k){
+  const it=svItem(k);if(!it)return;
+  cardPNG(it).toBlob(async b=>{
+    if(!b){toast(t('fail_copy'));return;}
+    const name='producer-companion-'+k+'.png',file=new File([b],name,{type:'image/png'});
+    try{if(navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({files:[file],title:it.ti});return;}}catch(e){if(e&&e.name==='AbortError')return;}
+    const u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000);
+  },'image/png');
+}
+function printCard(k){
+  const it=svItem(k);if(!it)return;
+  let el=$('#pcPrint');if(!el){el=document.createElement('div');el.id='pcPrint';document.body.appendChild(el);}
+  el.innerHTML='<div class="pp-h"><span>PRODUCER COMPANION</span><i></i></div><h1></h1><pre></pre><div class="pp-f">PRODUCER COMPANION · KIRILL KINDERHART</div>';
+  el.querySelector('h1').textContent=it.ti;el.querySelector('pre').textContent=it.tx;
+  document.body.classList.add('pp');
+  const done=()=>{document.body.classList.remove('pp');window.removeEventListener('afterprint',done);};
+  window.addEventListener('afterprint',done);window.print();setTimeout(done,1500);
 }
 function svAdd(k){
   const it=svItem(k);if(!it)return;
@@ -2669,11 +2736,25 @@ function updSnd(){
   $$('[data-a=snd]').forEach(b=>{b.innerHTML=(on?IC.sndOn:IC.sndOff)+'<span>'+esc(lab)+'</span>';b.title=l;b.setAttribute('aria-label',l);});
 }
 
+/* ---------- dot-matrix text (boot readout) ---------- */
+const DF={'0':'01110 10001 10011 10101 11001 10001 01110','1':'00100 01100 00100 00100 00100 00100 01110','2':'01110 10001 00001 00010 00100 01000 11111','3':'11110 00001 00001 01110 00001 00001 11110','4':'00010 00110 01010 10010 11111 00010 00010','5':'11111 10000 11110 00001 00001 10001 01110','6':'00110 01000 10000 11110 10001 10001 01110','7':'11111 00001 00010 00100 01000 01000 01000','8':'01110 10001 10001 01110 10001 10001 01110','9':'01110 10001 10001 01111 00001 00010 01100','P':'11110 10001 10001 11110 10000 10000 10000','C':'01110 10001 10000 10000 10000 10001 01110','.':'0 0 0 0 0 0 1','-':'0000 0000 0000 1111 0000 0000 0000'};
+function dotSvg(txt,pt,r){
+  let on='',off='',x0=0;
+  for(const ch of txt){
+    const rows=(DF[ch]||DF['-']).split(' ');
+    rows.forEach((row,y)=>{for(let x=0;x<row.length;x++){const d='M'+(x0+x*pt+r)+' '+(y*pt+r)+'h0';if(row[x]==='1')on+=d;else off+=d;}});
+    x0+=(rows[0].length+1)*pt;
+  }
+  const hh=6*pt+2*r;
+  return '<svg viewBox="0 0 '+(x0-2*pt+2*r)+' '+hh+'" aria-hidden="true"><path d="'+off+'" stroke="currentColor" stroke-width="'+2*r+'" stroke-linecap="round" fill="none" opacity=".16"/><path d="'+on+'" stroke="currentColor" stroke-width="'+2*r+'" stroke-linecap="round" fill="none"/></svg>';
+}
 /* ---------- boot screen ---------- */
 function runBoot(){
   const el=$('#boot'),dev=$('.device');if(!el)return;
   const needle=$('#btNeedle'),big=$('#btBig'),segs=$$('#btSeg i'),
         st=$('#btSt'),pw=$('#btPwrT');
+  const setBig=s=>{big.innerHTML=dotSvg(s,4,1.6);big.setAttribute('aria-label',s);};
+  setBig('--.-');
   let starting=false,started=false,ended=false,locked=false,tStart=0,fr=0,auto=0,safety=0;
   try{dev.inert=true;}catch(e){}
   document.documentElement.style.overflow='hidden';
@@ -2696,7 +2777,8 @@ function runBoot(){
   }
   function lock(){
     locked=true;el.classList.add('lock');
-    big.dataset.f='PC';big.textContent='PC';scramble(big,420,0);
+    if(RM)setBig('PC');else{const t0=performance.now(),rc=()=>'0123456789'[rnd(10)];
+      const stp=n=>{if(ended)return;const q=(n-t0)/420;setBig(q>=1?'PC':(q>.35?'P':rc())+(q>.7?'C':rc()));if(q<1)requestAnimationFrame(stp);};requestAnimationFrame(stp);}
     setT(st,'boot_lock');meter(1);
   }
   function frame(now){
@@ -2705,7 +2787,7 @@ function runBoot(){
     const p=tt>=BLOCK?BKF[BKF.length-1][1]:bpos(tt);
     needle.style.setProperty('--p',p.toFixed(4));
     if(!locked){
-      big.textContent=(88+p*20).toFixed(1);
+      setBig((88+p*20).toFixed(1));
       meter(p);
       if(tt>=BLOCK)lock();
     }
