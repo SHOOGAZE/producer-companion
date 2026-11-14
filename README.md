@@ -26,12 +26,6 @@ Keys: `1`–`3` switch modules, `G` generate, `M` toggle sound.
 |---|---|---|
 | ![](screenshots/05-concept.png) | ![](screenshots/06-dark-dubstep.png) | ![](screenshots/07-vibe-locks.png) |
 
-**Share as a picture and print on A4**
-
-![](screenshots/09-share-png.png)
-
-![](screenshots/10-print-a4.png)
-
 **Desktop**
 
 ![](screenshots/08-desktop-vibe.png)
