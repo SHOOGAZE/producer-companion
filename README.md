@@ -40,6 +40,8 @@ Keys: `1`–`3` switch modules, `G` generate, `M` toggle sound.
 
 ## Companion project
 
+**[Patch Companion](https://github.com/SHOOGAZE/patch-companion)** ([live](https://shoogaze.github.io/patch-companion/)) is the third app of the family: patch cards for 50 hardware synths, knob positions 0–10, by sound type and mood. The footer links all three and carries genre and tempo along.
+
 **[Sequential Companion](https://github.com/SHOOGAZE/sequential-companion)** ([live](https://shoogaze.github.io/sequential-companion/)) is the sister app in the same design language: pattern cards for Digitakt 2 and other 16-step sequencers, 164 genre presets in 28 genres, A/B/FILL variations, MIDI export, a seeded generator, and a dot-matrix boot screen that writes a pattern instead of tuning a radio. Producer Companion gives you the idea and the structure of a track; Sequential Companion gives you the first drum pattern to start it with.
 
 ## Run
